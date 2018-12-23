@@ -1,1 +1,1 @@
-## A Little Game written in C++ and SDL2
+## A Little Game written in C++
