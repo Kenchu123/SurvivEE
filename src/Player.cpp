@@ -1,10 +1,10 @@
 #include "Player.h"
 
 Player::Player(): Obj() {
-    _velX = 0;
-    _velY = -10;
+    _dirX = 0;
+    _dirY = -1;
     _rotVel = 0;
-    _moveVel = 0;
+    _moveVel = -4;
     _deg = 0;
 }
 Player::~Player() {
@@ -28,14 +28,6 @@ void Player::handleKeyInput(SDL_Event& e) {
                 _rotVel = +5;
                 break;
             }
-            case SDLK_UP: {
-                _moveVel = -1;
-                break;
-            }
-            case SDLK_DOWN: {
-                _moveVel = 1;
-                break;
-            }
         }
     }
     // If a key was released
@@ -44,21 +36,19 @@ void Player::handleKeyInput(SDL_Event& e) {
         switch (e.key.keysym.sym) {
             case SDLK_LEFT: _rotVel = 0; break;
             case SDLK_RIGHT: _rotVel = 0; break;
-            case SDLK_UP: _moveVel = 0; break;
-            case SDLK_DOWN: _moveVel = 0; break;
         }
     }
 }
 
 void Player::move() {
-    _posX += _velX * _moveVel;
-    _posY += _velY * _moveVel;
+    _posX += _dirX * _moveVel;
+    _posY += _dirY * _moveVel;
 }
 void Player::rotate() {
     _deg += _rotVel;
-    double tmpX = -_velX, tmpY = -_velY;
-    _velX = -sin(_deg * PI / 180) * 10;
-    _velY = cos(_deg * PI / 180) * 10;
+    // double _v = sqrt(pow(_dirX, 2) + pow(_dirY, 2));
+    _dirX = -sin(_deg * PI / 180);
+    _dirY = cos(_deg * PI / 180);
 }
 void Player::collideWall() {
 
@@ -70,12 +60,12 @@ void Player::collideOhterPlayer() {
 
 }
 void Player::update() {
-    move();
     rotate();
+    move();
     SDL_Point p;
-    p.x = _posX;
-    p.y = _posY;
-    render(_posX, _posY, _deg, NULL);
+    p.x = getWidth() / 2;
+    p.y = getHeight() - getWidth() / 2;
+    render(_posX, _posY, _deg, &p);
 }
 void Player::renderPlayer() {
 

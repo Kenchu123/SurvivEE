@@ -6,7 +6,7 @@ class Obj {
     protected:
         std::string _id;
         std::string _type;
-        int _posX, _posY;
+        double _posX, _posY;
         SDL_Texture *_objTexture;
         int _objWidth, _objHeight;
     public:

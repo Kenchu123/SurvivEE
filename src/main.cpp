@@ -4,8 +4,8 @@
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
-int SCREEN_WIDTH = 800;
-int SCREEN_HEIGHT = 600;
+int SCREEN_WIDTH = 1280;
+int SCREEN_HEIGHT = 960;
 
 // Obj testObject;
 Player player1;
@@ -30,7 +30,7 @@ void init() {
 
 void loadMedia() {
     // Load testObject
-	player1.loadFromFile( "./media/player.png" );
+	player1.loadFromFile( "./media/shotGunPlayer.png" );
 }
 
 void close() {
@@ -46,6 +46,7 @@ void close() {
 	IMG_Quit();
 	SDL_Quit();
 }
+
 int main(int argc, char* args[]) {
     try {
         init();
@@ -54,14 +55,14 @@ int main(int argc, char* args[]) {
     catch (const char* message) {
         printf("Error: %s\n", message);
     }
-    bool quit = false;
     //Event handler
     SDL_Event e;
     // resize
-    player1.resize(player1.getWidth() / 3, player1.getHeight() / 3);
+    // player1.resize(player1.getWidth(), player1.getHeight());
     player1.setInitailPosition((SCREEN_WIDTH - player1.getWidth()) / 2, (SCREEN_HEIGHT - player1.getHeight()) / 2);
-
+    std::cout << "Player1_width & height: " << player1.getWidth() << " " << player1.getHeight() << std::endl;
     //While application is running
+    bool quit = false;
     while(!quit) {
         //Handle events on queue
         while( SDL_PollEvent( &e ) != 0 ) {
@@ -69,11 +70,12 @@ int main(int argc, char* args[]) {
             if(e.type == SDL_QUIT) { quit = true; break; }
             player1.handleKeyInput(e);
         }
+
         //Clear screen
         SDL_SetRenderDrawColor( gRenderer, 0xF0, 0xFF, 0xFF, 0xFF );
         SDL_RenderClear( gRenderer );
 
-        //Render rocket
+        //Render update
         player1.update();
         //Update screen
         SDL_RenderPresent( gRenderer );
