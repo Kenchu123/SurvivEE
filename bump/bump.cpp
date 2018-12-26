@@ -254,24 +254,24 @@ bool loadMedia()
 	else
 	{
 		//Set sprite clips
-		gSpriteClips[ 0 ].x =   0;
+		gSpriteClips[ 0 ].x =  10;
 		gSpriteClips[ 0 ].y =   0;
-		gSpriteClips[ 0 ].w = 438;
+		gSpriteClips[ 0 ].w = 430;
 		gSpriteClips[ 0 ].h = 400;
 
-		gSpriteClips[ 1 ].x = 438;
+		gSpriteClips[ 1 ].x = 444;
 		gSpriteClips[ 1 ].y =   0;
-		gSpriteClips[ 1 ].w = 438;
+		gSpriteClips[ 1 ].w = 424;
 		gSpriteClips[ 1 ].h = 400;
 
-		gSpriteClips[ 2 ].x = 876;
+		gSpriteClips[ 2 ].x = 868;
 		gSpriteClips[ 2 ].y =   0;
-		gSpriteClips[ 2 ].w = 438;
+		gSpriteClips[ 2 ].w = 428;
 		gSpriteClips[ 2 ].h = 400;
 
-		gSpriteClips[ 3 ].x = 1314;
+		gSpriteClips[ 3 ].x = 1309;
 		gSpriteClips[ 3 ].y =   0;
-		gSpriteClips[ 3 ].w = 438;
+		gSpriteClips[ 3 ].w = 430;
 		gSpriteClips[ 3 ].h = 400;
 	}
 
@@ -338,7 +338,7 @@ int main( int argc, char* args[] )
 				SDL_RenderClear( gRenderer );
 
 				//Render current frame
-				SDL_Rect* currentClip = &gSpriteClips[ frame / 15 ];
+				SDL_Rect* currentClip = &gSpriteClips[ frame / 10 ];
 				gSpriteSheetTexture.render( ( SCREEN_WIDTH - currentClip->w ) / 2, ( SCREEN_HEIGHT - currentClip->h ) / 2, currentClip );
 
 				//Update screen
@@ -348,9 +348,11 @@ int main( int argc, char* args[] )
 				++frame;
 
 				//Cycle animation
-				if( frame / 15 >= WALKING_ANIMATION_FRAMES )
+				if( frame / 10 == WALKING_ANIMATION_FRAMES )
 				{
-					frame = 0;
+					frame = WALKING_ANIMATION_FRAMES * 10 - 1;
+					SDL_Delay( 800 );
+					frame = WALKING_ANIMATION_FRAMES * 10;
 				}
 			}
 		}
