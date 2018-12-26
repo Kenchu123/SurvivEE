@@ -6,8 +6,10 @@
 class Player : public Obj {
     private:
         std::string _name;
-        int _moveVel;
-        int _velX, _velY; // player velocity & direct
+        double _moveVel; // move velocity
+        double _velX, _velY; // player velocity & direct
+        double _rotVel; // rotate velocity
+        double _deg;
         int _state; // condition
     public:
         Player();

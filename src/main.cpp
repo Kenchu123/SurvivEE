@@ -30,7 +30,7 @@ void init() {
 
 void loadMedia() {
     // Load testObject
-	player1.loadFromFile( "./media/rocket.png" );
+	player1.loadFromFile( "./media/player.png" );
 }
 
 void close() {
@@ -57,13 +57,10 @@ int main(int argc, char* args[]) {
     bool quit = false;
     //Event handler
     SDL_Event e;
-    //Angle of rotation
-    double degrees = 0;
-    //Flip type
-    SDL_RendererFlip flipType = SDL_FLIP_NONE;
     // resize
-    player1.resize(player1.getWidth() / 10, player1.getHeight() / 10);
+    player1.resize(player1.getWidth() / 3, player1.getHeight() / 3);
     player1.setInitailPosition((SCREEN_WIDTH - player1.getWidth()) / 2, (SCREEN_HEIGHT - player1.getHeight()) / 2);
+
     //While application is running
     while(!quit) {
         //Handle events on queue
