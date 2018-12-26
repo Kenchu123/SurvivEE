@@ -35,7 +35,7 @@ void Obj::free() {
 	}
 }
 
-void Obj::render(int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip) {
+void Obj::render(int x, int y, double angle, SDL_Point* center, SDL_Rect* clip, SDL_RendererFlip flip) {
     SDL_Rect renderQuad = { x, y, _objWidth, _objHeight };
     if (clip != NULL) {
         renderQuad.w = clip->w;
