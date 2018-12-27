@@ -4,8 +4,8 @@
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
-int SCREEN_WIDTH = 1280;
-int SCREEN_HEIGHT = 960;
+int SCREEN_WIDTH = 800;
+int SCREEN_HEIGHT = 600;
 
 // Obj testObject;
 Player player1;
@@ -30,7 +30,7 @@ void init() {
 
 void loadMedia() {
     // Load testObject
-	player1.loadFromFile( "./media/shotGunPlayer.png" );
+	player1.loadFromFile( "./media/machineGunPlayer.png" );
 }
 
 void close() {
@@ -72,7 +72,7 @@ int main(int argc, char* args[]) {
         }
 
         //Clear screen
-        SDL_SetRenderDrawColor( gRenderer, 0xF0, 0xFF, 0xFF, 0xFF );
+        SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
         SDL_RenderClear( gRenderer );
 
         //Render update
