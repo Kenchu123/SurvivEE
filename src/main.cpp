@@ -7,8 +7,8 @@ SDL_Renderer* gRenderer = NULL;
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
 
-// Obj testObject;
-Player player1;
+// players;
+std::vector<Player> players;
 
 void init() {
     //Initialize SDL
@@ -30,12 +30,13 @@ void init() {
 
 void loadMedia() {
     // Load testObject
-	player1.loadFromFile( "./media/machineGunPlayer.png" );
+	players[0].loadFromFile( "./media/shotGunPlayer.png" );
+    players[1].loadFromFile("./media/machineGunPlayer.png");
 }
 
 void close() {
 	//Free loaded images
-	player1.free();
+	for (int i = 0;i < players.size(); i++) players[i].free();
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
@@ -48,6 +49,10 @@ void close() {
 }
 
 int main(int argc, char* args[]) {
+    for (int i = 0;i < 2; i++) {
+        Player tmp(std::to_string(i));
+        players.push_back(tmp);
+    }
     try {
         init();
         loadMedia();
@@ -58,9 +63,8 @@ int main(int argc, char* args[]) {
     //Event handler
     SDL_Event e;
     // resize
-    // player1.resize(player1.getWidth(), player1.getHeight());
-    player1.setInitailPosition((SCREEN_WIDTH - player1.getWidth()) / 2, (SCREEN_HEIGHT - player1.getHeight()) / 2);
-    std::cout << "Player1_width & height: " << player1.getWidth() << " " << player1.getHeight() << std::endl;
+    players[0].setInitailPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT * 3 / 4);
+    players[1].setInitailPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
     //While application is running
     bool quit = false;
     while(!quit) {
@@ -68,7 +72,7 @@ int main(int argc, char* args[]) {
         while( SDL_PollEvent( &e ) != 0 ) {
             //User requests quit
             if(e.type == SDL_QUIT) { quit = true; break; }
-            player1.handleKeyInput(e);
+            players[0].handleKeyInput(e);
         }
 
         //Clear screen
@@ -76,7 +80,7 @@ int main(int argc, char* args[]) {
         SDL_RenderClear( gRenderer );
 
         //Render update
-        player1.update();
+        for (int i = 0;i < players.size(); i++) players[i].update();
         //Update screen
         SDL_RenderPresent( gRenderer );
     }

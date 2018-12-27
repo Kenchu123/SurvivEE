@@ -4,9 +4,8 @@
 // Object that have texture and can be seen on the window
 class Obj {
     protected:
-        std::string _id;
         std::string _type;
-        double _posX, _posY;
+        double _posX, _posY; // texture position
         SDL_Texture *_objTexture;
         int _objWidth, _objHeight;
     public:

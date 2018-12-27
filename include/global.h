@@ -7,9 +7,9 @@
 #include <iostream>
 #include <math.h>
 #include <algorithm>
+#include <vector>
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
-
 #endif
