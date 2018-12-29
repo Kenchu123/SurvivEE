@@ -11,7 +11,7 @@ class Obj {
     public:
         Obj();
         ~Obj();
-        void loadFromFile(std::string path);
+        void loadTexture(std::string);
         void free();
         void render(int x, int y, double angle = 0.0, SDL_Point* center = NULL, SDL_Rect* clip = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 

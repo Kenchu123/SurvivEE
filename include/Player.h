@@ -16,6 +16,9 @@ class Player : public Obj {
         double _playerY; // player posY
         double _playerSize; // getWidth() / 2
         int _state; // condition
+
+        double _hp; // HP
+        double _defend; // defend coefficient
     public:
         Player(std::string id = "");
         ~Player();

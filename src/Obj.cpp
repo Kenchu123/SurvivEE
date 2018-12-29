@@ -1,28 +1,21 @@
 #include "Obj.h"
+#include "LoadMedia.h"
 
-Obj::Obj() {
+Obj::Obj(): _objWidth(0), _objHeight(0), _objTexture(NULL), _posX(0), _posY(0) {
 	//Initialize
-	_objTexture = NULL;
-	_objWidth = 0;
-	_objHeight = 0;
 }
 
 Obj::~Obj() {
 	free();
 }
 
-void Obj::loadFromFile(std::string path) {
+void Obj::loadTexture(std::string name) {
     free();
-    SDL_Texture* newTexture = NULL;
-    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-    if (loadedSurface == NULL) throw IMG_GetError();
-    SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
-    newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
-    if (newTexture == NULL) throw SDL_GetError();
-    _objWidth = loadedSurface->w;
-    _objHeight = loadedSurface->h;
-    SDL_FreeSurface( loadedSurface );
-    _objTexture = newTexture;
+    _objTexture = loadedTexture.getTexture(name);
+    SDL_RenderCopyEx( gRenderer, _objTexture, NULL, NULL, 0, NULL, SDL_FLIP_NONE );
+    SDL_QueryTexture(_objTexture, NULL, NULL, &_objWidth, &_objHeight);
+    // _objWidth = 100;
+    // _objHeight = 100;
 }
 
 void Obj::free() {

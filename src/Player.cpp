@@ -1,11 +1,11 @@
 #include "Player.h"
 
-Player::Player(std::string id): Obj() {
-    _dirX = 0; _dirY = -1;
-    _rotVel = 0; _deg = 0;
-    _moveVel = 0;
-    _playerID = id;
-    std::cout << _playerID << std::endl;
+std::vector<Player> players;
+
+Player::Player(std::string id): 
+    Obj(), _playerID(id), _dirX(0), _dirY(-1), _rotVel(0), _deg(0), _moveVel(0) 
+{
+    std::cout << "Player Created: " << _playerID << std::endl;
 }
 Player::~Player() {
     free();   
@@ -18,7 +18,6 @@ void Player::setInitailPosition(int x, int y) {
     _playerX = _posX + _playerSize;
     _playerY = _posY + getHeight() - _playerSize;
     _rotCenter.x = _playerSize; _rotCenter.y = getHeight() - _playerSize;;
-    std::cout << "_playerSize: " << _playerSize << std::endl;
 }
 
 void Player::handleKeyInput(SDL_Event& e) {

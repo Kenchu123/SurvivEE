@@ -1,14 +1,18 @@
 #include "global.h"
 #include "main.h"
+#include "Obj.h"
 #include "Player.h"
+#include "LoadMedia.h"
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
 
-// players;
-std::vector<Player> players;
+// background
+Obj background;
+// tree
+Obj tree;
 
 void init() {
     //Initialize SDL
@@ -16,7 +20,7 @@ void init() {
     //Set texture filtering to linear
     if (!SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" )) printf( "Warning: Linear texture filtering not enabled!" );
     // Create Window
-    gWindow = SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+    gWindow = SDL_CreateWindow( "SurvivEE", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
     if (gWindow == NULL) throw SDL_GetError();
     // Create vsynced renderer for window
     gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
@@ -30,8 +34,11 @@ void init() {
 
 void loadMedia() {
     // Load testObject
-	players[0].loadFromFile( "./media/shotGunPlayer.png" );
-    players[1].loadFromFile("./media/machineGunPlayer.png");
+    loadedTexture.loadTexture();
+    background.loadTexture(".grass");
+    tree.loadTexture("tree");
+	players[0].loadTexture( "shotGunPlayer" );
+    players[1].loadTexture("machineGunPlayer");
 }
 
 void close() {
@@ -50,8 +57,7 @@ void close() {
 
 int main(int argc, char* args[]) {
     for (int i = 0;i < 2; i++) {
-        Player tmp(std::to_string(i));
-        players.push_back(tmp);
+        players.emplace_back(std::to_string(i));
     }
     try {
         init();
@@ -62,9 +68,13 @@ int main(int argc, char* args[]) {
     }
     //Event handler
     SDL_Event e;
+
     // resize
-    players[0].setInitailPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT * 3 / 4);
-    players[1].setInitailPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
+    background.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
+    // set player place
+    players[0].setInitailPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
+    players[1].setInitailPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
+
     //While application is running
     bool quit = false;
     while(!quit) {
@@ -79,8 +89,13 @@ int main(int argc, char* args[]) {
         SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
         SDL_RenderClear( gRenderer );
 
+        // Render background
+        background.render(0, 0);
+
         //Render update
-        for (int i = 0;i < players.size(); i++) players[i].update();
+        for (int i = players.size() - 1;i >= 0; i--) players[i].update();
+        // Render tree
+        tree.render(100, 100);
         //Update screen
         SDL_RenderPresent( gRenderer );
     }
