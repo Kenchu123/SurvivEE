@@ -14,6 +14,54 @@ Obj background;
 // tree
 Obj tree;
 
+int main(int argc, char* args[]) {
+    for (int i = 0;i < 2; i++) {
+        players.emplace_back(std::to_string(i));
+    }
+    try {
+        init();
+        loadMedia();
+    }
+    catch (const char* message) {
+        printf("Error: %s\n", message);
+    }
+    //Event handler
+    SDL_Event e;
+
+    // resize
+    background.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
+    // set player place
+    players[0].setInitialPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
+    players[1].setInitialPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
+
+    //While application is running
+    bool quit = false;
+    while(!quit) {
+        //Handle events on queue
+        while( SDL_PollEvent( &e ) != 0 ) {
+            //User requests quit
+            if(e.type == SDL_QUIT) { quit = true; break; }
+            players[0].handleKeyInput(e);
+        }
+
+        //Clear screen
+        SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
+        SDL_RenderClear( gRenderer );
+
+        // Render background
+        background.render(0, 0);
+
+        //Render update
+        for (int i = players.size() - 1;i >= 0; i--) players[i].update();
+        // Render tree
+        tree.render(100, 100);
+        //Update screen
+        SDL_RenderPresent( gRenderer );
+    }
+    close();
+
+}
+
 void init() {
     //Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) < 0) throw SDL_GetError();
@@ -55,50 +103,3 @@ void close() {
 	SDL_Quit();
 }
 
-int main(int argc, char* args[]) {
-    for (int i = 0;i < 2; i++) {
-        players.emplace_back(std::to_string(i));
-    }
-    try {
-        init();
-        loadMedia();
-    }
-    catch (const char* message) {
-        printf("Error: %s\n", message);
-    }
-    //Event handler
-    SDL_Event e;
-
-    // resize
-    background.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
-    // set player place
-    players[0].setInitailPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
-    players[1].setInitailPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
-
-    //While application is running
-    bool quit = false;
-    while(!quit) {
-        //Handle events on queue
-        while( SDL_PollEvent( &e ) != 0 ) {
-            //User requests quit
-            if(e.type == SDL_QUIT) { quit = true; break; }
-            players[0].handleKeyInput(e);
-        }
-
-        //Clear screen
-        SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
-        SDL_RenderClear( gRenderer );
-
-        // Render background
-        background.render(0, 0);
-
-        //Render update
-        for (int i = players.size() - 1;i >= 0; i--) players[i].update();
-        // Render tree
-        tree.render(100, 100);
-        //Update screen
-        SDL_RenderPresent( gRenderer );
-    }
-    close();
-
-}

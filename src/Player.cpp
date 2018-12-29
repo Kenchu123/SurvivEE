@@ -11,7 +11,8 @@ Player::~Player() {
     free();   
 }
 
-void Player::setInitailPosition(int x, int y) {
+// set player initial postion
+void Player::setInitialPosition(int x, int y) {
     _posX = x;
     _posY = y;
     _playerSize = getWidth() / 2;
@@ -20,6 +21,7 @@ void Player::setInitailPosition(int x, int y) {
     _rotCenter.x = _playerSize; _rotCenter.y = getHeight() - _playerSize;;
 }
 
+// player handle key input
 void Player::handleKeyInput(SDL_Event& e) {
     if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
         //Adjust the velocity
@@ -42,6 +44,7 @@ void Player::handleKeyInput(SDL_Event& e) {
     }
 }
 
+// player move
 void Player::move() {
     _posX += _dirX * _moveVel;
     _playerX += _dirX * _moveVel;
@@ -61,31 +64,41 @@ void Player::move() {
         _playerY -= _dirY * _moveVel;
     }
 }
+
+// set player rotate
 void Player::rotate() {
     _deg += _rotVel;
     _dirX = sin(_deg * PI / 180);
     _dirY = -cos(_deg * PI / 180);
 }
+
+// check player collide with wall
 bool Player::collideWall() {
     return _playerX - _playerSize < 0 || _playerX + _playerSize > SCREEN_WIDTH || _playerY - _playerSize < 0 || _playerY + _playerSize > SCREEN_HEIGHT;
 }
+
 void Player::collideItem() {
 
 }
+
+// check player collide with other player
 bool Player::collideOtherPlayer() {
     for (int i = 0;i < players.size(); i++) {
         if (_playerID != players[i]._playerID && sqrt(pow(_playerX - players[i]._playerX, 2) + pow(_playerY - players[i]._playerY, 2)) < _playerSize + players[i]._playerSize) return 1;
     }
     return 0;
 }
+
+// run rotate, move render 
+// todo isShooted
+// todo collectItem
+// todo set State
 void Player::update() {
     rotate();
     move();
-    // std::cout << "Player _posX, _posY: " << _posX << " " << _posY << std::endl;
-    // std::cout << "Player _dirX, _dirY: " << _dirX << " " << _dirY << std::endl;
-    // std::cout << "Player _playerX, _playerY: " << _playerX << " " << _playerY << std::endl;
     render(_posX, _posY, _deg, &_rotCenter);
 }
+
 void Player::renderPlayer() {
 
 }

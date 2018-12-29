@@ -22,7 +22,7 @@ class Player : public Obj {
     public:
         Player(std::string id = "");
         ~Player();
-        void setInitailPosition(int, int);
+        void setInitialPosition(int, int);
         void handleKeyInput(SDL_Event&);
         void move();
         void rotate();
