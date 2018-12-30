@@ -8,8 +8,6 @@ Bullet::Bullet(Player* from, GunType guntype):
     _fromID(from->_playerID),
     _dirX(from->_dirX), 
     _dirY(from->_dirY),
-    _bulletX(from->_playerX + from->_dirX * (from->getHeight() - from->_playerSize)),
-    _bulletY(from->_playerY + from->_dirY * (from->getHeight() - from->_playerSize)),
     _deg(from->_deg),
     _state(flying)
 {
@@ -20,26 +18,32 @@ Bullet::Bullet(Player* from, GunType guntype):
         case Gun: {
             _type = "GunBullet";
             loadTexture(_type);
+            resize(10, 20); // resize the bullet w, h
             _moveVel = 10;
             _distance = 300;
-            _bulletSize = _objHeight / 2;
-            resize(10, 20); // resize the bullet w, h
+            // _bulletSize = _objHeight / 2;
             break;
         }
         case MachineGun: {
             _type = "MachineGunBullet";
             loadTexture(_type);
+            resize(10, 20); // resize the bullet w, h
             _moveVel = 10;
             _distance = 300;
-            _bulletSize = _objHeight / 2;
-            resize(10, 20);
+            // _bulletSize = _objHeight / 2;
             break;
         }
         default:
             break;
     }
+    _bulletSize = _objHeight / 2;
+    _bulletX = from->_playerX + from->_dirX * (from->getHeight() - from->_playerSize + _objHeight);
+    _bulletY = from->_playerY + from->_dirY * (from->getHeight() - from->_playerSize + _objHeight);
+    _posX = _bulletX + 0.5 * _objWidth * _dirY;
+    _posY = _bulletY - 0.5 * _objWidth * _dirX;
+    std::cout << _objWidth * 1 / 2 * _dirY << std::endl;
     std::cout << typeToString(guntype) << std::endl;
-    // std::cout << "Bullet Position: " << _bulletX << " " << _bulletY << std::endl;
+    // std::cout << "Bullet Position: " << _posX << " " << _posY << std::endl;
     // std::cout << "Bullet Direction: " << _dirX << " " << _dirY << std::endl;
     // std:: cout << "Bullet degree: " << _deg << std::endl;
 }
@@ -95,7 +99,11 @@ void Bullet::update() {
     // todo render
     // std::cout << "Bullet _state: " << _state << std::endl;
     // std::cout << "Bullet Position: " << _posX << " " << _posY << std::endl;
-    render(_bulletX, _bulletY, _deg);
+    // set rotate point to make it's direction correct
+    SDL_Point tmp;
+    tmp.x = 0;
+    tmp.y = 0;
+    render(_posX, _posY, _deg, &tmp);
 }
 
 

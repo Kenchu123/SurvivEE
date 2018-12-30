@@ -48,11 +48,10 @@ int main(int argc, char* args[]) {
         }
 
         //Clear screen
-        SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
         SDL_RenderClear( gRenderer );
-
+        SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 100 );
         // Render background
-        background.render(0, 0);
+        // background.render(0, 0);
 
         //Render update
         for (int i = 0;i < players.size(); i++) players[i]->update();
@@ -60,6 +59,7 @@ int main(int argc, char* args[]) {
 
         // Render tree
         tree.render(100, 100);
+
         //Update screen
         SDL_RenderPresent( gRenderer );
     }
@@ -79,7 +79,7 @@ void init() {
     gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
     if (gRenderer == NULL) throw SDL_GetError();
     // Initialize renderer color
-    SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+    SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 100 );
     // Initialize PNG loading
     int imgFlags = IMG_INIT_PNG;
     if (!(IMG_Init( imgFlags ) & imgFlags)) throw IMG_GetError();
