@@ -11,7 +11,7 @@ all: ./bin/SurvivEE
 	$(CXX) -c -o $@ $< -g -I$(INC) $(CXXFLAGS)
 
 ./bin/SurvivEE: $(OBJS)
-	$(CXX) $(CXXFLAGS) -o ./bin/SurvivEE $(OBJS) $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) -o ./bin/SurvivEE $(OBJS) -F/Library/Frameworks $(LDFLAGS)
 
 clean:
 	rm -f ./build/*

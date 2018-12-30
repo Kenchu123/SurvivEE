@@ -5,6 +5,7 @@ std::string typeToString(PlayerType& type) {
         case DefaultPlayer: return "DefaultPlayer";
         case GunPlayer: return "GunPlayer";
         case MachineGunPlayer: return "MachineGunPlayer";
+        case ShotGunPlayer: return "ShotGunPlayer";
         default: return "";
     }
 }
