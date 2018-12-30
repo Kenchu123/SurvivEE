@@ -10,6 +10,22 @@
 #include <vector>
 #include <map>
 
+enum GameState {
+    Menu,
+    Loading,
+    Playing,
+    Pause,
+    GameOverl
+};
+
+enum GunType {
+    Default, Gun, MachineGun, ShotGun
+};
+
+enum PlayerType {
+    DefaultPlayer, GunPlayer, MachineGunPlayer, ShotGunPlayer
+};
+
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 extern int SCREEN_WIDTH;

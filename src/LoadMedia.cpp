@@ -5,10 +5,11 @@ LoadedTexture loadedTexture;
 LoadedTexture::LoadedTexture() {
     _loadedTextures.clear();
     // set all texture to load
-    std::string names[20] = {"Player", "GunPlayer", "machineGunPlayer", "shotGunPlayer",
-                    "tree", "house1", "grass", "rock"
+    std::string names[20] = {"DefaultPlayer", "GunPlayer", "MachineGunPlayer", "ShotGunPlayer",
+                    "GunBullet", "MachineGunBullet",
+                    "tree", "house1", "Grass", "rock", "Floor"
                     };
-    for (int i = 0;i < 8; i++) _toLoadFileName.push_back(names[i]);
+    for (int i = 0;i < 11; i++) _toLoadFileName.push_back(names[i]);
 }
 
 LoadedTexture::~LoadedTexture() {
@@ -32,6 +33,7 @@ SDL_Texture* LoadedTexture::_loadTextureFromFile(std::string name) {
     }
     catch (const char* s) {
         std::cout << s << std::endl;
+        return NULL;
     }
 }
 

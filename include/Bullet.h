@@ -1,17 +1,13 @@
 #ifndef BULLET_H
 #define BULLET_H
-
+#include "Utility.h"
 #include "Obj.h"
 
-enum GunType {
-    Gun, MachineGun
-};
+class Player; 
 
 enum BulletState {
     flying, shooted
 };
-
-class Player; 
 
 class Bullet: public Obj {
     private:
@@ -30,9 +26,11 @@ class Bullet: public Obj {
         void _endDistance();
     public:
         Bullet() {};
-        Bullet(Player&, GunType);
+        Bullet(Player*, GunType);
         ~Bullet(); 
         void update();
 };
+
+extern std::vector<Bullet*> bullets;
 
 #endif

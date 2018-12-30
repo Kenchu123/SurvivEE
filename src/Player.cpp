@@ -1,12 +1,15 @@
 #include "Player.h"
 #include "Bullet.h"
+#include "Utility.h"
 
-std::vector<Player> players;
+std::vector<Player*> players;
 
 Player::Player(std::string id): 
-    Obj(), _playerID(id), _dirX(0), _dirY(-1), _rotVel(0), _deg(0), _moveVel(0) 
+    Obj(), _playerID(id), _dirX(0), _dirY(-1), _rotVel(0), _deg(0), _moveVel(0), _playerType(GunPlayer) 
 {
-    std::cout << "Player Created: " << _playerID << std::endl;
+    loadTexture(typeToString(_playerType));
+    std::cout << typeToString(_playerType) << std::endl; 
+    std::cout << "Player Created: " << _playerID << typeToString(_playerType) << std::endl;
 }
 Player::~Player() {
     free();   
@@ -31,6 +34,7 @@ void Player::handleKeyInput(SDL_Event& e) {
             case SDLK_DOWN: _moveVel = -4; break;
             case SDLK_LEFT: _rotVel = -5; break;
             case SDLK_RIGHT: _rotVel = +5; break;
+            case SDLK_z: fire(); break;
         }
     }
     // If a key was released
@@ -85,9 +89,16 @@ void Player::collideItem() {
 // check player collide with other player
 bool Player::collideOtherPlayer() {
     for (int i = 0;i < players.size(); i++) {
-        if (_playerID != players[i]._playerID && sqrt(pow(_playerX - players[i]._playerX, 2) + pow(_playerY - players[i]._playerY, 2)) < _playerSize + players[i]._playerSize) return 1;
+        if (_playerID != players[i]->_playerID && sqrt(pow(_playerX - players[i]->_playerX, 2) + pow(_playerY - players[i]->_playerY, 2)) < _playerSize + players[i]->_playerSize) return 1;
     }
     return 0;
+}
+
+void Player::fire() {
+    std::cout << "Fire called" << std::endl;
+    Bullet* bullet = new Bullet(this, (GunType)_playerType);
+    // bullets.emplace_back(this, (GunType)_playerType);
+    bullets.push_back(bullet);
 }
 
 // run rotate, move render 
@@ -95,9 +106,10 @@ bool Player::collideOtherPlayer() {
 // todo collectItem
 // todo set State
 void Player::update() {
-    rotate();
     move();
+    rotate();
     render(_posX, _posY, _deg, &_rotCenter);
+    // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
 }
 
 void Player::renderPlayer() {

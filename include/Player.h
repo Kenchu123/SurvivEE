@@ -9,6 +9,7 @@ class Player : public Obj {
     private:
         std::string _name;
         std::string _playerID;
+        PlayerType _playerType;
         double _moveVel; // move velocity
         double _dirX, _dirY; // player velocity & direct
         double _rotVel; // rotate velocity
@@ -35,8 +36,9 @@ class Player : public Obj {
         void collideItem();
         void update();
         void renderPlayer();
+        void fire();
 };
 
-extern std::vector<Player> players;
+extern std::vector<Player*> players;
 
 #endif

@@ -2,6 +2,7 @@
 #include "main.h"
 #include "Obj.h"
 #include "Player.h"
+#include "Bullet.h"
 #include "LoadMedia.h"
 
 SDL_Window* gWindow = NULL;
@@ -15,9 +16,6 @@ Obj background;
 Obj tree;
 
 int main(int argc, char* args[]) {
-    for (int i = 0;i < 2; i++) {
-        players.emplace_back(std::to_string(i));
-    }
     try {
         init();
         loadMedia();
@@ -25,14 +23,19 @@ int main(int argc, char* args[]) {
     catch (const char* message) {
         printf("Error: %s\n", message);
     }
+
     //Event handler
     SDL_Event e;
-
+    // player init
+    for (int i = 0;i < 2; i++) {
+        Player* player = new Player(std::to_string(i));
+        players.push_back(player);
+    }
     // resize
     background.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
     // set player place
-    players[0].setInitialPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
-    players[1].setInitialPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
+    players[0]->setInitialPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
+    players[1]->setInitialPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
 
     //While application is running
     bool quit = false;
@@ -41,7 +44,7 @@ int main(int argc, char* args[]) {
         while( SDL_PollEvent( &e ) != 0 ) {
             //User requests quit
             if(e.type == SDL_QUIT) { quit = true; break; }
-            players[0].handleKeyInput(e);
+            players[0]->handleKeyInput(e);
         }
 
         //Clear screen
@@ -52,7 +55,9 @@ int main(int argc, char* args[]) {
         background.render(0, 0);
 
         //Render update
-        for (int i = players.size() - 1;i >= 0; i--) players[i].update();
+        for (int i = 0;i < players.size(); i++) players[i]->update();
+        for (int i = 0;i < bullets.size(); i++) bullets[i]->update();
+
         // Render tree
         tree.render(100, 100);
         //Update screen
@@ -83,15 +88,15 @@ void init() {
 void loadMedia() {
     // Load testObject
     loadedTexture.loadTexture();
-    background.loadTexture(".grass");
+    background.loadTexture("Grass");
     tree.loadTexture("tree");
-	players[0].loadTexture( "shotGunPlayer" );
-    players[1].loadTexture("machineGunPlayer");
+	// players[0].loadTexture("GunPlayer");
+    // players[1].loadTexture("MachineGunPlayer");
 }
 
 void close() {
 	//Free loaded images
-	for (int i = 0;i < players.size(); i++) players[i].free();
+	for (int i = 0;i < players.size(); i++) players[i]->free();
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
