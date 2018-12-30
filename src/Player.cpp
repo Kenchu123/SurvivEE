@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Bullet.h"
 
 std::vector<Player> players;
 

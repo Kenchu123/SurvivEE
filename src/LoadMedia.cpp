@@ -19,7 +19,7 @@ LoadedTexture::~LoadedTexture() {
 SDL_Texture* LoadedTexture::_loadTextureFromFile(std::string name) {
     try {
         SDL_Texture* newTexture = NULL;
-        std::string s = "./media/";
+        std::string s = "../media/";
         s += name;
         s += ".png";
         SDL_Surface* loadedSurface = IMG_Load(s.c_str());

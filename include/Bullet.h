@@ -2,15 +2,16 @@
 #define BULLET_H
 
 #include "Obj.h"
-#include "Player.h"
 
 enum GunType {
     Gun, MachineGun
-}
+};
 
 enum BulletState {
     flying, shooted
-}
+};
+
+class Player; 
 
 class Bullet: public Obj {
     private:
@@ -23,14 +24,15 @@ class Bullet: public Obj {
         double _bulletSize;
         double _distance; // longest flying distance
         BulletState _state; // whether it shooted something
-        void move();
-        void collideWall();
-        void collideOtherPlayer();
+        void _move();
+        void _collideWall();
+        void _collideOtherPlayer();
+        void _endDistance();
     public:
         Bullet() {};
         Bullet(Player&, GunType);
         ~Bullet(); 
         void update();
-}
+};
 
 #endif

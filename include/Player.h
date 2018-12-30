@@ -3,6 +3,8 @@
 
 #include "Obj.h"
 
+class Bullet;
+
 class Player : public Obj {
     private:
         std::string _name;
@@ -20,6 +22,8 @@ class Player : public Obj {
         double _hp; // HP
         double _defend; // defend coefficient
     public:
+        friend class Bullet;
+
         Player(std::string id = "");
         ~Player();
         void setInitialPosition(int, int);
