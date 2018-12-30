@@ -25,6 +25,7 @@ class Bullet: public Obj {
         void _collideOtherPlayer();
         void _endDistance();
     public:
+        int lethality; // hurting rate
         Bullet() {};
         Bullet(Player*, GunType);
         ~Bullet(); 
