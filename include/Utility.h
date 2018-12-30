@@ -4,5 +4,6 @@
 #include "global.h"
 std::string typeToString(PlayerType&);
 std::string typeToString(GunType&);
+std::string typeToString(ButtonType&);
 
 #endif

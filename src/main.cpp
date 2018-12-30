@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "LoadMedia.h"
+#include "button.h"
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
@@ -14,6 +15,10 @@ int SCREEN_HEIGHT = 600;
 Obj background;
 // tree
 Obj tree;
+// title
+Obj title;
+// button
+Button start(Start), tutorial(Tutorial), option(Option);
 
 int main(int argc, char* args[]) {
     try {
@@ -26,7 +31,39 @@ int main(int argc, char* args[]) {
 
     //Event handler
     SDL_Event e;
+
+    // start menu init
+    bool quit_menu = false;
+    bool quit = false;
+
+    while(!quit_menu) {
+        //Handle events on queue
+        while( SDL_PollEvent( &e ) != 0 ) {
+            //User requests quit
+            if(start.get_triggered() == true) { quit_menu = true; break; }
+            else if(e.type == SDL_QUIT) {quit_menu = true; quit = true; break;}
+            start.handleEvent(&e); tutorial.handleEvent(&e); option.handleEvent(&e);
+        }
+        //Clear screen
+        SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
+        SDL_RenderClear( gRenderer );
+
+        // Render background
+        background.render(0, 0);
+
+        // Render Title
+        title.render((SCREEN_WIDTH - title.getWidth()) /2 , SCREEN_HEIGHT / 5);
+
+        // Render Button
+        start.update(); tutorial.update(); option.update();
+
+        //Update screen
+        SDL_RenderPresent( gRenderer );
+    }
+
+    // game start
     // player init
+
     for (int i = 0;i < 2; i++) {
         Player* player = new Player(std::to_string(i));
         players.push_back(player);
@@ -38,7 +75,6 @@ int main(int argc, char* args[]) {
     players[1]->setInitialPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
 
     //While application is running
-    bool quit = false;
     while(!quit) {
         //Handle events on queue
         while( SDL_PollEvent( &e ) != 0 ) {
@@ -90,6 +126,10 @@ void loadMedia() {
     loadedTexture.loadTexture();
     background.loadTexture("Grass");
     tree.loadTexture("tree");
+    start.loadTexture("start");
+    tutorial.loadTexture("tutorial");
+    option.loadTexture("option");
+    title.loadTexture("title");
 	// players[0].loadTexture("GunPlayer");
     // players[1].loadTexture("MachineGunPlayer");
 }

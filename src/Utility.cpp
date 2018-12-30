@@ -17,3 +17,12 @@ std::string typeToString(GunType& type) {
         default: return "";
     }
 }
+
+std::string typeToString(ButtonType& type) {
+    switch (type) {
+        case Start: return "start";
+        case Tutorial: return "tutorial";
+        case Option: return "option";
+        default: return "";
+    }
+}

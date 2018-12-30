@@ -9,7 +9,7 @@ Player::Player(std::string id):
 {
     loadTexture(typeToString(_playerType));
     std::cout << typeToString(_playerType) << std::endl; 
-    std::cout << "Player Created: " << _playerID << typeToString(_playerType) << std::endl;
+    std::cout << "Player Created : " << _playerID << typeToString(_playerType) << std::endl;
 }
 Player::~Player() {
     free();   

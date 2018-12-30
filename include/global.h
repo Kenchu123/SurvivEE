@@ -26,6 +26,10 @@ enum PlayerType {
     DefaultPlayer, GunPlayer, MachineGunPlayer, ShotGunPlayer
 };
 
+enum ButtonType {
+    Start, Tutorial, Option
+};
+
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 extern int SCREEN_WIDTH;
