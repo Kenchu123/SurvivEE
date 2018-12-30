@@ -51,7 +51,7 @@ int main(int argc, char* args[]) {
         SDL_RenderClear( gRenderer );
         SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 100 );
         // Render background
-        // background.render(0, 0);
+        background.render(0, 0);
 
         //Render update
         for (int i = 0;i < players.size(); i++) players[i]->update();
@@ -90,8 +90,6 @@ void loadMedia() {
     loadedTexture.loadTexture();
     background.loadTexture("Grass");
     tree.loadTexture("tree");
-	// players[0].loadTexture("GunPlayer");
-    // players[1].loadTexture("MachineGunPlayer");
 }
 
 void close() {

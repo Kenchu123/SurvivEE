@@ -11,9 +11,6 @@ Bullet::Bullet(Player* from, GunType guntype):
     _deg(from->_deg),
     _state(flying)
 {
-    // Todo rewrite, reset _bulletXY, set _bulletSize
-    // _posX = from->_playerX;
-    // _posY = from->_playerY;
     switch (guntype) {
         case Gun: {
             _type = "GunBullet";
@@ -21,7 +18,7 @@ Bullet::Bullet(Player* from, GunType guntype):
             resize(10, 20); // resize the bullet w, h
             _moveVel = 10;
             _distance = 300;
-            // _bulletSize = _objHeight / 2;
+            lethality = 50;
             break;
         }
         case MachineGun: {
@@ -30,7 +27,7 @@ Bullet::Bullet(Player* from, GunType guntype):
             resize(10, 20); // resize the bullet w, h
             _moveVel = 10;
             _distance = 300;
-            // _bulletSize = _objHeight / 2;
+            lethality = 50;
             break;
         }
         default:
@@ -42,10 +39,7 @@ Bullet::Bullet(Player* from, GunType guntype):
     _posX = _bulletX + 0.5 * _objWidth * _dirY;
     _posY = _bulletY - 0.5 * _objWidth * _dirX;
     std::cout << _objWidth * 1 / 2 * _dirY << std::endl;
-    std::cout << typeToString(guntype) << std::endl;
-    // std::cout << "Bullet Position: " << _posX << " " << _posY << std::endl;
-    // std::cout << "Bullet Direction: " << _dirX << " " << _dirY << std::endl;
-    // std:: cout << "Bullet degree: " << _deg << std::endl;
+    std::cout << _type << std::endl;
 }
 
 Bullet::~Bullet() {
@@ -64,7 +58,7 @@ void Bullet::_move() {
 }
 
 void Bullet::_collideWall() {
-    if (_bulletX - _bulletSize < 0 || _bulletX + _bulletSize > SCREEN_WIDTH || _bulletY - _bulletSize < 0 || _bulletY + _bulletSize > SCREEN_HEIGHT) {
+    if (_bulletX < 0 || _bulletX > SCREEN_WIDTH || _bulletY  < 0 || _bulletY > SCREEN_HEIGHT) {
         _state = shooted;
         std::cout << "Bullet collide Wall\n";
     }
@@ -72,11 +66,9 @@ void Bullet::_collideWall() {
 
 void Bullet::_collideOtherPlayer() {
     for (int i = 0;i < players.size(); i++) {
-        if (_fromID != players[i]->_playerID && sqrt(pow(_bulletX - players[i]->_playerX, 2) + pow(_bulletY - players[i]->_playerY, 2)) < _bulletSize + players[i]->_playerSize) {
+        if (_fromID != players[i]->_playerID && sqrt(pow(_bulletX - players[i]->_playerX, 2) + pow(_bulletY - players[i]->_playerY, 2)) < players[i]->_playerSize) {
             _state = shooted;
-            // todo
-            std::cout << "Player is shooted\n";
-            // player.isShooted(this);
+            players[i]->isShooted(this);
         }
     }
 }
@@ -85,20 +77,16 @@ void Bullet::_endDistance() {
     if (_distance < 0) {
         _state = shooted;
         std::cout << "Bullet out of distance\n";
-        // std::cout << "Bullet Position: " << _bulletX << " " << _bulletY << std::endl;
     }
 }
 
 void Bullet::update() {
-    // todo destroy self
     if (_state == shooted) {
+        // todo destroy self
         free();
         return;
     }
     _move();
-    // todo render
-    // std::cout << "Bullet _state: " << _state << std::endl;
-    // std::cout << "Bullet Position: " << _posX << " " << _posY << std::endl;
     // set rotate point to make it's direction correct
     SDL_Point tmp;
     tmp.x = 0;

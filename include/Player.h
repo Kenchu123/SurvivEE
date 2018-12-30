@@ -5,6 +5,10 @@
 
 class Bullet;
 
+enum PlayerState {
+    alive, dead
+};
+
 class Player : public Obj {
     private:
         std::string _name;
@@ -18,7 +22,7 @@ class Player : public Obj {
         double _playerX; // player position, not _posX, which referred to the image left-up point
         double _playerY; // player posY
         double _playerSize; // getWidth() / 2
-        int _state; // condition
+        PlayerState _state; // condition
 
         double _hp; // HP
         double _defend; // defend coefficient
@@ -37,6 +41,7 @@ class Player : public Obj {
         void update();
         void renderPlayer();
         void fire();
+        void isShooted(Bullet*);
 };
 
 extern std::vector<Player*> players;

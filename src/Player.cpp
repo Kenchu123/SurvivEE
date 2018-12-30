@@ -5,7 +5,14 @@
 std::vector<Player*> players;
 
 Player::Player(std::string id): 
-    Obj(), _playerID(id), _dirX(0), _dirY(-1), _rotVel(0), _deg(0), _moveVel(0), _playerType(GunPlayer) 
+    Obj(), 
+    _playerID(id),
+    _dirX(0), _dirY(-1),
+    _rotVel(0), _deg(0), 
+    _moveVel(0), 
+    _playerType(GunPlayer),
+    _state(alive),
+    _hp(500)
 {
     loadTexture(typeToString(_playerType));
     std::cout << typeToString(_playerType) << std::endl; 
@@ -101,11 +108,26 @@ void Player::fire() {
     bullets.push_back(bullet);
 }
 
+void Player::isShooted(Bullet* bullet) {
+    _hp -= bullet->lethality;
+    // todo hurt animation
+    std::cout << "Player is shooted " << _hp << std::endl;
+    if (_hp < 0) {
+        // todo death
+        _state = dead;
+    }
+}
+
 // run rotate, move render 
 // todo isShooted
 // todo collectItem
 // todo set State
 void Player::update() {
+    if (_state == dead) {
+        // todo destroy self
+        free();
+        return;
+    }
     move();
     rotate();
     render(_posX, _posY, _deg, &_rotCenter);
