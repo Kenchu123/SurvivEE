@@ -11,6 +11,8 @@ SDL_Renderer* gRenderer = NULL;
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
 
+// set Game State
+GameState gameState;
 // background
 Obj background;
 // tree
@@ -31,39 +33,49 @@ int main(int argc, char* args[]) {
 
     //Event handler
     SDL_Event e;
-
-    // start menu init
-    bool quit_menu = false;
-    bool quit = false;
-
-    while(!quit_menu) {
-        //Handle events on queue
-        while( SDL_PollEvent( &e ) != 0 ) {
-            //User requests quit
-            if(start.get_triggered() == true) { quit_menu = true; break; }
-            else if(e.type == SDL_QUIT) {quit_menu = true; quit = true; break;}
-            start.handleEvent(&e); tutorial.handleEvent(&e); option.handleEvent(&e);
+    // initail game State
+    gameState = Menu;
+    while (gameState != Quit) {
+        switch (gameState) {
+            case Menu: menu(e); break;
+            case Loading: gameLoad(); break;
+            case Playing: playing(e); break;
+            default: 
+                gameState = Quit;
+                break;
         }
-        //Clear screen
-        SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
-        SDL_RenderClear( gRenderer );
-
-        // Render background
-        background.render(0, 0);
-
-        // Render Title
-        title.render((SCREEN_WIDTH - title.getWidth()) /2 , SCREEN_HEIGHT / 5);
-
-        // Render Button
-        start.update(); tutorial.update(); option.update();
-
-        //Update screen
-        SDL_RenderPresent( gRenderer );
     }
+    // close game
+    close();
 
-    // game start
-    // player init
+}
 
+void menu(SDL_Event& e) {
+    //Handle events on queue
+    while( SDL_PollEvent( &e ) != 0 ) {
+        //User requests quit
+        if (start.get_triggered() == true) { gameState = Loading; break; }
+        else if (e.type == SDL_QUIT) { gameState = Quit; break; }
+        start.handleEvent(&e); tutorial.handleEvent(&e); option.handleEvent(&e);
+    }
+    //Clear screen
+    SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
+    SDL_RenderClear( gRenderer );
+
+    // Render background
+    background.render(0, 0);
+
+    // Render Title
+    title.render((SCREEN_WIDTH - title.getWidth()) / 2 , SCREEN_HEIGHT / 5);
+
+    // Render Button
+    start.update(); tutorial.update(); option.update();
+
+    //Update screen
+    SDL_RenderPresent( gRenderer );
+}
+
+void gameLoad() {
     for (int i = 0;i < 2; i++) {
         Player* player = new Player(std::to_string(i));
         players.push_back(player);
@@ -73,34 +85,33 @@ int main(int argc, char* args[]) {
     // set player place
     players[0]->setInitialPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
     players[1]->setInitialPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
+    gameState = Playing;
+}
 
-    //While application is running
-    while(!quit) {
-        //Handle events on queue
-        while( SDL_PollEvent( &e ) != 0 ) {
-            //User requests quit
-            if(e.type == SDL_QUIT) { quit = true; break; }
-            players[0]->handleKeyInput(e);
-        }
+void playing(SDL_Event& e) {
 
-        //Clear screen
-        SDL_RenderClear( gRenderer );
-        SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 100 );
-        // Render background
-        background.render(0, 0);
-
-        //Render update
-        for (int i = 0;i < players.size(); i++) players[i]->update();
-        for (int i = 0;i < bullets.size(); i++) bullets[i]->update();
-
-        // Render tree
-        tree.render(100, 100);
-
-        //Update screen
-        SDL_RenderPresent( gRenderer );
+    //Handle events on queue
+    while( SDL_PollEvent( &e ) != 0 ) {
+        //User requests quit
+        if(e.type == SDL_QUIT) { gameState = Quit; break; }
+        players[0]->handleKeyInput(e);
     }
-    close();
 
+    //Clear screen
+    SDL_RenderClear( gRenderer );
+    SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 100 );
+    // Render background
+    background.render(0, 0);
+
+    //Render update
+    for (int i = 0;i < players.size(); i++) players[i]->update();
+    for (int i = 0;i < bullets.size(); i++) bullets[i]->update();
+
+    // Render tree
+    tree.render(100, 100);
+
+    //Update screen
+    SDL_RenderPresent( gRenderer );
 }
 
 void init() {

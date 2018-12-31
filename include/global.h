@@ -15,7 +15,8 @@ enum GameState {
     Loading,
     Playing,
     Pause,
-    GameOverl
+    GameOver,
+    Quit
 };
 
 enum GunType {

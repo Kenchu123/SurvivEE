@@ -16,7 +16,7 @@ Player::Player(std::string id):
 {
     loadTexture(typeToString(_playerType));
     std::cout << typeToString(_playerType) << std::endl; 
-    std::cout << "Player Created : " << _playerID << typeToString(_playerType) << std::endl;
+    std::cout << "Player Created : " << _playerID << " " << typeToString(_playerType) << std::endl;
 }
 Player::~Player() {
     free();   
@@ -111,7 +111,7 @@ void Player::fire() {
 void Player::isShooted(Bullet* bullet) {
     _hp -= bullet->lethality;
     // todo hurt animation
-    std::cout << "Player is shooted " << _hp << std::endl;
+    std::cout << "Player " << _playerID << " is shooted " << _hp << std::endl;
     if (_hp < 0) {
         // todo death
         _state = dead;
@@ -119,7 +119,6 @@ void Player::isShooted(Bullet* bullet) {
 }
 
 // run rotate, move render 
-// todo isShooted
 // todo collectItem
 // todo set State
 void Player::update() {
@@ -132,8 +131,4 @@ void Player::update() {
     rotate();
     render(_posX, _posY, _deg, &_rotCenter);
     // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
-}
-
-void Player::renderPlayer() {
-
 }

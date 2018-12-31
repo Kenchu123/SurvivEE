@@ -38,8 +38,8 @@ Bullet::Bullet(Player* from, GunType guntype):
     _bulletY = from->_playerY + from->_dirY * (from->getHeight() - from->_playerSize + _objHeight);
     _posX = _bulletX + 0.5 * _objWidth * _dirY;
     _posY = _bulletY - 0.5 * _objWidth * _dirX;
-    std::cout << _objWidth * 1 / 2 * _dirY << std::endl;
-    std::cout << _type << std::endl;
+    // std::cout << _objWidth * 1 / 2 * _dirY << std::endl;
+    // std::cout << _type << std::endl;
 }
 
 Bullet::~Bullet() {
@@ -60,7 +60,7 @@ void Bullet::_move() {
 void Bullet::_collideWall() {
     if (_bulletX < 0 || _bulletX > SCREEN_WIDTH || _bulletY  < 0 || _bulletY > SCREEN_HEIGHT) {
         _state = shooted;
-        std::cout << "Bullet collide Wall\n";
+        // std::cout << "Bullet collide Wall\n";
     }
 }
 
@@ -76,7 +76,7 @@ void Bullet::_collideOtherPlayer() {
 void Bullet::_endDistance() {
     if (_distance < 0) {
         _state = shooted;
-        std::cout << "Bullet out of distance\n";
+        // std::cout << "Bullet out of distance\n";
     }
 }
 

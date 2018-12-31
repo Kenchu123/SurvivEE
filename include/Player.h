@@ -39,7 +39,6 @@ class Player : public Obj {
         bool collideOtherPlayer();
         void collideItem();
         void update();
-        void renderPlayer();
         void fire();
         void isShooted(Bullet*);
 };

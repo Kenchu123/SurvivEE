@@ -7,15 +7,15 @@
 
 class Button : public Obj {
     private:
-    ButtonType _buttonType;
-    bool triggered;
+        ButtonType _buttonType;
+        bool triggered;
     public:
-    Button(ButtonType);
-    ~Button();
-    void handleEvent(SDL_Event *e);
-    void setPos(int x, int y);
-    bool get_triggered();
-    void update();
+        Button(ButtonType);
+        ~Button();
+        void handleEvent(SDL_Event *e);
+        void setPos(int x, int y);
+        bool get_triggered();
+        void update();
 };
 
 #endif
