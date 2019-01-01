@@ -3,6 +3,7 @@
 #define PI 3.14159265
 #include <SDL2/SDL.h>
 #include <SDL2_image/SDL_image.h>
+#include <SDL2_mixer/SDL_mixer.h>
 #include <string>
 #include <iostream>
 #include <math.h>
@@ -29,6 +30,10 @@ enum PlayerType {
 
 enum ButtonType {
     Start, Tutorial, Option
+};
+
+enum ChunkType {
+    Top, TopRight, Right, BottomRight, Bottom, BottomLeft, Left, TopLeft
 };
 
 extern SDL_Window* gWindow;

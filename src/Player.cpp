@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Bullet.h"
+#include "LoadAudio.h"
 #include "Utility.h"
 
 std::vector<Player*> players;
@@ -104,6 +105,8 @@ bool Player::collideOtherPlayer() {
 void Player::fire() {
     std::cout << "Fire called" << std::endl;
     Bullet* bullet = new Bullet(this, (GunType)_playerType);
+    Mix_Chunk* high = Mix_LoadWAV("../media/high.wav");
+    Mix_PlayChannel(-1, high, 0);
     // bullets.emplace_back(this, (GunType)_playerType);
     bullets.push_back(bullet);
 }
