@@ -108,7 +108,7 @@ void playing(SDL_Event& e) {
     background.render(0, 0, 0.0, NULL, &camera);
     //Render update
     for (int i = 0;i < players.size(); i++) players[i]->update(camera);
-    for (int i = 0;i < bullets.size(); i++) bullets[i]->update();
+    for (int i = 0;i < bullets.size(); i++) bullets[i]->update(camera);
 
     //Center the camera over the Player
     camera.x = players[0]->getPlayerX() - SCREEN_WIDTH / 2;
