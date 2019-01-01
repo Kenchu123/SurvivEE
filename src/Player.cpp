@@ -124,7 +124,7 @@ void Player::isShooted(Bullet* bullet) {
 // run rotate, move render 
 // todo collectItem
 // todo set State
-void Player::update(SDL_Rect camera) {
+void Player::update(SDL_Rect& camera) {
     if (_state == dead) {
         // todo destroy self
         free();

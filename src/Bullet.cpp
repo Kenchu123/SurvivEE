@@ -80,7 +80,7 @@ void Bullet::_endDistance() {
     }
 }
 
-void Bullet::update() {
+void Bullet::update(SDL_Rect& camera) {
     if (_state == shooted) {
         // todo destroy self
         free();
@@ -91,7 +91,7 @@ void Bullet::update() {
     SDL_Point tmp;
     tmp.x = 0;
     tmp.y = 0;
-    render(_posX, _posY, _deg, &tmp);
+    render(_posX - camera.x, _posY - camera.y, _deg, &tmp);
 }
 
 
