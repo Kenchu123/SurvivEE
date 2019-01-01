@@ -1,6 +1,7 @@
 #include "LoadMedia.h"
 
 LoadedTexture loadedTexture;
+LoadedSound loadedSound;
 
 LoadedTexture::LoadedTexture() {
     _loadedTextures.clear();
@@ -40,7 +41,7 @@ SDL_Texture* LoadedTexture::_loadTextureFromFile(std::string name) {
 }
 
 // load all texture and store in map
-void LoadedTexture::loadTexture() {
+void LoadedTexture::loadAllTexture() {
     for (auto name: _toLoadFileName) {
         _loadedTextures[name] = _loadTextureFromFile(name);
     }
@@ -50,4 +51,39 @@ void LoadedTexture::loadTexture() {
 // get texture from map
 SDL_Texture* LoadedTexture::getTexture(std::string name) {
     return _loadedTextures[name];
+}
+
+// LoadedSound
+LoadedSound::LoadedSound() {
+    _loadedSound.clear();
+    std::string names[20] = {
+        "medium", "DefaultGunShot"
+    };
+    for (int i = 0;i < 2; i++) _toLoadFileName.push_back(names[i]);
+}
+
+LoadedSound::~LoadedSound() {
+    _loadedSound.clear();
+}
+
+void LoadedSound::loadAllSound() {
+    for (auto name: _toLoadFileName) {
+        _loadedSound[name] = _loadSoundFromFile(name);
+    }
+}
+
+
+Mix_Chunk* LoadedSound::_loadSoundFromFile(std::string name) {
+    std::string prefix = "../media/", profix = ".wav";
+    return Mix_LoadWAV((prefix + name + profix).c_str());
+}
+
+
+Mix_Chunk* LoadedSound::getSound(std::string name) {
+    return _loadedSound[name];
+}
+
+void LoadedSound::playSound(std::string name) {
+    Mix_PlayChannel(-1, _loadedSound[name], 0);
+    return;
 }

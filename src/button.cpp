@@ -33,8 +33,7 @@ void Button::handleEvent(SDL_Event *e) {
 
 		//Mouse is inside button
 		if( inside && e->type == SDL_MOUSEBUTTONDOWN) { 
-            Mix_Chunk* medium = Mix_LoadWAV("../media/medium.wav");
-            Mix_PlayChannel(-1, medium, 0);
+            loadedSound.playSound("medium");
             triggered = true; 
             }
 	}

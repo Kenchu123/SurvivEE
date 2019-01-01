@@ -107,18 +107,15 @@ void Player::fire() {
     switch (_playerType) {
         case DefaultPlayer: break;
         case GunPlayer: {
-            Mix_Chunk* GunShot = Mix_LoadWAV("../media/DefaultGunShot.wav"); 
-            Mix_PlayChannel(-1, GunShot, 0); 
+            loadedSound.playSound("DefaultGunShot");
             break;
         }
         case MachineGunPlayer: {
-            Mix_Chunk* MachineGunShot = Mix_LoadWAV("../media/DefaultGunShot.wav");
-            Mix_PlayChannel(-1, MachineGunShot, 0);  
+            loadedSound.playSound("DefaultGunShot");
             break;
         }
         case ShotGunPlayer: {
-            Mix_Chunk* ShotGunShot = Mix_LoadWAV("../media/DefaultGunShot.wav"); 
-            Mix_PlayChannel(-1, ShotGunShot, 0); 
+            loadedSound.playSound("DefaultGunShot");
             break;
         }
     }

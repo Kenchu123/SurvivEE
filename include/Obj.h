@@ -1,6 +1,7 @@
 #ifndef OBJ_H
 #define OBJ_H
 #include "global.h"
+#include "LoadMedia.h"
 // Object that have texture and can be seen on the window
 class Obj {
     protected:

@@ -147,8 +147,11 @@ void init() {
 }
 
 void loadMedia() {
-    // Load testObject
-    loadedTexture.loadTexture();
+    // Load all texture
+    loadedTexture.loadAllTexture();
+    // Load all sound
+    loadedSound.loadAllSound();
+    
     background.loadTexture("Grass");
     tree.loadTexture("tree");
     start.loadTexture("start");

@@ -12,10 +12,25 @@ class LoadedTexture {
     public:
         LoadedTexture();
         ~LoadedTexture();
-        void loadTexture();
+        void loadAllTexture();
         SDL_Texture* getTexture(std::string);
 };
 
+class LoadedSound {
+    private:
+        Mix_Chunk* _loadSoundFromFile(std::string);
+        std::vector<std::string> _toLoadFileName;
+        std::map<std::string, Mix_Chunk*> _loadedSound;
+    public:
+        LoadedSound();
+        ~LoadedSound();
+        void loadAllSound();
+        Mix_Chunk* getSound(std::string);
+        void playSound(std::string);
+};
+
+
 extern LoadedTexture loadedTexture;
+extern LoadedSound loadedSound;
 
 #endif
