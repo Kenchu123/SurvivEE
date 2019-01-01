@@ -58,7 +58,7 @@ void Bullet::_move() {
 }
 
 void Bullet::_collideWall() {
-    if (_bulletX < 0 || _bulletX > SCREEN_WIDTH || _bulletY  < 0 || _bulletY > SCREEN_HEIGHT) {
+    if (_bulletX < 0 || _bulletX > LEVEL_WIDTH || _bulletY  < 0 || _bulletY > LEVEL_HEIGHT) {
         _state = shooted;
         // std::cout << "Bullet collide Wall\n";
     }

@@ -10,11 +10,15 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 int SCREEN_WIDTH = 800;
 int SCREEN_HEIGHT = 600;
+int LEVEL_WIDTH = 1600;
+int LEVEL_HEIGHT = 1200;
 
 // set Game State
 GameState gameState;
 // background
 Obj background;
+// camera
+SDL_Rect camera = {0 , 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 // tree
 Obj tree;
 // title
@@ -81,7 +85,7 @@ void gameLoad() {
         players.push_back(player);
     }
     // resize
-    background.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
+    background.resize(LEVEL_WIDTH, LEVEL_HEIGHT);
     // set player place
     players[0]->setInitialPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
     players[1]->setInitialPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
@@ -101,14 +105,22 @@ void playing(SDL_Event& e) {
     SDL_RenderClear( gRenderer );
     SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 100 );
     // Render background
-    background.render(0, 0);
-
+    background.render(0, 0, 0.0, NULL, &camera);
     //Render update
-    for (int i = 0;i < players.size(); i++) players[i]->update();
+    for (int i = 0;i < players.size(); i++) players[i]->update(camera);
     for (int i = 0;i < bullets.size(); i++) bullets[i]->update();
 
+    //Center the camera over the Player
+    camera.x = players[0]->getPlayerX() - SCREEN_WIDTH / 2;
+    camera.y = players[0]->getPlayerY() - SCREEN_HEIGHT / 2;
+
+    //Keep the camera in bounds
+    if( camera.x < 0 ) {camera.x = 0;}
+    if( camera.y < 0 ) {camera.y = 0;}
+    if( camera.x > LEVEL_WIDTH - camera.w ) {camera.x = LEVEL_WIDTH - camera.w;}
+    if( camera.y > LEVEL_HEIGHT - camera.h ) {camera.y = LEVEL_HEIGHT - camera.h;}
     // Render tree
-    tree.render(100, 100);
+    tree.render(100 - camera.x, 100 - camera.y);
 
     //Update screen
     SDL_RenderPresent( gRenderer );

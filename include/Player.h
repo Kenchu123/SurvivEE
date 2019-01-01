@@ -38,9 +38,11 @@ class Player : public Obj {
         bool collideWall();
         bool collideOtherPlayer();
         void collideItem();
-        void update();
+        void update(SDL_Rect);
         void fire();
         void isShooted(Bullet*);
+        double getPlayerX();
+        double getPlayerY();
 };
 
 extern std::vector<Player*> players;

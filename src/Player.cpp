@@ -86,7 +86,7 @@ void Player::rotate() {
 
 // check player collide with wall
 bool Player::collideWall() {
-    return _playerX - _playerSize < 0 || _playerX + _playerSize > SCREEN_WIDTH || _playerY - _playerSize < 0 || _playerY + _playerSize > SCREEN_HEIGHT;
+    return _playerX - _playerSize < 0 || _playerX + _playerSize > LEVEL_WIDTH || _playerY - _playerSize < 0 || _playerY + _playerSize > LEVEL_HEIGHT;
 }
 
 void Player::collideItem() {
@@ -121,7 +121,7 @@ void Player::isShooted(Bullet* bullet) {
 // run rotate, move render 
 // todo collectItem
 // todo set State
-void Player::update() {
+void Player::update(SDL_Rect camera) {
     if (_state == dead) {
         // todo destroy self
         free();
@@ -129,6 +129,9 @@ void Player::update() {
     }
     move();
     rotate();
-    render(_posX, _posY, _deg, &_rotCenter);
+    render(_posX - camera.x, _posY - camera.y, _deg, &_rotCenter);
     // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
 }
+
+double Player::getPlayerX() {return _playerX;};
+double Player::getPlayerY() {return _playerY;};

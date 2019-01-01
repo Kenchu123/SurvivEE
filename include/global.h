@@ -35,5 +35,6 @@ extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;
 extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
-
+extern int LEVEL_WIDTH;
+extern int LEVEL_HEIGHT;
 #endif
