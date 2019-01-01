@@ -104,8 +104,24 @@ bool Player::collideOtherPlayer() {
 void Player::fire() {
     std::cout << "Fire called" << std::endl;
     Bullet* bullet = new Bullet(this, (GunType)_playerType);
-    Mix_Chunk* high = Mix_LoadWAV("../media/high.wav");
-    Mix_PlayChannel(-1, high, 0);
+    switch (_playerType) {
+        case DefaultPlayer: break;
+        case GunPlayer: {
+            Mix_Chunk* GunShot = Mix_LoadWAV("../media/DefaultGunShot.wav"); 
+            Mix_PlayChannel(-1, GunShot, 0); 
+            break;
+        }
+        case MachineGunPlayer: {
+            Mix_Chunk* MachineGunShot = Mix_LoadWAV("../media/DefaultGunShot.wav");
+            Mix_PlayChannel(-1, MachineGunShot, 0);  
+            break;
+        }
+        case ShotGunPlayer: {
+            Mix_Chunk* ShotGunShot = Mix_LoadWAV("../media/DefaultGunShot.wav"); 
+            Mix_PlayChannel(-1, ShotGunShot, 0); 
+            break;
+        }
+    }
     // bullets.emplace_back(this, (GunType)_playerType);
     bullets.push_back(bullet);
 }

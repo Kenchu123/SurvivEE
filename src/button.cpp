@@ -32,7 +32,11 @@ void Button::handleEvent(SDL_Event *e) {
 		if( x < _posX || x > _posX + _objWidth || y < _posY || y > _posY + _objHeight){ inside = false; }
 
 		//Mouse is inside button
-		if( inside && e->type == SDL_MOUSEBUTTONDOWN) { triggered = true; }
+		if( inside && e->type == SDL_MOUSEBUTTONDOWN) { 
+            Mix_Chunk* medium = Mix_LoadWAV("../media/medium.wav");
+            Mix_PlayChannel(-1, medium, 0);
+            triggered = true; 
+            }
 	}
 }
 
