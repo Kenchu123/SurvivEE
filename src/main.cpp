@@ -21,7 +21,9 @@ Obj background, loadingmenu;
 // camera
 SDL_Rect camera = {0 , 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 // tree
-Item *testGun1, *testGun2;
+std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "SubMachineGun",
+                    "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox"};
+std::vector<Item*> testItem;
 // title
 Obj title;
 // button
@@ -35,8 +37,10 @@ int main(int argc, char* args[]) {
     catch (const char* message) {
         printf("Error: %s\n", message);
     }
-    testGun1 = new Item("MachineGun", 300.0, 300.0);
-    testGun2 = new Item("AK47", 500.0, 300.0);
+    for (int i = 0;i < 12; i++) {
+        Item* tmp = new Item(itemName[i], 300.0, i * 40);
+        testItem.push_back(tmp);
+    }
     //Event handler
     SDL_Event e;
     // initail game State
@@ -138,10 +142,10 @@ void playing(SDL_Event& e) {
     if( camera.y < 0 ) {camera.y = 0;}
     if( camera.x > LEVEL_WIDTH - camera.w ) {camera.x = LEVEL_WIDTH - camera.w;}
     if( camera.y > LEVEL_HEIGHT - camera.h ) {camera.y = LEVEL_HEIGHT - camera.h;}
-    // Render tree
-    // tree->render(300.0 - camera.x, 300.0 - camera.y);
-    testGun1->update(camera);
-    testGun2->update(camera);
+    // Render test item
+    for (int i = 0;i < testItem.size(); i++) {
+        testItem[i]->update(camera);
+    }
     //Update screen
     SDL_RenderPresent( gRenderer );
 }
