@@ -10,10 +10,10 @@
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
-int SCREEN_WIDTH = 800;
-int SCREEN_HEIGHT = 600;
-int LEVEL_WIDTH = 1600;
-int LEVEL_HEIGHT = 1200;
+int SCREEN_WIDTH = 1200;
+int SCREEN_HEIGHT = 800;
+int LEVEL_WIDTH = 2000;
+int LEVEL_HEIGHT = 2000;
 
 // set Game State
 GameState gameState;
@@ -52,6 +52,7 @@ int main(int argc, char* args[]) {
     // initail game State
     gameState = Menu;
     while (gameState != Quit) {
+        SDL_GetWindowSize(gWindow, &SCREEN_WIDTH, &SCREEN_HEIGHT);
         switch (gameState) {
             case Menu: menu(e); break;
             case Loading: gameLoad(e); break;
@@ -79,6 +80,8 @@ void menu(SDL_Event& e) {
     SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
     SDL_RenderClear( gRenderer );
 
+    // resize
+    background.resize(LEVEL_WIDTH, LEVEL_HEIGHT);
     // Render background
     background.render(0, 0);
 
@@ -102,8 +105,6 @@ void gameLoad(SDL_Event& e) {
             Player2* player2 = new Player2(std::to_string(2));
             players.push_back(player1);
             players.push_back(player2);
-            // resize
-            background.resize(LEVEL_WIDTH, LEVEL_HEIGHT);
             // set player place
             players[0]->setInitialPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
             players[1]->setInitialPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
@@ -134,7 +135,7 @@ void playing(SDL_Event& e) {
 
     //Clear screen
     SDL_RenderClear( gRenderer );
-    SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 100 );
+    SDL_SetRenderDrawColor( gRenderer, 0, 0, 0, 50 );
     // Render background
     background.render(0, 0, 0.0, NULL, &camera);
     //Render update
@@ -157,6 +158,9 @@ void playing(SDL_Event& e) {
     for(int i = 0; i < obstacles.size(); i++) {
         obstacles[i]->update(camera);
     }
+
+    // Test for draw Line
+    SDL_RenderDrawLine(gRenderer, SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT);
     //Update screen
     SDL_RenderPresent( gRenderer );
 }
@@ -167,7 +171,7 @@ void init() {
     //Set texture filtering to linear
     if (!SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" )) printf( "Warning: Linear texture filtering not enabled!" );
     // Create Window
-    gWindow = SDL_CreateWindow( "SurvivEE", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN );
+    gWindow = SDL_CreateWindow( "SurvivEE", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE );
     if (gWindow == NULL) throw SDL_GetError();
     // Create vsynced renderer for window
     gRenderer = SDL_CreateRenderer( gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );

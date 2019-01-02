@@ -12,9 +12,9 @@ Obstacle::Obstacle(std::string s, double x, double y):
     _obstacleRadius(0)
 {
     loadTexture(_type);
+    resize(100, 100);
     _posX = _obstacleX - getWidth() * 0.5;
     _posY = _obstacleY - getHeight() * 0.5;
-    resize(100, 100);
     std::cout << _type << std::endl;
 }
 
