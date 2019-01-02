@@ -4,6 +4,7 @@ LoadedTexture loadedTexture;
 LoadedSound loadedSound;
 
 LoadedTexture::LoadedTexture() {
+    free();
     _loadedTextures.clear();
     // set all texture to load
     std::string names[20] = {"DefaultPlayer", "GunPlayer", "MachineGunPlayer", "ShotGunPlayer",
@@ -16,7 +17,14 @@ LoadedTexture::LoadedTexture() {
 }
 
 LoadedTexture::~LoadedTexture() {
+    free();
     _loadedTextures.clear();
+}
+
+void LoadedTexture::free() {
+    for (std::map<std::string, SDL_Texture*>::iterator it = _loadedTextures.begin(); it != _loadedTextures.end(); it++) {
+        SDL_DestroyTexture(it->second);
+    }
 }
 
 // load texture from file
@@ -53,6 +61,7 @@ SDL_Texture* LoadedTexture::getTexture(std::string name) {
 
 // LoadedSound
 LoadedSound::LoadedSound() {
+    free();
     _loadedSound.clear();
     std::string names[20] = {
         "medium", "DefaultGunShot"
@@ -61,6 +70,7 @@ LoadedSound::LoadedSound() {
 }
 
 LoadedSound::~LoadedSound() {
+    free();
     _loadedSound.clear();
 }
 
@@ -84,4 +94,10 @@ Mix_Chunk* LoadedSound::getSound(std::string name) {
 void LoadedSound::playSound(std::string name) {
     Mix_PlayChannel(-1, _loadedSound[name], 0);
     return;
+}
+
+void LoadedSound::free() {
+    for (std::map<std::string, Mix_Chunk*>::iterator it = _loadedSound.begin(); it != _loadedSound.end(); it++) {
+        Mix_FreeChunk(it->second);
+    }
 }
