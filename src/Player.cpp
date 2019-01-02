@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Utility.h"
+#include "Item.h"
 
 std::vector<Player*> players;
 
@@ -90,7 +91,13 @@ bool Player::collideWall() {
 }
 
 void Player::pickItem() {
-
+    for (int i = 0; i < items.size(); i++) {
+        if (sqrt(pow(_playerX - items[i]->getItemX(), 2) + pow(_playerY - items[i]->getItemY(), 2)) < _playerSize + items[i]->getWidth() / 2) {
+            items[i]->isPicked(this);
+            // todo player affect
+            // todo remove item from items
+        }
+    }
 }
 
 // check player collide with other player
@@ -152,6 +159,7 @@ void Player::update(SDL_Rect& camera) {
     }
     move();
     rotate();
+    pickItem();
     render(_posX - camera.x, _posY - camera.y, _deg, &_rotCenter);
     // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
 }

@@ -28,6 +28,7 @@ class Player : public Obj {
         double _defend; // defend coefficient
     public:
         friend class Bullet;
+        friend class Item;
 
         Player(std::string id = "");
         ~Player();

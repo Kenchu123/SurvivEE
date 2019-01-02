@@ -32,7 +32,6 @@ void Item::update(SDL_Rect& camera) {
     return;
 }
 
-Item* Item::isPicked() {
+void Item::isPicked(Player* ) {
     _state = Picked;
-    return this;
 }
