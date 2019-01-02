@@ -81,6 +81,7 @@ void menu(SDL_Event& e) {
 
     // Render Button
     start.update(); 
+    start.resize(152, 42);
     // tutorial.update(); option.update();
 
     //Update screen
