@@ -165,6 +165,8 @@ void loadMedia() {
 void close() {
     // free loadedTextures
     loadedTexture.free();
+    // free loadedSound
+    loadedSound.free();
 	//Free loaded player
 	for (int i = 0;i < players.size(); i++) players[i]->free();
 	//Destroy window	
