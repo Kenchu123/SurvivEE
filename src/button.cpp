@@ -1,7 +1,7 @@
 #include "button.h"
 #include "Utility.h"
 
-Button::Button(ButtonType _type): Obj() {
+Button::Button(ButtonType _type): Obj(), triggered(false) {
     //Initialize
     _buttonType = _type;
     loadTexture(typeToString(_buttonType));
@@ -9,6 +9,7 @@ Button::Button(ButtonType _type): Obj() {
 
 Button::~Button() {
     free();
+    triggered = false;
 }
 
 void Button::setPos(int x, int y) {
@@ -33,7 +34,7 @@ void Button::handleEvent(SDL_Event *e) {
 		if( inside && e->type == SDL_MOUSEBUTTONDOWN) { 
             loadedSound.playSound(0, "medium", 0);
             triggered = true; 
-            }
+        }
 	}
 }
 
