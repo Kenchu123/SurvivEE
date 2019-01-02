@@ -32,9 +32,12 @@ enum ButtonType {
     Start, Tutorial, Option
 };
 
-enum ChunkType {
-    Top, TopRight, Right, BottomRight, Bottom, BottomLeft, Left, TopLeft
-};
+// enum ItemType {
+//     BodyArmor1, BodyArmor2, Helmet1, Helmet2, 
+//     Bandage, LifeBox, 
+//     Gun, ShotGun, MachineGun, SubMachineGun, AK47,
+//     Default
+// };
 
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;

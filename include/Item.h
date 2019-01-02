@@ -22,6 +22,7 @@ class Item: public Obj {
         virtual void isPicked(Player*);
         double getItemX() { return _itemX; }
         double getItemY() { return _itemY; }
+        void free();
 };
 
 class Helmet1: public Item {

@@ -5,5 +5,6 @@
 std::string typeToString(PlayerType&);
 std::string typeToString(GunType&);
 std::string typeToString(ButtonType&);
+// std::string typeToString(ItemType&);
 
 #endif

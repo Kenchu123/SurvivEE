@@ -1,4 +1,5 @@
 #include "Item.h"
+#include "Utility.h"
 
 std::vector<Item*> items;
 
@@ -16,9 +17,14 @@ Item::Item(std::string s, double x, double y):
 
 Item::~Item() {
     free();
+}
+
+void Item::free() {
+    _objTexture = NULL;
     _type = "";
+    _objHeight = 0, _objWidth = 0;
     _itemX = 0, _itemY = 0;
-    _state = unPicked;
+    _state = Picked;
 }
 
 void Item::SetPosition(double& x, double& y) {
@@ -32,6 +38,31 @@ void Item::update(SDL_Rect& camera) {
     return;
 }
 
-void Item::isPicked(Player* ) {
+void Item::isPicked(Player* player) {
     _state = Picked;
+    if(_type == "Gun") {
+        player->_playerType = GunPlayer;
+        player->loadTexture(typeToString(player->_playerType));
+        free();
+    }
+    else if(_type == "MachineGun") {
+        player->_playerType = MachineGunPlayer;
+        player->loadTexture(typeToString(player->_playerType));
+        free();
+    }
+    else if(_type == "ShotGun") {
+        player->_playerType = ShotGunPlayer;
+        player->loadTexture(typeToString(player->_playerType));
+        free();
+    }
+    else if(_type == "SubMachineGun") {
+        player->_playerType = MachineGunPlayer;
+        player->loadTexture(typeToString(player->_playerType));
+        free();
+    }
+    else if(_type == "AK47") {
+        player->_playerType = MachineGunPlayer;
+        player->loadTexture(typeToString(player->_playerType));
+        free();
+    }
 }

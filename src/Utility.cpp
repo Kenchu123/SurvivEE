@@ -29,3 +29,21 @@ std::string typeToString(ButtonType& type) {
         default: return "";
     }
 }
+
+// std::string typeToString(ItemType& type) {
+//     switch (type) {
+//         case BodyArmor1: return "BodyArmor1";
+//         case BodyArmor2: return "BodyArmor2";
+//         case Helmet1: return "Helmet1";
+//         case Helmet2: return "Helmet2";
+//         case Bandage: return "Bandage";
+//         case LifeBox: return "LifeBox";
+//         case Gun: return "Gun";
+//         case ShotGun: return "ShotGun";
+//         case MachineGun: return "MachineGun";
+//         case SubMachineGun: return "SubMachineGun";
+//         case AK47: return "AK47";
+//         case Default: return "";
+//         default: return "";
+//     }
+// }
