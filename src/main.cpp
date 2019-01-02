@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "LoadMedia.h"
+#include "Timer.h"
 #include "button.h"
 #include "Obstacle.h"
 #include "Item.h"
@@ -14,6 +15,8 @@ int SCREEN_WIDTH = 1200;
 int SCREEN_HEIGHT = 800;
 int LEVEL_WIDTH = 2000;
 int LEVEL_HEIGHT = 2000;
+int SCREEN_FPS = 60;
+int SCREEN_TICK_PER_FRAME = 1000 / SCREEN_FPS;
 
 // set Game State
 GameState gameState;
@@ -126,6 +129,8 @@ void gameLoad(SDL_Event& e) {
 }
 
 void playing(SDL_Event& e) {
+    Timer capTimer;
+    capTimer.start();
     //Handle events on queue
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
@@ -178,6 +183,11 @@ void playing(SDL_Event& e) {
     SDL_RenderDrawLine(gRenderer, SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT);
     //Update screen
     SDL_RenderPresent( gRenderer );
+    int frameTicks = capTimer.getTicks();
+    if( frameTicks < SCREEN_TICK_PER_FRAME ) {
+        //Wait remaining time
+        SDL_Delay( SCREEN_TICK_PER_FRAME - frameTicks );
+    }
 }
 
 void init() {
