@@ -50,7 +50,7 @@ void Player::handleKeyInput(SDL_Event& e) {
             }
             case SDLK_LEFT: _rotVel = -5; break;
             case SDLK_RIGHT: _rotVel = +5; break;
-            case SDLK_z: fire(); break;
+            case SDLK_RETURN: fire(); break;
         }
     }
     // If a key was released
@@ -195,8 +195,8 @@ void Player2::handleKeyInput(SDL_Event& e) {
                 loadedSound.playSound(2, "footstep4", -1); 
                 break;
             }
-            case SDLK_d: _rotVel = -5; Mix_Pause(2); break;
-            case SDLK_g: _rotVel = +5; Mix_Pause(2); break;
+            case SDLK_d: _rotVel = -5; break;
+            case SDLK_g: _rotVel = +5; break;
             case SDLK_z: fire(); break;
         }
     }
@@ -204,8 +204,8 @@ void Player2::handleKeyInput(SDL_Event& e) {
     else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
         //Adjust the velocity
         switch (e.key.keysym.sym) {
-            case SDLK_r: _moveVel = 0; break;
-            case SDLK_f: _moveVel = 0; break;
+            case SDLK_r: _moveVel = 0; Mix_Pause(2); break;
+            case SDLK_f: _moveVel = 0; Mix_Pause(2); break;
             case SDLK_d: _rotVel = 0; break;
             case SDLK_g: _rotVel = 0; break;
         }

@@ -91,10 +91,10 @@ void gameLoad(SDL_Event& e) {
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
         if (e.key.keysym.sym == SDLK_SPACE) { 
-            for (int i = 0;i < 2; i++) {
-                Player* player = new Player(std::to_string(i));
-                players.push_back(player);
-            }
+            Player* player1 = new Player(std::to_string(1));
+            Player2* player2 = new Player2(std::to_string(2));
+            players.push_back(player1);
+            players.push_back(player2);
             // resize
             background.resize(LEVEL_WIDTH, LEVEL_HEIGHT);
             // set player place
@@ -102,7 +102,7 @@ void gameLoad(SDL_Event& e) {
             players[1]->setInitialPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
             gameState = Playing;
             break;
-            }
+        }
         else if (e.type == SDL_QUIT) { gameState = Quit; break; }
     }
     //Clear screen
@@ -122,6 +122,7 @@ void playing(SDL_Event& e) {
         //User requests quit
         if(e.type == SDL_QUIT) { gameState = Quit; break; }
         players[0]->handleKeyInput(e);
+        players[1]->handleKeyInput(e);
     }
 
     //Clear screen
