@@ -15,8 +15,8 @@ int LEVEL_HEIGHT = 1200;
 
 // set Game State
 GameState gameState;
-// background
-Obj background;
+// background, loadingmenu
+Obj background, loadingmenu;
 // camera
 SDL_Rect camera = {0 , 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 // tree
@@ -103,9 +103,9 @@ void gameLoad(SDL_Event& e) {
     SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
     SDL_RenderClear( gRenderer );
 
-    // Render background
-    background.render(0, 0);
-
+    // Render loadingmenu
+    loadingmenu.render(0, 0);
+    loadingmenu.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
     //Update screen
     SDL_RenderPresent( gRenderer );
 }
@@ -176,6 +176,7 @@ void loadMedia() {
     // tutorial.loadTexture("tutorial");
     // option.loadTexture("option");
     title.loadTexture("title");
+    loadingmenu.loadTexture("loadingmenu");
 	// players[0].loadTexture("GunPlayer");
     // players[1].loadTexture("MachineGunPlayer");
 }

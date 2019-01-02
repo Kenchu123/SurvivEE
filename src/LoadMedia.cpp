@@ -11,9 +11,10 @@ LoadedTexture::LoadedTexture() {
                     "GunBullet", "MachineGunBullet",
                     "tree", "house1", "Grass", "rock", "Floor", 
                     "title", 
-                    "start", "tutorial", "option"
+                    "start", "tutorial", "option",
+                    "loadingmenu"
                     };
-    for (int i = 0;i < 15; i++) _toLoadFileName.push_back(names[i]);
+    for (int i = 0;i < 16; i++) _toLoadFileName.push_back(names[i]);
 }
 
 LoadedTexture::~LoadedTexture() {
