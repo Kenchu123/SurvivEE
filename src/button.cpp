@@ -1,7 +1,5 @@
 #include "button.h"
-#include "LoadMedia.h"
 #include "Utility.h"
-#include "Obj.h"
 
 Button::Button(ButtonType _type): Obj() {
     //Initialize
