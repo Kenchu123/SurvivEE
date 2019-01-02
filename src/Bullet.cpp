@@ -30,6 +30,33 @@ Bullet::Bullet(Player* from, GunType guntype):
             lethality = 50;
             break;
         }
+        case ShotGun: {
+            _type = "MachineGunBullet";
+            loadTexture(_type);
+            resize(10, 20); // resize the bullet w, h
+            _moveVel = 10;
+            _distance = 300;
+            lethality = 50;
+            break;
+        }
+        case SubMachineGun: {
+            _type = "MachineGunBullet";
+            loadTexture(_type);
+            resize(10, 20); // resize the bullet w, h
+            _moveVel = 10;
+            _distance = 300;
+            lethality = 50;
+            break;
+        }
+        case AK47: {
+            _type = "MachineGunBullet";
+            loadTexture(_type);
+            resize(10, 20); // resize the bullet w, h
+            _moveVel = 10;
+            _distance = 300;
+            lethality = 50;
+            break;
+        }
         default:
             break;
     }
