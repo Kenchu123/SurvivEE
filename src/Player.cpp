@@ -174,3 +174,42 @@ void Player::update(SDL_Rect& camera) {
 
 double Player::getPlayerX() {return _playerX;};
 double Player::getPlayerY() {return _playerY;};
+
+Player2::Player2(std::string id): Player(id) {}
+
+Player2::~Player2() {
+    free();   
+}
+
+void Player2::handleKeyInput(SDL_Event& e) {
+        if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
+        //Adjust the velocity
+        switch (e.key.keysym.sym) {
+            case SDLK_r:{
+                _moveVel = 4;
+                loadedSound.playSound(2, "footstep4", -1); 
+                break;
+            }
+            case SDLK_f:{
+                _moveVel = -4;
+                loadedSound.playSound(2, "footstep4", -1); 
+                break;
+            }
+            case SDLK_d: _rotVel = -5; Mix_Pause(2); break;
+            case SDLK_g: _rotVel = +5; Mix_Pause(2); break;
+            case SDLK_z: fire(); break;
+        }
+    }
+    // If a key was released
+    else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
+        //Adjust the velocity
+        switch (e.key.keysym.sym) {
+            case SDLK_r: _moveVel = 0; break;
+            case SDLK_f: _moveVel = 0; break;
+            case SDLK_d: _rotVel = 0; break;
+            case SDLK_g: _rotVel = 0; break;
+        }
+    }
+}
+
+

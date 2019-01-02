@@ -10,7 +10,7 @@ enum PlayerState {
 };
 
 class Player : public Obj {
-    private:
+    protected:
         std::string _name;
         std::string _playerID;
         PlayerType _playerType;
@@ -33,7 +33,7 @@ class Player : public Obj {
         Player(std::string id = "");
         ~Player();
         void setInitialPosition(int, int);
-        void handleKeyInput(SDL_Event&);
+        virtual void handleKeyInput(SDL_Event&);
         void move();
         void rotate();
         bool collideWall();
@@ -44,6 +44,13 @@ class Player : public Obj {
         void isShooted(Bullet*);
         double getPlayerX();
         double getPlayerY();
+};
+
+class Player2 : public Player {
+    public:
+        Player2(std::string id = "");
+        ~Player2();
+        void handleKeyInput(SDL_Event&);
 };
 
 extern std::vector<Player*> players;

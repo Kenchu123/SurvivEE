@@ -101,11 +101,6 @@ void LoadedSound::playSound(int channel, std::string name, int times) {
     return;
 }
 
-// void LoadedSound::keepPlaySound(std::string name) {
-//     Mix_PlayChannel(-1, _loadedSound[name], -1);
-//     return;
-// }
-
 void LoadedSound::free() {
     for (std::map<std::string, Mix_Chunk*>::iterator it = _loadedSound.begin(); it != _loadedSound.end(); it++) {
         Mix_FreeChunk(it->second);
