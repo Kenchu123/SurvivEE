@@ -31,9 +31,9 @@ Bullet::Bullet(Player* from, GunType guntype):
             break;
         }
         case ShotGun: {
-            _type = "MachineGunBullet";
+            _type = "ShotGunBullet";
             loadTexture(_type);
-            resize(10, 20); // resize the bullet w, h
+            resize(30, 20); // resize the bullet w, h
             _moveVel = 10;
             _distance = 300;
             lethality = 50;
