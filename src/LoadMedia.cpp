@@ -11,9 +11,10 @@ LoadedTexture::LoadedTexture() {
                     "GunBullet", "MachineGunBullet",
                     "tree", "house1", "Grass", "rock", "Floor", 
                     "title", 
-                    "start", "tutorial", "option"
+                    "start", "tutorial", "option",
+                    "MachineGun", "AK47"
                     };
-    for (int i = 0;i < 15; i++) _toLoadFileName.push_back(names[i]);
+    for (int i = 0;i < 17; i++) _toLoadFileName.push_back(names[i]);
 }
 
 LoadedTexture::~LoadedTexture() {
@@ -24,6 +25,7 @@ LoadedTexture::~LoadedTexture() {
 void LoadedTexture::free() {
     for (std::map<std::string, SDL_Texture*>::iterator it = _loadedTextures.begin(); it != _loadedTextures.end(); it++) {
         SDL_DestroyTexture(it->second);
+        it->second = NULL;
     }
 }
 
@@ -99,5 +101,6 @@ void LoadedSound::playSound(std::string name) {
 void LoadedSound::free() {
     for (std::map<std::string, Mix_Chunk*>::iterator it = _loadedSound.begin(); it != _loadedSound.end(); it++) {
         Mix_FreeChunk(it->second);
+        it->second = NULL;
     }
 }

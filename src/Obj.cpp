@@ -10,7 +10,7 @@ Obj::~Obj() {
 }
 
 void Obj::loadTexture(std::string name) {
-    // free();
+    free();
     _objTexture = loadedTexture.getTexture(name);
     SDL_QueryTexture(_objTexture, NULL, NULL, &_objWidth, &_objHeight);
 }
@@ -18,7 +18,6 @@ void Obj::loadTexture(std::string name) {
 void Obj::free() {
 	//Free texture if it exists
 	if (_objTexture != NULL) {
-		// SDL_DestroyTexture( _objTexture );
 		_objTexture = NULL;
 		_objWidth = 0;
 		_objHeight = 0;

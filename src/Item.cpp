@@ -4,13 +4,20 @@ std::vector<Item*> items;
 
 Item::Item(): Obj(), _type(""), _itemX(0), _itemY(0), _state(unPicked) {}
 
-Item::Item(std::string s, double& x, double& y):
-    Obj(), _type(s), _itemX(x), _itemY(y)
+Item::Item(std::string s, double x, double y):
+    Obj(), _type(s), _itemX(x), _itemY(y), _state(unPicked)
 {
     loadTexture(_type);
-    resize(60, 60);
+    resize(80, 80);
     _posX = _itemX - getWidth() * 0.5;
     _posY = _itemY - getHeight() * 0.5;
+    std::cout << _type << " " << std::endl;
+}
+
+Item::~Item() {
+    free();
+    _type = "";
+    _itemX = 0, _itemY = 0;
     _state = unPicked;
 }
 

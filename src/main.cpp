@@ -5,6 +5,7 @@
 #include "Bullet.h"
 #include "LoadMedia.h"
 #include "button.h"
+#include "Item.h"
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
@@ -20,7 +21,7 @@ Obj background;
 // camera
 SDL_Rect camera = {0 , 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 // tree
-Obj tree;
+Item *testGun1, *testGun2;
 // title
 Obj title;
 // button
@@ -34,7 +35,8 @@ int main(int argc, char* args[]) {
     catch (const char* message) {
         printf("Error: %s\n", message);
     }
-
+    testGun1 = new Item("MachineGun", 300.0, 300.0);
+    testGun2 = new Item("AK47", 500.0, 300.0);
     //Event handler
     SDL_Event e;
     // initail game State
@@ -111,7 +113,6 @@ void gameLoad(SDL_Event& e) {
 }
 
 void playing(SDL_Event& e) {
-
     //Handle events on queue
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
@@ -138,8 +139,9 @@ void playing(SDL_Event& e) {
     if( camera.x > LEVEL_WIDTH - camera.w ) {camera.x = LEVEL_WIDTH - camera.w;}
     if( camera.y > LEVEL_HEIGHT - camera.h ) {camera.y = LEVEL_HEIGHT - camera.h;}
     // Render tree
-    tree.render(100 - camera.x, 100 - camera.y);
-
+    // tree->render(300.0 - camera.x, 300.0 - camera.y);
+    testGun1->update(camera);
+    testGun2->update(camera);
     //Update screen
     SDL_RenderPresent( gRenderer );
 }
@@ -171,7 +173,6 @@ void loadMedia() {
     loadedSound.loadAllSound();
 
     background.loadTexture("Grass");
-    tree.loadTexture("tree");
     start.loadTexture("start");
     // tutorial.loadTexture("tutorial");
     // option.loadTexture("option");

@@ -14,7 +14,8 @@ class Item: public Obj {
         double _itemX, _itemY; // center of the item
     public:
         Item();
-        Item(std::string, double&, double&); // type x, y
+        Item(std::string, double, double); // type x, y
+        ~Item();
         void SetPosition(double&, double&);
         void update(SDL_Rect&);
         Item* isPicked();
