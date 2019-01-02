@@ -31,7 +31,7 @@ void Button::handleEvent(SDL_Event *e) {
 
 		//Mouse is inside button
 		if( inside && e->type == SDL_MOUSEBUTTONDOWN) { 
-            loadedSound.playSound("medium");
+            loadedSound.playSound(0, "medium", 0);
             triggered = true; 
             }
 	}

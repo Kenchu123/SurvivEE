@@ -96,15 +96,15 @@ Mix_Chunk* LoadedSound::getSound(std::string name) {
     return _loadedSound[name];
 }
 
-void LoadedSound::playSound(std::string name) {
-    Mix_PlayChannel(-1, _loadedSound[name], 0);
+void LoadedSound::playSound(int channel, std::string name, int times) {
+    Mix_PlayChannel(channel, _loadedSound[name], times);
     return;
 }
 
-void LoadedSound::keepplaySound(std::string name) {
-    Mix_PlayMusic(_loadedSound[name], -1);
-    return;
-}
+// void LoadedSound::keepPlaySound(std::string name) {
+//     Mix_PlayChannel(-1, _loadedSound[name], -1);
+//     return;
+// }
 
 void LoadedSound::free() {
     for (std::map<std::string, Mix_Chunk*>::iterator it = _loadedSound.begin(); it != _loadedSound.end(); it++) {

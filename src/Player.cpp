@@ -40,12 +40,12 @@ void Player::handleKeyInput(SDL_Event& e) {
         switch (e.key.keysym.sym) {
             case SDLK_UP:{
                 _moveVel = 4;
-                loadedSound.playSound("footstep4"); 
+                loadedSound.playSound(1, "footstep4", -1); 
                 break;
             }
             case SDLK_DOWN:{
                 _moveVel = -4;
-                loadedSound.playSound("footstep4"); 
+                loadedSound.playSound(1, "footstep4", -1); 
                 break;
             }
             case SDLK_LEFT: _rotVel = -5; break;
@@ -57,8 +57,8 @@ void Player::handleKeyInput(SDL_Event& e) {
     else if (e.type == SDL_KEYUP && e.key.repeat == 0) {
         //Adjust the velocity
         switch (e.key.keysym.sym) {
-            case SDLK_UP: _moveVel = 0; break;
-            case SDLK_DOWN: _moveVel = 0; break;
+            case SDLK_UP: _moveVel = 0;Mix_Pause(1); break;
+            case SDLK_DOWN: _moveVel = 0;Mix_Pause(1); break;
             case SDLK_LEFT: _rotVel = 0; break;
             case SDLK_RIGHT: _rotVel = 0; break;
         }
@@ -122,23 +122,23 @@ void Player::fire() {
     switch (_playerType) {
         case DefaultPlayer: break;
         case GunPlayer: {
-            loadedSound.playSound("DefaultGunShot");
+            loadedSound.playSound(0, "DefaultGunShot", 0);
             break;
         }
         case MachineGunPlayer: {
-            loadedSound.playSound("MachineGunShot");
+            loadedSound.playSound(0, "MachineGunShot", 0);
             break;
         }
         case ShotGunPlayer: {
-            loadedSound.playSound("ShotGunShot");
+            loadedSound.playSound(0, "ShotGunShot", 0);
             break;
         }
         case SubMachineGunPlayer: {
-            loadedSound.playSound("MachineGunShot");
+            loadedSound.playSound(0, "MachineGunShot", 0);
             break;
         }
         case AK47Player: {
-            loadedSound.playSound("MachineGunShot");
+            loadedSound.playSound(0, "MachineGunShot", 0);
             break;
         }
     }
