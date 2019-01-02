@@ -10,8 +10,8 @@ LoadedTexture::LoadedTexture() {
     std::string names[30] = {
                     "DefaultPlayer", "GunPlayer", "MachineGunPlayer", "ShotGunPlayer",
                     "GunBullet", "MachineGunBullet",
-                    "tree", "house1", "Grass", "rock", "Floor", 
-                    "title", 
+                    "Tree", "house1", "Grass", "Rock", "Floor", 
+                    "Title", 
                     "start", "tutorial", "option",
                     "MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "SubMachineGun",
                     "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox",

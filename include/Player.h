@@ -29,6 +29,7 @@ class Player : public Obj {
     public:
         friend class Bullet;
         friend class Item;
+        friend class Obstacle;
 
         Player(std::string id = "");
         ~Player();
@@ -38,6 +39,7 @@ class Player : public Obj {
         void rotate();
         bool collideWall();
         bool collideOtherPlayer();
+        bool collideObstacle();
         void pickItem();
         void update(SDL_Rect&);
         void fire();

@@ -5,6 +5,7 @@
 #include <SDL2_image/SDL_image.h>
 #include <SDL2_mixer/SDL_mixer.h>
 #include <string>
+#include <stdlib.h>
 #include <iostream>
 #include <math.h>
 #include <algorithm>
@@ -38,6 +39,10 @@ enum ButtonType {
 //     Gun, ShotGun, MachineGun, SubMachineGun, AK47,
 //     Default
 // };
+
+enum ObstacleType {
+    Tree, Rock
+};
 
 extern SDL_Window* gWindow;
 extern SDL_Renderer* gRenderer;

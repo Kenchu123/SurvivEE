@@ -5,6 +5,7 @@
 #include "Bullet.h"
 #include "LoadMedia.h"
 #include "button.h"
+#include "Obstacle.h"
 #include "Item.h"
 
 SDL_Window* gWindow = NULL;
@@ -23,10 +24,12 @@ SDL_Rect camera = {0 , 0, SCREEN_WIDTH, SCREEN_HEIGHT};
 // tree
 std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "SubMachineGun",
                     "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox"};
-// title
-Obj title;
+// Title
+Obj Title;
 // button
 Button* startButton;
+// obstacle
+std::string ObstacleName[2] = {"Tree", "Rock"};
 
 int main(int argc, char* args[]) {
     try {
@@ -39,6 +42,10 @@ int main(int argc, char* args[]) {
     for (int i = 0;i < 12; i++) {
         Item* tmp = new Item(itemName[i], 300.0, i * 60);
         items.push_back(tmp);
+    }
+    for(int i = 0; i < 2; i++) {
+        Obstacle* tmp2 = new Obstacle(ObstacleName[i], 500, 100 + i * 100);
+        obstacles.push_back(tmp2);
     }
     //Event handler
     SDL_Event e;
@@ -76,7 +83,7 @@ void menu(SDL_Event& e) {
     background.render(0, 0);
 
     // Render Title
-    title.render((SCREEN_WIDTH - title.getWidth()) / 2 , SCREEN_HEIGHT / 5);
+    Title.render((SCREEN_WIDTH - Title.getWidth()) / 2 , SCREEN_HEIGHT / 5);
 
     // Render Button
     startButton->update(); 
@@ -144,8 +151,11 @@ void playing(SDL_Event& e) {
     if( camera.x > LEVEL_WIDTH - camera.w ) {camera.x = LEVEL_WIDTH - camera.w;}
     if( camera.y > LEVEL_HEIGHT - camera.h ) {camera.y = LEVEL_HEIGHT - camera.h;}
     // Render test item
-    for (int i = 0;i < items.size(); i++) {
+    for (int i = 0; i < items.size(); i++) {
         items[i]->update(camera);
+    }
+    for(int i = 0; i < obstacles.size(); i++) {
+        obstacles[i]->update(camera);
     }
     //Update screen
     SDL_RenderPresent( gRenderer );
@@ -178,8 +188,8 @@ void loadMedia() {
     loadedSound.loadAllSound();
 
     startButton = new Button(Start);
-    title.loadTexture("title");
     background.loadTexture("Grass");
+    Title.loadTexture("Title");
     loadingmenu.loadTexture("loadingmenu");
 	// players[0].loadTexture("GunPlayer");
     // players[1].loadTexture("MachineGunPlayer");
@@ -187,7 +197,7 @@ void loadMedia() {
 
 void close() {
     background.free();
-    title.free();
+    Title.free();
     loadingmenu.free();
 
 	//Free loaded player

@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Utility.h"
+#include "Obstacle.h"
 #include "Item.h"
 
 std::vector<Player*> players;
@@ -71,7 +72,7 @@ void Player::move() {
     _playerX += _dirX * _moveVel;
     // check collide with wall left and right
 
-    if (collideWall() || collideOtherPlayer()) {
+    if (collideWall() || collideOtherPlayer() || collideObstacle()) {
         _playerX -= _dirX * _moveVel;
         _posX -= _dirX * _moveVel;
     }
@@ -80,7 +81,7 @@ void Player::move() {
     _playerY += _dirY * _moveVel;
 
     // check collide with wall up and down
-    if (collideWall() || collideOtherPlayer()) {
+    if (collideWall() || collideOtherPlayer() || collideObstacle()) {
         _posY -= _dirY * _moveVel;
         _playerY -= _dirY * _moveVel;
     }
@@ -115,6 +116,14 @@ bool Player::collideOtherPlayer() {
     }
     return 0;
 }
+
+bool Player::collideObstacle() {
+    for(int i = 0; i < obstacles.size(); i++) {
+        if(abs(_playerX - obstacles[i]->_obstacleX) < - obstacles[i]->_objWidth / 2 && abs(_playerY - obstacles[i]->_obstacleY) < - obstacles[i]->_objHeight / 2 ) return 1;
+    }
+    return 0;
+}
+
 
 void Player::fire() {
     std::cout << "Fire called" << std::endl;
