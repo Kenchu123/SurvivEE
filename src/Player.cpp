@@ -177,7 +177,24 @@ void Player::update(SDL_Rect& camera) {
     move();
     rotate();
     pickItem();
-    render(_posX - camera.x, _posY - camera.y, _deg, &_rotCenter);
+    if(_posX - camera.x < SCREEN_WIDTH / 2 && _posY - camera.y < SCREEN_HEIGHT) {
+        render(_posX - camera.x, _posY - camera.y, _deg, &_rotCenter);
+    }
+    // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
+}
+
+void Player::update2(SDL_Rect& camera) {
+    if (_state == dead) {
+        // todo destroy self
+        free();
+        return;
+    }
+    move();
+    rotate();
+    pickItem();
+    if(_posX - camera.x > 0) {
+        render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y, _deg, &_rotCenter);
+    }
     // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
 }
 

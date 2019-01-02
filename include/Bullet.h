@@ -30,6 +30,7 @@ class Bullet: public Obj {
         Bullet(Player*, GunType);
         ~Bullet(); 
         void update(SDL_Rect& camera);
+        void update2(SDL_Rect& camera);
 };
 
 extern std::vector<Bullet*> bullets;

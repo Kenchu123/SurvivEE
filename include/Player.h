@@ -42,6 +42,7 @@ class Player : public Obj {
         bool collideObstacle();
         void pickItem();
         void update(SDL_Rect&);
+        void update2(SDL_Rect&);
         void fire();
         void isShooted(Bullet*);
         double getPlayerX();

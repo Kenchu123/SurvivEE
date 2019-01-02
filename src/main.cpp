@@ -20,7 +20,8 @@ GameState gameState;
 // background, loadingmenu
 Obj background, loadingmenu;
 // camera
-SDL_Rect camera = {0 , 0, SCREEN_WIDTH, SCREEN_HEIGHT};
+SDL_Rect camera = {0 , 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
+SDL_Rect camera2 = {0, 0, SCREEN_WIDTH /2, SCREEN_HEIGHT};
 // tree
 std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "SubMachineGun",
                     "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox"};
@@ -137,26 +138,40 @@ void playing(SDL_Event& e) {
     SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 100 );
     // Render background
     background.render(0, 0, 0.0, NULL, &camera);
+    background.render(SCREEN_WIDTH / 2, 0, 0.0, NULL, &camera2);
+
     //Render update
-    for (int i = 0;i < players.size(); i++) players[i]->update(camera);
-    for (int i = 0;i < bullets.size(); i++) bullets[i]->update(camera);
+    players[1]->update(camera); players[1]->update2(camera2);
+    players[0]->update(camera); players[0]->update2(camera2);
+    for (int i = 0;i < bullets.size(); i++) {
+        bullets[i]->update(camera);
+        bullets[i]->update2(camera2);
+    }
 
     //Center the camera over the Player
-    camera.x = players[0]->getPlayerX() - SCREEN_WIDTH / 2;
-    camera.y = players[0]->getPlayerY() - SCREEN_HEIGHT / 2;
-
+    camera.x = players[1]->getPlayerX() - SCREEN_WIDTH / 4;
+    camera.y = players[1]->getPlayerY() - SCREEN_HEIGHT / 2;
+    camera2.x = players[0]->getPlayerX() - SCREEN_WIDTH / 4;
+    camera2.y = players[0]->getPlayerY() - SCREEN_HEIGHT / 2;
     //Keep the camera in bounds
     if( camera.x < 0 ) {camera.x = 0;}
     if( camera.y < 0 ) {camera.y = 0;}
     if( camera.x > LEVEL_WIDTH - camera.w ) {camera.x = LEVEL_WIDTH - camera.w;}
     if( camera.y > LEVEL_HEIGHT - camera.h ) {camera.y = LEVEL_HEIGHT - camera.h;}
+    //Keep the camera2 in bounds
+    if( camera2.x < 0 ) {camera2.x = 0;}
+    if( camera2.y < 0 ) {camera2.y = 0;}
+    if( camera2.x > LEVEL_WIDTH - camera2.w ) {camera2.x = LEVEL_WIDTH - camera2.w;}
+    if( camera2.y > LEVEL_HEIGHT - camera2.h ) {camera2.y = LEVEL_HEIGHT - camera2.h;}
+
     // Render test item
     for (int i = 0; i < items.size(); i++) {
         items[i]->update(camera);
+        items[i]->update2(camera2);
     }
-    for(int i = 0; i < obstacles.size(); i++) {
-        obstacles[i]->update(camera);
-    }
+    // for(int i = 0; i < obstacles.size(); i++) {
+    //     obstacles[i]->update(camera);
+    // }
     //Update screen
     SDL_RenderPresent( gRenderer );
 }

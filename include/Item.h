@@ -19,6 +19,7 @@ class Item: public Obj {
         ~Item();
         void SetPosition(double&, double&);
         void update(SDL_Rect&);
+        void update2(SDL_Rect&);
         virtual void isPicked(Player*);
         double getItemX() { return _itemX; }
         double getItemY() { return _itemY; }
