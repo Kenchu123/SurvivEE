@@ -38,8 +38,16 @@ void Player::handleKeyInput(SDL_Event& e) {
     if (e.type == SDL_KEYDOWN && e.key.repeat == 0) {
         //Adjust the velocity
         switch (e.key.keysym.sym) {
-            case SDLK_UP: _moveVel = 4; break;
-            case SDLK_DOWN: _moveVel = -4; break;
+            case SDLK_UP:{
+                _moveVel = 4;
+                loadedSound.playSound("footstep4"); 
+                break;
+            }
+            case SDLK_DOWN:{
+                _moveVel = -4;
+                loadedSound.playSound("footstep4"); 
+                break;
+            }
             case SDLK_LEFT: _rotVel = -5; break;
             case SDLK_RIGHT: _rotVel = +5; break;
             case SDLK_z: fire(); break;
@@ -118,7 +126,7 @@ void Player::fire() {
             break;
         }
         case MachineGunPlayer: {
-            loadedSound.playSound("MachhineGunShot");
+            loadedSound.playSound("MachineGunShot");
             break;
         }
         case ShotGunPlayer: {

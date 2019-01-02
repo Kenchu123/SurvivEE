@@ -28,6 +28,7 @@ class LoadedSound {
         void loadAllSound();
         Mix_Chunk* getSound(std::string);
         void playSound(std::string);
+        void keepplaySound(std::string);
         void free();
 };
 

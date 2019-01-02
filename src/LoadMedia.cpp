@@ -36,7 +36,7 @@ void LoadedTexture::free() {
 SDL_Texture* LoadedTexture::_loadTextureFromFile(std::string name) {
     try {
         SDL_Texture* newTexture = NULL;
-        std::string prefix = "../media/images/", postfix = ".png";
+        std::string prefix = "./media/images/", postfix = ".png";
         SDL_Surface* loadedSurface = IMG_Load((prefix + name + postfix).c_str());
         if (loadedSurface == NULL) throw IMG_GetError();
         SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
@@ -69,7 +69,7 @@ LoadedSound::LoadedSound() {
     free();
     _loadedSound.clear();
     std::string names[20] = {
-        "medium", "DefaultGunShot", "footstep1", "MachineGunShot", "ShotGunShot"
+        "medium", "DefaultGunShot", "footstep4", "MachineGunShot", "ShotGunShot"
     };
     for (int i = 0;i < 4; i++) _toLoadFileName.push_back(names[i]);
 }
@@ -87,7 +87,7 @@ void LoadedSound::loadAllSound() {
 
 
 Mix_Chunk* LoadedSound::_loadSoundFromFile(std::string name) {
-    std::string prefix = "../media/sound/", profix = ".wav";
+    std::string prefix = "./media/sound/", profix = ".wav";
     return Mix_LoadWAV((prefix + name + profix).c_str());
 }
 
@@ -98,6 +98,11 @@ Mix_Chunk* LoadedSound::getSound(std::string name) {
 
 void LoadedSound::playSound(std::string name) {
     Mix_PlayChannel(-1, _loadedSound[name], 0);
+    return;
+}
+
+void LoadedSound::keepplaySound(std::string name) {
+    Mix_PlayMusic(_loadedSound[name], -1);
     return;
 }
 
