@@ -118,6 +118,10 @@ void Player::fire() {
             loadedSound.playSound("DefaultGunShot");
             break;
         }
+        case AK47Player: {
+            loadedSound.playSound("DefaultGunShot");
+            break;
+        }
     }
     // bullets.emplace_back(this, (GunType)_playerType);
     bullets.push_back(bullet);
