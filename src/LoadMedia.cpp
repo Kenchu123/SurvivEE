@@ -23,10 +23,8 @@ LoadedTexture::~LoadedTexture() {
 SDL_Texture* LoadedTexture::_loadTextureFromFile(std::string name) {
     try {
         SDL_Texture* newTexture = NULL;
-        std::string s = "../media/";
-        s += name;
-        s += ".png";
-        SDL_Surface* loadedSurface = IMG_Load(s.c_str());
+        std::string prefix = "../media/images/", postfix = ".png";
+        SDL_Surface* loadedSurface = IMG_Load((prefix + name + postfix).c_str());
         if (loadedSurface == NULL) throw IMG_GetError();
         SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
         newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface );
@@ -74,7 +72,7 @@ void LoadedSound::loadAllSound() {
 
 
 Mix_Chunk* LoadedSound::_loadSoundFromFile(std::string name) {
-    std::string prefix = "../media/", profix = ".wav";
+    std::string prefix = "../media/sound/", profix = ".wav";
     return Mix_LoadWAV((prefix + name + profix).c_str());
 }
 
