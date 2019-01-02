@@ -101,10 +101,10 @@ void LoadedSound::playSound(std::string name) {
     return;
 }
 
-void LoadedSound::keepplaySound(std::string name) {
-    Mix_PlayMusic(_loadedSound[name], -1);
-    return;
-}
+// void LoadedSound::keepplaySound(std::string name) {
+//     Mix_PlayMusic(_loadedSound[name], -1);
+//     return;
+// }
 
 void LoadedSound::free() {
     for (std::map<std::string, Mix_Chunk*>::iterator it = _loadedSound.begin(); it != _loadedSound.end(); it++) {
