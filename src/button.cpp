@@ -45,7 +45,7 @@ bool Button::get_triggered() {
 
 void Button::update() {
     switch(_buttonType) {
-        case Start: setPos((SCREEN_WIDTH - getWidth())/ 2, SCREEN_HEIGHT * 6 / 10); break;
+        case Start: setPos((SCREEN_WIDTH - getWidth())/ 2, SCREEN_HEIGHT * 2 / 3); break;
         case Tutorial: setPos((SCREEN_WIDTH - getWidth())/ 2, SCREEN_HEIGHT * 7 / 10); break;
         case Option: setPos((SCREEN_WIDTH - getWidth())/ 2, SCREEN_HEIGHT * 8 / 10); break;
         default: setPos(0, 0);

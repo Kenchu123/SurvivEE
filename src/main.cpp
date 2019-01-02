@@ -24,7 +24,7 @@ Obj tree;
 // title
 Obj title;
 // button
-Button start(Start), tutorial(Tutorial), option(Option);
+Button start(Start);
 
 int main(int argc, char* args[]) {
     try {
@@ -42,7 +42,7 @@ int main(int argc, char* args[]) {
     while (gameState != Quit) {
         switch (gameState) {
             case Menu: menu(e); break;
-            case Loading: gameLoad(); break;
+            case Loading: gameLoad(e); break;
             case Playing: playing(e); break;
             default: 
                 gameState = Quit;
@@ -60,7 +60,8 @@ void menu(SDL_Event& e) {
         //User requests quit
         if (start.get_triggered() == true) { gameState = Loading; break; }
         else if (e.type == SDL_QUIT) { gameState = Quit; break; }
-        start.handleEvent(&e); tutorial.handleEvent(&e); option.handleEvent(&e);
+        start.handleEvent(&e); 
+        // tutorial.handleEvent(&e); option.handleEvent(&e);
     }
     //Clear screen
     SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
@@ -73,23 +74,40 @@ void menu(SDL_Event& e) {
     title.render((SCREEN_WIDTH - title.getWidth()) / 2 , SCREEN_HEIGHT / 5);
 
     // Render Button
-    start.update(); tutorial.update(); option.update();
+    start.update(); 
+    // tutorial.update(); option.update();
 
     //Update screen
     SDL_RenderPresent( gRenderer );
 }
 
-void gameLoad() {
-    for (int i = 0;i < 2; i++) {
-        Player* player = new Player(std::to_string(i));
-        players.push_back(player);
+void gameLoad(SDL_Event& e) {
+    while( SDL_PollEvent( &e ) != 0 ) {
+        //User requests quit
+        if (e.key.keysym.sym == SDLK_SPACE) { 
+            for (int i = 0;i < 2; i++) {
+                Player* player = new Player(std::to_string(i));
+                players.push_back(player);
+            }
+            // resize
+            background.resize(LEVEL_WIDTH, LEVEL_HEIGHT);
+            // set player place
+            players[0]->setInitialPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
+            players[1]->setInitialPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
+            gameState = Playing;
+            break;
+            }
+        else if (e.type == SDL_QUIT) { gameState = Quit; break; }
     }
-    // resize
-    background.resize(LEVEL_WIDTH, LEVEL_HEIGHT);
-    // set player place
-    players[0]->setInitialPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
-    players[1]->setInitialPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
-    gameState = Playing;
+    //Clear screen
+    SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
+    SDL_RenderClear( gRenderer );
+
+    // Render background
+    background.render(0, 0);
+
+    //Update screen
+    SDL_RenderPresent( gRenderer );
 }
 
 void playing(SDL_Event& e) {
@@ -155,8 +173,8 @@ void loadMedia() {
     background.loadTexture("Grass");
     tree.loadTexture("tree");
     start.loadTexture("start");
-    tutorial.loadTexture("tutorial");
-    option.loadTexture("option");
+    // tutorial.loadTexture("tutorial");
+    // option.loadTexture("option");
     title.loadTexture("title");
 	// players[0].loadTexture("GunPlayer");
     // players[1].loadTexture("MachineGunPlayer");
