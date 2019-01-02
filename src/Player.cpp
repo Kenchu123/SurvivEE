@@ -111,11 +111,11 @@ void Player::fire() {
             break;
         }
         case MachineGunPlayer: {
-            loadedSound.playSound("DefaultGunShot");
+            loadedSound.playSound("MachhineGunShot");
             break;
         }
         case ShotGunPlayer: {
-            loadedSound.playSound("DefaultGunShot");
+            loadedSound.playSound("ShotGunShot");
             break;
         }
         case SubMachineGunPlayer: {
