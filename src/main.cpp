@@ -177,21 +177,28 @@ void loadMedia() {
     // Load all sound
     loadedSound.loadAllSound();
 
-    background.loadTexture("Grass");
-    title.loadTexture("title");
-    loadingmenu.loadTexture("loadingmenu");
     startButton = new Button(Start);
+    title.loadTexture("title");
+    background.loadTexture("Grass");
+    loadingmenu.loadTexture("loadingmenu");
 	// players[0].loadTexture("GunPlayer");
     // players[1].loadTexture("MachineGunPlayer");
 }
 
 void close() {
-    // free loadedTextures
-    loadedTexture.free();
-    // free loadedSound
-    loadedSound.free();
+    background.free();
+    title.free();
+    loadingmenu.free();
+
 	//Free loaded player
 	for (int i = 0;i < players.size(); i++) players[i]->free();
+
+    // destroy loadedTextures
+    loadedTexture.free();
+
+    // destroy loadedSound
+    loadedSound.free();
+    startButton = NULL;
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
