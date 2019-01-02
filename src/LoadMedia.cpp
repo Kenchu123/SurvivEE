@@ -12,9 +12,10 @@ LoadedTexture::LoadedTexture() {
                     "tree", "house1", "Grass", "rock", "Floor", 
                     "title", 
                     "start", "tutorial", "option",
-                    "MachineGun", "AK47"
+                    "MachineGun", "AK47",
+                    "loadingmenu"
                     };
-    for (int i = 0;i < 17; i++) _toLoadFileName.push_back(names[i]);
+    for (int i = 0;i < 18; i++) _toLoadFileName.push_back(names[i]);
 }
 
 LoadedTexture::~LoadedTexture() {
@@ -66,7 +67,7 @@ LoadedSound::LoadedSound() {
     free();
     _loadedSound.clear();
     std::string names[20] = {
-        "medium", "DefaultGunShot"
+        "medium", "DefaultGunShot", "footstep1"
     };
     for (int i = 0;i < 2; i++) _toLoadFileName.push_back(names[i]);
 }
