@@ -169,7 +169,7 @@ void loadMedia() {
     loadedTexture.loadAllTexture();
     // Load all sound
     loadedSound.loadAllSound();
-    
+
     background.loadTexture("Grass");
     tree.loadTexture("tree");
     start.loadTexture("start");
@@ -181,7 +181,11 @@ void loadMedia() {
 }
 
 void close() {
-	//Free loaded images
+    // free loadedTextures
+    loadedTexture.free();
+    // free loadedSound
+    loadedSound.free();
+	//Free loaded player
 	for (int i = 0;i < players.size(); i++) players[i]->free();
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
@@ -191,6 +195,7 @@ void close() {
 	
 	//Quit SDL subsystems
 	IMG_Quit();
+    Mix_Quit();
 	SDL_Quit();
 }
 

@@ -14,6 +14,7 @@ class LoadedTexture {
         ~LoadedTexture();
         void loadAllTexture();
         SDL_Texture* getTexture(std::string);
+        void free(); // Destroy Texture
 };
 
 class LoadedSound {
@@ -27,6 +28,7 @@ class LoadedSound {
         void loadAllSound();
         Mix_Chunk* getSound(std::string);
         void playSound(std::string);
+        void free();
 };
 
 
