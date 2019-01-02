@@ -26,7 +26,7 @@ std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "Sub
 // title
 Obj title;
 // button
-Button start(Start);
+Button* startButton;
 
 int main(int argc, char* args[]) {
     try {
@@ -63,9 +63,9 @@ void menu(SDL_Event& e) {
     //Handle events on queue
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
-        if (start.get_triggered() == true) { gameState = Loading; break; }
+        if (startButton->get_triggered() == true) { gameState = Loading; break; }
         else if (e.type == SDL_QUIT) { gameState = Quit; break; }
-        start.handleEvent(&e); 
+        startButton->handleEvent(&e); 
         // tutorial.handleEvent(&e); option.handleEvent(&e);
     }
     //Clear screen
@@ -79,8 +79,8 @@ void menu(SDL_Event& e) {
     title.render((SCREEN_WIDTH - title.getWidth()) / 2 , SCREEN_HEIGHT / 5);
 
     // Render Button
-    start.update(); 
-    start.resize(152, 42);
+    startButton->update(); 
+    startButton->resize(152, 42);
     // tutorial.update(); option.update();
 
     //Update screen
@@ -177,11 +177,9 @@ void loadMedia() {
     loadedSound.loadAllSound();
 
     background.loadTexture("Grass");
-    start.loadTexture("start");
-    // tutorial.loadTexture("tutorial");
-    // option.loadTexture("option");
     title.loadTexture("title");
     loadingmenu.loadTexture("loadingmenu");
+    startButton = new Button(Start);
 	// players[0].loadTexture("GunPlayer");
     // players[1].loadTexture("MachineGunPlayer");
 }
