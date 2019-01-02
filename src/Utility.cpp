@@ -14,6 +14,9 @@ std::string typeToString(GunType& type) {
     switch (type) {
         case Gun: return "Gun";
         case MachineGun: return "MachineGun";
+        case AK47: return "AK47";
+        case SubMachineGun: return "SubMachineGun";
+        case ShotGun: return "ShotGun";
         default: return "";
     }
 }

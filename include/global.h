@@ -21,11 +21,11 @@ enum GameState {
 };
 
 enum GunType {
-    Default, Gun, MachineGun, ShotGun
+    Default, Gun, MachineGun, ShotGun, SubMachineGun, AK47
 };
 
 enum PlayerType {
-    DefaultPlayer, GunPlayer, MachineGunPlayer, ShotGunPlayer
+    DefaultPlayer, GunPlayer, MachineGunPlayer, ShotGunPlayer, SubMachineGunPlayer, AK47Player
 };
 
 enum ButtonType {

@@ -37,7 +37,7 @@ class Player : public Obj {
         void rotate();
         bool collideWall();
         bool collideOtherPlayer();
-        void collideItem();
+        void pickItem();
         void update(SDL_Rect&);
         void fire();
         void isShooted(Bullet*);

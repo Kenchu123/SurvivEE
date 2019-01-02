@@ -89,7 +89,7 @@ bool Player::collideWall() {
     return _playerX - _playerSize < 0 || _playerX + _playerSize > LEVEL_WIDTH || _playerY - _playerSize < 0 || _playerY + _playerSize > LEVEL_HEIGHT;
 }
 
-void Player::collideItem() {
+void Player::pickItem() {
 
 }
 

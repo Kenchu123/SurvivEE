@@ -1,9 +1,16 @@
 CXX = g++
-OBJS = ./build/Utility.o ./build/LoadMedia.o ./build/Obj.o ./build/Bullet.o ./build/Player.o ./build/main.o ./build/button.o
+OBJS = ./build/Utility.o ./build/LoadMedia.o ./build/Obj.o ./build/Item.o ./build/Bullet.o ./build/Player.o ./build/main.o ./build/button.o
 INC = ./include
-LIB = ./lib
-LDFLAGS = -F/Library/Frameworks -framework SDL2_image -framework SDL2 -framework SDL2_mixer
 CXXFLAGS = -std=c++17
+LIB = ./lib
+
+ifeq ($(OS),Windows_NT)
+LDFLAGS = -lmingw32 -lSDL2_image -lSDL2main -lSDL2
+else ($(PLATFORM),Darwin)
+LDFLAGS = -F/Library/Frameworks -framework SDL2_image -framework SDL2 -framework SDL2_mixer
+endif
+
+
 
 all: ./bin/SurvivEE
 
