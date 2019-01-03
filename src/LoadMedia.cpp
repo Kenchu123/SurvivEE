@@ -69,7 +69,7 @@ LoadedSound::LoadedSound() {
     free();
     _loadedSound.clear();
     std::string names[20] = {
-        "medium", "DefaultGunShot", "footstep4", "MachineGunShot", "ShotGunShot"
+        "medium", "DefaultGunShot", "footstep", "MachineGunShot", "ShotGunShot"
     };
     for (int i = 0;i < 5; i++) _toLoadFileName.push_back(names[i]);
 }

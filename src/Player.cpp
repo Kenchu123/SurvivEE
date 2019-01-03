@@ -41,12 +41,12 @@ void Player::handleKeyInput(SDL_Event& e) {
         switch (e.key.keysym.sym) {
             case SDLK_UP:{
                 _moveVel = 4;
-                loadedSound.playSound(1, "footstep4", -1); 
+                loadedSound.playSound(1, "footstep", -1); 
                 break;
             }
             case SDLK_DOWN:{
                 _moveVel = -4;
-                loadedSound.playSound(1, "footstep4", -1); 
+                loadedSound.playSound(1, "footstep", -1); 
                 break;
             }
             case SDLK_LEFT: _rotVel = -5; break;
@@ -208,12 +208,12 @@ void Player2::handleKeyInput(SDL_Event& e) {
         switch (e.key.keysym.sym) {
             case SDLK_r:{
                 _moveVel = 4;
-                loadedSound.playSound(2, "footstep4", -1); 
+                loadedSound.playSound(2, "footstep", -1); 
                 break;
             }
             case SDLK_f:{
                 _moveVel = -4;
-                loadedSound.playSound(2, "footstep4", -1); 
+                loadedSound.playSound(2, "footstep", -1); 
                 break;
             }
             case SDLK_d: _rotVel = -5; break;
