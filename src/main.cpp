@@ -190,13 +190,22 @@ void playing(SDL_Event& e) {
         obstacles[i]->renderR(camera2);
     }
 
+    // render Bloodstrip
+    for (int i = 0;i < players.size(); i++) {
+        // for (int j = 0;j < 2; j++) {
+        //     players[i]->BloodStrip[j].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30, 30);
+        // }
+        players[i]->BloodStrip[0].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30, 30); // strip background
+        players[i]->BloodStrip[1].render(abs(i - 1) * SCREEN_WIDTH / 2 + 31, 29); // blood strip
+    }
+
     // Test for draw Line
     SDL_RenderDrawLine(gRenderer, SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT);
     //Update screen
     SDL_RenderPresent( gRenderer );
     int frameTicks = capTimer.getTicks();
     if( frameTicks < SCREEN_TICK_PER_FRAME ) {
-        //Wait remaining time
+        //Wait remaining timefgdwvdsdvwvavvwwvvsavdvwdvavsvwsvvwvvvwvsvwds wvvwvsvdwvvavsdvwvvdsvdsvwvsvawvvsvdvas
         SDL_Delay( SCREEN_TICK_PER_FRAME - frameTicks );
     }
 }

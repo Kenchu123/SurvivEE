@@ -31,6 +31,7 @@ class Player : public Obj {
         friend class Item;
         friend class Obstacle;
 
+        Obj BloodStrip[2]; // background, white / red
         Player(std::string id = "");
         ~Player();
         void setInitialPosition(int, int);

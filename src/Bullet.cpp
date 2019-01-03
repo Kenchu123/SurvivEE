@@ -15,7 +15,7 @@ Bullet::Bullet(Player* from, GunType guntype):
         case Gun: {
             _type = "GunBullet";
             loadTexture(_type);
-            resize(10, 20); // resize the bullet w, h
+            resize(15, 20); // resize the bullet w, h
             _moveVel = 10;
             _distance = 300;
             lethality = 50;
@@ -33,9 +33,9 @@ Bullet::Bullet(Player* from, GunType guntype):
         case ShotGun: {
             _type = "ShotGunBullet";
             loadTexture(_type);
-            resize(30, 20); // resize the bullet w, h
+            resize(30, 50); // resize the bullet w, h
             _moveVel = 10;
-            _distance = 300;
+            _distance = 100;
             lethality = 50;
             break;
         }
@@ -114,10 +114,6 @@ void Bullet::update() {
         return;
     }
     _move();
-    // set rotate point to make it's direction correct
-    SDL_Point tmp;
-    tmp.x = 0;
-    tmp.y = 0;
 }
 
 void Bullet::renderL(SDL_Rect& camera) {
@@ -132,17 +128,3 @@ void Bullet::renderR(SDL_Rect& camera) {
         render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y, _deg, &tmp);
     }
 }
-
-// void Bullet::update2(SDL_Rect& camera) {
-//     if (_state == shooted) {
-//         // todo destroy self
-//         free();
-//         return;
-//     }
-//     _move();
-//     // set rotate point to make it's direction correct
-
-//     
-// }
-
-

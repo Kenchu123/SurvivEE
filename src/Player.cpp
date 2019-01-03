@@ -19,9 +19,12 @@ Player::Player(std::string id):
     loadTexture(typeToString(_playerType));
     std::cout << typeToString(_playerType) << std::endl; 
     std::cout << "Player Created : " << _playerID << " " << typeToString(_playerType) << std::endl;
+    BloodStrip[0].loadTexture("BloodStripBackground");
+    BloodStrip[1].loadTexture("BloodStripRed");
 }
 Player::~Player() {
     free();   
+    for (int i = 0;i < 2; i++) BloodStrip[i].free();
 }
 
 // set player initial postion
@@ -177,7 +180,8 @@ void Player::update() {
     move();
     rotate();
     pickItem();
-    
+    // update blood
+    BloodStrip[1].resize(BloodStrip[0].getWidth() * (_hp / 500), BloodStrip[0].getHeight());
     // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
 }
 
