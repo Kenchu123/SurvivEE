@@ -206,8 +206,9 @@ void Player::renderR(SDL_Rect& camera) {
     }
 }
 
-double Player::getPlayerX() {return _playerX;};
-double Player::getPlayerY() {return _playerY;};
+double Player::getPlayerX() { return _playerX; }
+double Player::getPlayerY() { return _playerY; }
+double Player::getDeg() { return _deg; }
 
 Player2::Player2(std::string id): Player(id) {}
 

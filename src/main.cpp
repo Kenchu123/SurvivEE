@@ -34,6 +34,8 @@ Obj Title;
 Button* startButton;
 // obstacle
 std::string ObstacleName[2] = {"Tree", "Rock"};
+// test for Helmet
+Item helmet1;
 
 int main(int argc, char* args[]) {
     try {
@@ -170,6 +172,9 @@ void playing(SDL_Event& e) {
     for (int i = 0;i < players.size(); i++) {
         players[i]->renderL(camera);
         players[i]->renderR(camera2);
+        helmet1.SetPosition(players[i]->getPlayerX(), players[i]->getPlayerY());
+        helmet1.renderL(camera);
+        helmet1.renderR(camera2);
     }
 
     for (int i = 0;i < bullets.size(); i++) {
@@ -240,6 +245,9 @@ void loadMedia() {
     background.loadTexture("Grass");
     Title.loadTexture("Title");
     loadingmenu.loadTexture("loadingmenu");
+    // load helmet1
+    helmet1.loadTexture("Helmet1Up");
+    helmet1.resize(40, 40);
 	// players[0].loadTexture("GunPlayer");
     // players[1].loadTexture("MachineGunPlayer");
 }

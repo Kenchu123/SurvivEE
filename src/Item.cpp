@@ -3,10 +3,10 @@
 
 std::vector<Item*> items;
 
-Item::Item(): Obj(), _type(""), _itemX(0), _itemY(0), _state(unPicked) {}
+Item::Item(): Obj(), _type(""), _itemX(0), _itemY(0), _deg(0), _state(unPicked) {}
 
 Item::Item(std::string s, double x, double y):
-    Obj(), _type(s), _itemX(x), _itemY(y), _state(unPicked)
+    Obj(), _type(s), _itemX(x), _itemY(y), _deg(0), _state(unPicked)
 {
     loadTexture(_type);
     resize(80, 80);
@@ -27,7 +27,7 @@ void Item::free() {
     _state = Picked;
 }
 
-void Item::SetPosition(double& x, double& y) {
+void Item::SetPosition(double x, double y) {
     _itemX = x, _itemY = y;
     _posX = _itemX - getWidth() * 0.5;
     _posY = _itemY - getHeight() * 0.5;
@@ -42,12 +42,12 @@ void Item::update() {
 
 void Item::renderL(SDL_Rect& camera) {
     if(_posX - camera.x < SCREEN_WIDTH / 2 && _posY - camera.y < SCREEN_HEIGHT) {
-        render(_posX - camera.x, _posY - camera.y);
+        render(_posX - camera.x, _posY - camera.y, _deg);
     }
 }
 void Item::renderR(SDL_Rect& camera) {
     if(_posX - camera.x > 0) {
-        render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y);
+        render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y, _deg);
     }  
 }
 

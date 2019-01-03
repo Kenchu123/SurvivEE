@@ -7,20 +7,20 @@ LoadedTexture::LoadedTexture() {
     free();
     _loadedTextures.clear();
     // set all texture to load
-    std::string names[40] = {
+    std::string names[41] = {
                     "DefaultPlayer", "GunPlayer", "MachineGunPlayer", "ShotGunPlayer",
                     "GunBullet", "MachineGunBullet", "ShotGunBullet",
                     "Tree", "house1", "Grass", "Rock", "Floor", 
                     "Title", 
                     "start", "tutorial", "option",
                     "MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "SubMachineGun",
-                    "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox",
+                    "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox","Helmet1Up", "Helmet2Up",
                     "loadingmenu",
                     "BloodStripBackground", "BloodStripWhite", "BloodStripRed",
                     "loadingmenu", "GunPlayerHelmet1", "GunPlayerHelmet2", "MachineGunPlayerHelmet1",
                     "MachineGunPlayerHelmet2", "ShotGunPlayerHelmet1", "ShotGunPlayerHelmet2"
                     };
-    for (int i = 0;i < 39; i++) _toLoadFileName.push_back(names[i]);
+    for (int i = 0;i < 41; i++) _toLoadFileName.push_back(names[i]);
 }
 
 LoadedTexture::~LoadedTexture() {

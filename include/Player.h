@@ -46,6 +46,7 @@ class Player : public Obj {
         void isShooted(Bullet*);
         double getPlayerX();
         double getPlayerY();
+        double getDeg();
         void update();
         // void update2(SDL_Rect&);
 
