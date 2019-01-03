@@ -68,6 +68,44 @@ void Item::isPicked(Player* player) {
     else if(_type == "AK47") {
         player->_playerType = MachineGunPlayer;   
     }
+    else if(_type == "Helmet1") {
+        switch(player -> _playerType) {
+            case GunPlayer : {
+                player -> _playerType = GunPlayerHelmet1;
+                player -> _state = alive;
+                break;
+            }
+            case MachineGunPlayer : {
+                player -> _playerType = MachineGunPlayerHelmet1;
+                player -> _state = alive;
+                break;
+            }
+            case ShotGunPlayer : {
+                player -> _playerType = ShotGunPlayerHelmet1;
+                player -> _state = alive;
+                break;
+            }
+        }
+    }
+    else if(_type == "Helmet2") {
+        switch(player -> _playerType) {
+            case GunPlayer : {
+                player -> _playerType = GunPlayerHelmet2;
+                player -> _state = alive;
+                break;
+            }
+            case MachineGunPlayer : {
+                player -> _playerType = MachineGunPlayerHelmet2;
+                player -> _state = alive;
+                break;
+            }
+            case ShotGunPlayer : {
+                player -> _playerType = ShotGunPlayerHelmet2;
+                player -> _state = alive;
+                break;
+            }
+        }
+    }
     player->loadTexture(typeToString(player->_playerType));
     player->_playerSize = getWidth() / 2;
     player->_rotCenter.x = player->_playerSize; player->_rotCenter.y = player->getHeight() - player->_playerSize;

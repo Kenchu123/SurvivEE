@@ -6,6 +6,14 @@ std::string typeToString(PlayerType& type) {
         case GunPlayer: return "GunPlayer";
         case MachineGunPlayer: return "MachineGunPlayer";
         case ShotGunPlayer: return "ShotGunPlayer";
+        case SubMachineGunPlayer: return "SubMachineGunPlayer";
+        case AK47Player: return "AK47Player";
+        case GunPlayerHelmet1: return "GunPlayerHelmet1";
+        case GunPlayerHelmet2: return "GunPlayerHelmet2";
+        case MachineGunPlayerHelmet1: return "MachineGunPlayerHelmet1";
+        case MachineGunPlayerHelmet2: return "MachineGunPlayerHelmet2";
+        case ShotGunPlayerHelmet1: return "ShotGunPlayerHelmet1";
+        case ShotGunPlayerHelmet2: return " ShotGunPlayerHelmet2";
         default: return "";
     }
 }

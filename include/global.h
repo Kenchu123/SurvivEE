@@ -26,7 +26,9 @@ enum GunType {
 };
 
 enum PlayerType {
-    DefaultPlayer, GunPlayer, MachineGunPlayer, ShotGunPlayer, SubMachineGunPlayer, AK47Player
+    DefaultPlayer, GunPlayer, MachineGunPlayer, ShotGunPlayer, SubMachineGunPlayer, AK47Player,
+    GunPlayerHelmet1, GunPlayerHelmet2, MachineGunPlayerHelmet1, MachineGunPlayerHelmet2,
+    ShotGunPlayerHelmet1, ShotGunPlayerHelmet2
 };
 
 enum ButtonType {
