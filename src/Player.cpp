@@ -44,12 +44,12 @@ void Player::handleKeyInput(SDL_Event& e) {
         switch (e.key.keysym.sym) {
             case SDLK_UP:{
                 _moveVel = 4;
-                loadedSound.playSound(1, "footstep4", -1); 
+                loadedSound.playSound(1, "footstep", -1); 
                 break;
             }
             case SDLK_DOWN:{
                 _moveVel = -4;
-                loadedSound.playSound(1, "footstep4", -1); 
+                loadedSound.playSound(1, "footstep", -1); 
                 break;
             }
             case SDLK_LEFT: _rotVel = -5; break;
@@ -131,28 +131,37 @@ bool Player::collideObstacle() {
 void Player::fire() {
     std::cout << "Fire called" << std::endl;
     Bullet* bullet = new Bullet(this, (GunType)_playerType);
-    switch (_playerType) {
-        case DefaultPlayer: break;
-        case GunPlayer: {
-            loadedSound.playSound(0, "DefaultGunShot", 0);
-            break;
-        }
-        case MachineGunPlayer: {
-            loadedSound.playSound(0, "MachineGunShot", 0);
-            break;
-        }
-        case ShotGunPlayer: {
-            loadedSound.playSound(0, "ShotGunShot", 0);
-            break;
-        }
-        case SubMachineGunPlayer: {
-            loadedSound.playSound(0, "MachineGunShot", 0);
-            break;
-        }
-        case AK47Player: {
-            loadedSound.playSound(0, "MachineGunShot", 0);
-            break;
-        }
+    // switch (_playerType) {
+    //     case DefaultPlayer: break;
+    //     case GunPlayer: {
+    //         loadedSound.playSound(0, "DefaultGunShot", 0);
+    //         break;
+    //     }
+    //     case MachineGunPlayer: {
+    //         loadedSound.playSound(0, "MachineGunShot", 0);
+    //         break;
+    //     }
+    //     case ShotGunPlayer: {
+    //         loadedSound.playSound(0, "ShotGunShot", 0);
+    //         break;
+    //     }
+    //     case SubMachineGunPlayer: {
+    //         loadedSound.playSound(0, "MachineGunShot", 0);
+    //         break;
+    //     }
+    //     case AK47Player: {
+    //         loadedSound.playSound(0, "MachineGunShot", 0);
+    //         break;
+    //     }
+    // }
+    if(_playerType == GunPlayer || _playerType == GunPlayerHelmet1 ||_playerType == GunPlayerHelmet2){
+        loadedSound.playSound(0, "DefaultGunShot", 0);
+    }
+    else if(_playerType == MachineGunPlayer || _playerType == MachineGunPlayerHelmet1 ||_playerType == MachineGunPlayerHelmet2 || _playerType == SubMachineGunPlayer || _playerType == AK47Player){
+        loadedSound.playSound(0, "MachineGunShot", 0);
+    }
+    else if(_playerType == ShotGunPlayer || _playerType == ShotGunPlayerHelmet1 || _playerType == ShotGunPlayerHelmet2){
+        loadedSound.playSound(0, "ShotGunShot", 0);
     }
     // bullets.emplace_back(this, (GunType)_playerType);
     bullets.push_back(bullet);
@@ -212,12 +221,12 @@ void Player2::handleKeyInput(SDL_Event& e) {
         switch (e.key.keysym.sym) {
             case SDLK_r:{
                 _moveVel = 4;
-                loadedSound.playSound(2, "footstep4", -1); 
+                loadedSound.playSound(2, "footstep", -1); 
                 break;
             }
             case SDLK_f:{
                 _moveVel = -4;
-                loadedSound.playSound(2, "footstep4", -1); 
+                loadedSound.playSound(2, "footstep", -1); 
                 break;
             }
             case SDLK_d: _rotVel = -5; break;

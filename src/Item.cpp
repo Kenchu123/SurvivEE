@@ -68,6 +68,62 @@ void Item::isPicked(Player* player) {
     else if(_type == "AK47") {
         player->_playerType = MachineGunPlayer;   
     }
+    else if(_type == "Helmet1") {
+        switch(player -> _playerType) {
+            case GunPlayer : {
+                player -> _playerType = GunPlayerHelmet1;
+                break;
+            }
+            case GunPlayerHelmet2 : {
+                player -> _playerType = GunPlayerHelmet1;
+                break;
+            }
+            case MachineGunPlayer : {
+                player -> _playerType = MachineGunPlayerHelmet1;
+                break;
+            }
+            case MachineGunPlayerHelmet2 : {
+                player -> _playerType = MachineGunPlayerHelmet1;
+                break;
+            }
+            case ShotGunPlayer : {
+                player -> _playerType = ShotGunPlayerHelmet1;
+                break;
+            }
+            case ShotGunPlayerHelmet2 : {
+                player -> _playerType = ShotGunPlayerHelmet1;
+                break;
+            }
+        }
+    }
+    else if(_type == "Helmet2") {
+        switch(player -> _playerType) {
+            case GunPlayer : {
+                player -> _playerType = GunPlayerHelmet2;
+                break;
+            }
+            case GunPlayerHelmet1 : {
+                player -> _playerType = GunPlayerHelmet2;
+                break;
+            }
+            case MachineGunPlayer : {
+                player -> _playerType = MachineGunPlayerHelmet2;
+                break;
+            }
+            case MachineGunPlayerHelmet1 : {
+                player -> _playerType = MachineGunPlayerHelmet2;
+                break;
+            }
+            case ShotGunPlayer : {
+                player -> _playerType = ShotGunPlayerHelmet2;
+                break;
+            }
+            case ShotGunPlayerHelmet1 : {
+                player -> _playerType = ShotGunPlayerHelmet2;
+                break;
+            }
+        }
+    }
     player->loadTexture(typeToString(player->_playerType));
     player->_playerSize = getWidth() / 2;
     player->_rotCenter.x = player->_playerSize; player->_rotCenter.y = player->getHeight() - player->_playerSize;
