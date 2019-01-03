@@ -37,7 +37,8 @@ void Item::update(SDL_Rect& camera) {
     if (_state == unPicked) {
         if(_posX - camera.x < SCREEN_WIDTH / 2 && _posY - camera.y < SCREEN_HEIGHT) {
             render(_posX - camera.x, _posY - camera.y);
-    }    }
+        }    
+    }
     return;
 }
 
@@ -45,7 +46,8 @@ void Item::update2(SDL_Rect& camera) {
     if (_state == unPicked) {
         if(_posX - camera.x > 0) {
             render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y);
-    }    }
+        }    
+    }
     return;
 }
 
@@ -67,5 +69,7 @@ void Item::isPicked(Player* player) {
         player->_playerType = MachineGunPlayer;   
     }
     player->loadTexture(typeToString(player->_playerType));
+    player->_playerSize = getWidth() / 2;
+    player->_rotCenter.x = player->_playerSize; player->_rotCenter.y = player->getHeight() - player->_playerSize;
     free();
 }

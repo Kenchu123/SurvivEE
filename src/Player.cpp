@@ -31,7 +31,7 @@ void Player::setInitialPosition(int x, int y) {
     _playerSize = getWidth() / 2;
     _playerX = _posX + _playerSize;
     _playerY = _posY + getHeight() - _playerSize;
-    _rotCenter.x = _playerSize; _rotCenter.y = getHeight() - _playerSize;;
+    _rotCenter.x = _playerSize; _rotCenter.y = getHeight() - _playerSize;
 }
 
 // player handle key input
