@@ -72,17 +72,26 @@ void Item::isPicked(Player* player) {
         switch(player -> _playerType) {
             case GunPlayer : {
                 player -> _playerType = GunPlayerHelmet1;
-                player -> _state = alive;
+                break;
+            }
+            case GunPlayerHelmet2 : {
+                player -> _playerType = GunPlayerHelmet1;
                 break;
             }
             case MachineGunPlayer : {
                 player -> _playerType = MachineGunPlayerHelmet1;
-                player -> _state = alive;
+                break;
+            }
+            case MachineGunPlayerHelmet2 : {
+                player -> _playerType = MachineGunPlayerHelmet1;
                 break;
             }
             case ShotGunPlayer : {
                 player -> _playerType = ShotGunPlayerHelmet1;
-                player -> _state = alive;
+                break;
+            }
+            case ShotGunPlayerHelmet2 : {
+                player -> _playerType = ShotGunPlayerHelmet1;
                 break;
             }
         }
@@ -91,17 +100,26 @@ void Item::isPicked(Player* player) {
         switch(player -> _playerType) {
             case GunPlayer : {
                 player -> _playerType = GunPlayerHelmet2;
-                player -> _state = alive;
+                break;
+            }
+            case GunPlayerHelmet1 : {
+                player -> _playerType = GunPlayerHelmet2;
                 break;
             }
             case MachineGunPlayer : {
                 player -> _playerType = MachineGunPlayerHelmet2;
-                player -> _state = alive;
+                break;
+            }
+            case MachineGunPlayerHelmet1 : {
+                player -> _playerType = MachineGunPlayerHelmet2;
                 break;
             }
             case ShotGunPlayer : {
                 player -> _playerType = ShotGunPlayerHelmet2;
-                player -> _state = alive;
+                break;
+            }
+            case ShotGunPlayerHelmet1 : {
+                player -> _playerType = ShotGunPlayerHelmet2;
                 break;
             }
         }
