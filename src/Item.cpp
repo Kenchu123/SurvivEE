@@ -33,22 +33,22 @@ void Item::SetPosition(double& x, double& y) {
     _posY = _itemY - getHeight() * 0.5;
 }
 
-void Item::update(SDL_Rect& camera) {
+void Item::update() {
     if (_state == unPicked) {
-        if(_posX - camera.x < SCREEN_WIDTH / 2 && _posY - camera.y < SCREEN_HEIGHT) {
-            render(_posX - camera.x, _posY - camera.y);
-        }    
+        //
     }
     return;
 }
 
-void Item::update2(SDL_Rect& camera) {
-    if (_state == unPicked) {
-        if(_posX - camera.x > 0) {
-            render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y);
-        }    
+void Item::renderL(SDL_Rect& camera) {
+    if(_posX - camera.x < SCREEN_WIDTH / 2 && _posY - camera.y < SCREEN_HEIGHT) {
+        render(_posX - camera.x, _posY - camera.y);
     }
-    return;
+}
+void Item::renderR(SDL_Rect& camera) {
+    if(_posX - camera.x > 0) {
+        render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y);
+    }  
 }
 
 void Item::isPicked(Player* player) {

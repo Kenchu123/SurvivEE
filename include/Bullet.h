@@ -29,8 +29,10 @@ class Bullet: public Obj {
         Bullet() {};
         Bullet(Player*, GunType);
         ~Bullet(); 
-        void update(SDL_Rect& camera);
-        void update2(SDL_Rect& camera);
+        void update();
+        // void update2(SDL_Rect& camera);
+        void renderL(SDL_Rect&);
+        void renderR(SDL_Rect&);
 };
 
 extern std::vector<Bullet*> bullets;

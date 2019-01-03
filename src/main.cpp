@@ -24,7 +24,7 @@ GameState gameState;
 Obj background, loadingmenu;
 // camera
 SDL_Rect camera = {0 , 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
-SDL_Rect camera2 = {0, 0, SCREEN_WIDTH /2, SCREEN_HEIGHT};
+SDL_Rect camera2 = {0, SCREEN_WIDTH, SCREEN_WIDTH /2, SCREEN_HEIGHT};
 // tree
 std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "SubMachineGun",
                     "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox"};
@@ -147,11 +147,8 @@ void playing(SDL_Event& e) {
     background.render(SCREEN_WIDTH / 2, 0, 0.0, NULL, &camera2);
 
     //Render update
-    players[1]->update(camera); players[1]->update2(camera2);
-    players[0]->update(camera); players[0]->update2(camera2);
-    for (int i = 0;i < bullets.size(); i++) {
-        bullets[i]->update(camera);
-        bullets[i]->update2(camera2);
+    for (int i = 0;i < players.size(); i++) {
+        players[i]->update();
     }
 
     //Center the camera over the Player
@@ -170,13 +167,27 @@ void playing(SDL_Event& e) {
     if( camera2.x > LEVEL_WIDTH - camera2.w ) {camera2.x = LEVEL_WIDTH - camera2.w;}
     if( camera2.y > LEVEL_HEIGHT - camera2.h ) {camera2.y = LEVEL_HEIGHT - camera2.h;}
 
+    for (int i = 0;i < players.size(); i++) {
+        players[i]->renderL(camera);
+        players[i]->renderR(camera2);
+    }
+
+    for (int i = 0;i < bullets.size(); i++) {
+        bullets[i]->update();
+        bullets[i]->renderL(camera);
+        bullets[i]->renderR(camera2);
+    }
+
     // Render test item
     for (int i = 0; i < items.size(); i++) {
-        items[i]->update(camera);
-        items[i]->update2(camera2);
+        // items[i]->update();
+        items[i]->renderL(camera);
+        items[i]->renderR(camera2);
     }
     for(int i = 0; i < obstacles.size(); i++) {
-        obstacles[i]->update(camera);
+        // obstacles[i]->update();
+        obstacles[i]->renderL(camera);
+        obstacles[i]->renderR(camera2);
     }
 
     // Test for draw Line

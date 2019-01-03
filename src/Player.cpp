@@ -168,7 +168,7 @@ void Player::isShooted(Bullet* bullet) {
 // run rotate, move render 
 // todo collectItem
 // todo set State
-void Player::update(SDL_Rect& camera) {
+void Player::update() {
     if (_state == dead) {
         // todo destroy self
         free();
@@ -177,25 +177,20 @@ void Player::update(SDL_Rect& camera) {
     move();
     rotate();
     pickItem();
-    if(_posX - camera.x < SCREEN_WIDTH / 2 && _posY - camera.y < SCREEN_HEIGHT) {
-        render(_posX - camera.x, _posY - camera.y, _deg, &_rotCenter);
-    }
+    
     // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
 }
 
-void Player::update2(SDL_Rect& camera) {
-    if (_state == dead) {
-        // todo destroy self
-        free();
-        return;
+void Player::renderL(SDL_Rect& camera) {
+    if(_posX - camera.x < SCREEN_WIDTH / 2 && _posY - camera.y < SCREEN_HEIGHT) {
+        render(_posX - camera.x, _posY - camera.y, _deg, &_rotCenter);
     }
-    move();
-    rotate();
-    pickItem();
+}
+
+void Player::renderR(SDL_Rect& camera) {
     if(_posX - camera.x > 0) {
         render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y, _deg, &_rotCenter);
     }
-    // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
 }
 
 double Player::getPlayerX() {return _playerX;};

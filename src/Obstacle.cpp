@@ -22,9 +22,20 @@ Obstacle::~Obstacle() {
     free();
 }
 
-void Obstacle::update(SDL_Rect& camera) {
-    render(_posX - camera.x, _posY- camera.y);
+void Obstacle::update() {
+    //
     return;
+}
+
+void Obstacle::renderL(SDL_Rect& camera) {
+    if(_posX - camera.x < SCREEN_WIDTH / 2 && _posY - camera.y < SCREEN_HEIGHT) {
+        render(_posX - camera.x, _posY - camera.y);
+    }
+}
+void Obstacle::renderR(SDL_Rect& camera) {
+    if(_posX - camera.x > 0) {
+        render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y);
+    }
 }
 
 

@@ -13,7 +13,9 @@ class Obstacle : public Obj {
     friend class Player;
     Obstacle(std::string, double, double);
     ~Obstacle();
-    void update(SDL_Rect& camera);
+    void update();
+    void renderL(SDL_Rect&);
+    void renderR(SDL_Rect&);
 };
 
 extern std::vector<Obstacle*> obstacles;

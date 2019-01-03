@@ -41,12 +41,15 @@ class Player : public Obj {
         bool collideOtherPlayer();
         bool collideObstacle();
         void pickItem();
-        void update(SDL_Rect&);
-        void update2(SDL_Rect&);
         void fire();
         void isShooted(Bullet*);
         double getPlayerX();
         double getPlayerY();
+        void update();
+        // void update2(SDL_Rect&);
+
+        void renderL(SDL_Rect&);
+        void renderR(SDL_Rect&);
 };
 
 class Player2 : public Player {

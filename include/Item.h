@@ -18,12 +18,14 @@ class Item: public Obj {
         Item(std::string, double, double); // type x, y
         ~Item();
         void SetPosition(double&, double&);
-        void update(SDL_Rect&);
-        void update2(SDL_Rect&);
+        // void update2(SDL_Rect&);
         virtual void isPicked(Player*);
         double getItemX() { return _itemX; }
         double getItemY() { return _itemY; }
         void free();
+        void update();
+        void renderL(SDL_Rect&);
+        void renderR(SDL_Rect&);
 };
 
 class Helmet1: public Item {

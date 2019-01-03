@@ -107,7 +107,7 @@ void Bullet::_endDistance() {
     }
 }
 
-void Bullet::update(SDL_Rect& camera) {
+void Bullet::update() {
     if (_state == shooted) {
         // todo destroy self
         free();
@@ -118,25 +118,31 @@ void Bullet::update(SDL_Rect& camera) {
     SDL_Point tmp;
     tmp.x = 0;
     tmp.y = 0;
+}
+
+void Bullet::renderL(SDL_Rect& camera) {
     if(_posX - camera.x < SCREEN_WIDTH / 2 && _posY - camera.y < SCREEN_HEIGHT) {
+        SDL_Point tmp = {0, 0};
         render(_posX - camera.x, _posY - camera.y, _deg, &tmp);
     }
 }
-
-void Bullet::update2(SDL_Rect& camera) {
-    if (_state == shooted) {
-        // todo destroy self
-        free();
-        return;
-    }
-    _move();
-    // set rotate point to make it's direction correct
-    SDL_Point tmp;
-    tmp.x = 0;
-    tmp.y = 0;
+void Bullet::renderR(SDL_Rect& camera) {
     if(_posX - camera.x > 0) {
+        SDL_Point tmp = {0, 0};
         render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y, _deg, &tmp);
     }
 }
+
+// void Bullet::update2(SDL_Rect& camera) {
+//     if (_state == shooted) {
+//         // todo destroy self
+//         free();
+//         return;
+//     }
+//     _move();
+//     // set rotate point to make it's direction correct
+
+//     
+// }
 
 
