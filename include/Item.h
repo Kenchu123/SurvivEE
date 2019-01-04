@@ -2,11 +2,12 @@
 #define ITEM_H
 
 #include "Obj.h"
-#include "Player.h"
 
 enum ItemState {
     unPicked, Picked
 };
+
+class Player;
 
 class Item: public Obj {
     protected:
@@ -20,6 +21,7 @@ class Item: public Obj {
         Item(ItemType, double, double); // type x, y
         ~Item();
         void SetPosition(double, double);
+        void SetAngle(double);
         void isPicked(Player*);
         double getItemX() { return _itemX; }
         double getItemY() { return _itemY; }

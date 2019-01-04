@@ -4,6 +4,7 @@
 #include "Obj.h"
 
 class Bullet;
+class Item;
 
 enum PlayerState {
     alive, dead
@@ -26,6 +27,7 @@ class Player : public Obj {
         bool _bombEquipped;
         double _hp; // HP
         double _defend; // defend coefficient
+        Item *helmet, *gun, *bomb;
     public:
         friend class Bullet;
         friend class Item;

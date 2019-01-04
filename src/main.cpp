@@ -24,7 +24,7 @@ GameState gameState;
 Obj background, StartMenu, loadingmenu;
 // camera
 SDL_Rect camera = {0 , 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
-SDL_Rect camera2 = {0, SCREEN_WIDTH, SCREEN_WIDTH /2, SCREEN_HEIGHT};
+SDL_Rect camera2 = {0, SCREEN_WIDTH, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
 // tree
 std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "FireGun",
                     "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox"};
@@ -38,8 +38,6 @@ std::string ObstacleName[28] = {"Tree", "Rock1", "Rock2", "Rock3",
                             "Tree", "Rock1", "Rock2", "Rock3",
                             "Tree", "Rock1", "Rock2", "Rock3",
                             "Tree", "Rock1", "Rock2", "Rock3"};
-// test for Helmet
-Item helmet1;
 
 int main(int argc, char* args[]) {
     try {
@@ -175,9 +173,6 @@ void playing(SDL_Event& e) {
     for (int i = 0;i < players.size(); i++) {
         players[i]->renderL(camera);
         players[i]->renderR(camera2);
-        helmet1.SetPosition(players[i]->getPlayerX(), players[i]->getPlayerY());
-        helmet1.renderL(camera);
-        helmet1.renderR(camera2);
     }
 
     for (int i = 0;i < bullets.size(); i++) {
@@ -248,9 +243,6 @@ void loadMedia() {
     background.loadTexture("Grass");
     StartMenu.loadTexture("StartMenu");
     loadingmenu.loadTexture("loadingmenu");
-    // load helmet1
-    helmet1.loadTexture("Helmet1Up");
-    helmet1.resize(40, 40);
 	// players[0].loadTexture("GunPlayer");
     // players[1].loadTexture("MachineGunPlayer");
 }
