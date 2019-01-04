@@ -1,7 +1,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Utility.h"
-#include "Obstacle.h"
+#include "rObstacle.h"
 #include "Item.h"
 #include "Timer.h"
 
@@ -85,7 +85,7 @@ void Player::move() {
     _playerX += _dirX * _moveVel;
     // check collide with wall left and right
 
-    if (collideWall() || collideOtherPlayer() || collideObstacle()) {
+    if (collideWall() || collideOtherPlayer() || colliderObstacle()) {
         _playerX -= _dirX * _moveVel;
         _posX -= _dirX * _moveVel;
     }
@@ -94,7 +94,7 @@ void Player::move() {
     _playerY += _dirY * _moveVel;
 
     // check collide with wall up and down
-    if (collideWall() || collideOtherPlayer() || collideObstacle()) {
+    if (collideWall() || collideOtherPlayer() || colliderObstacle()) {
         _posY -= _dirY * _moveVel;
         _playerY -= _dirY * _moveVel;
     }
@@ -129,9 +129,9 @@ bool Player::collideOtherPlayer() {
     return 0;
 }
 
-bool Player::collideObstacle() {
-    for(int i = 0; i < obstacles.size(); i++) {
-        if(sqrt(pow(_playerX - obstacles[i]->_obstacleX, 2) + pow(_playerY - obstacles[i]->_obstacleY, 2)) < _playerSize + obstacles[i]->getWidth() / 2) return 1;
+bool Player::colliderObstacle() {
+    for(int i = 0; i < robstacles.size(); i++) {
+        if(sqrt(pow(_playerX - robstacles[i]->_obstacleX, 2) + pow(_playerY - robstacles[i]->_obstacleY, 2)) < _playerSize + robstacles[i]->getWidth() / 2) return 1;
     }
     return 0;
 }

@@ -6,7 +6,7 @@
 #include "LoadMedia.h"
 #include "Timer.h"
 #include "button.h"
-#include "Obstacle.h"
+#include "rObstacle.h"
 #include "Item.h"
 
 SDL_Window* gWindow = NULL;
@@ -52,8 +52,8 @@ int main(int argc, char* args[]) {
         items.push_back(tmp);
     }
     for(int i = 0; i < 28; i++) {
-        Obstacle* tmp2 = new Obstacle(ObstacleName[i], rand() % 20 * 100, rand() % 20 * 100);
-        obstacles.push_back(tmp2);
+        rObstacle* tmp2 = new rObstacle(ObstacleName[i], rand() % 20 * 100, rand() % 20 * 100);
+        robstacles.push_back(tmp2);
     }
     //Event handler
     SDL_Event e;
@@ -143,7 +143,9 @@ void playing(SDL_Event& e) {
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
         if(e.type == SDL_QUIT) { gameState = Quit; break; }
-        else if(players[0]->getState() == dead || players[1]->getState() == dead) {gameState = GameOver; break; }
+        else if(players[0]->getState() == dead || players[1]->getState() == dead) {
+            gameState = GameOver; 
+            break; }
         players[0]->handleKeyInput(e);
         players[1]->handleKeyInput(e);
     }
@@ -193,10 +195,10 @@ void playing(SDL_Event& e) {
         items[i]->renderL(camera);
         items[i]->renderR(camera2);
     }
-    for(int i = 0; i < obstacles.size(); i++) {
+    for(int i = 0; i < robstacles.size(); i++) {
         // obstacles[i]->update();
-        obstacles[i]->renderL(camera);
-        obstacles[i]->renderR(camera2);
+        robstacles[i]->renderL(camera);
+        robstacles[i]->renderR(camera2);
     }
 
     // render Bloodstrip and windows

@@ -23,7 +23,7 @@ class Bullet: public Obj {
         void _move();
         void _collideWall();
         void _collideOtherPlayer();
-        void _collideObstacle();
+        void _colliderObstacle();
         void _endDistance();
     public:
         int lethality; // hurting rate
