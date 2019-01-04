@@ -65,6 +65,7 @@ int main(int argc, char* args[]) {
             case Menu: menu(e); break;
             case Loading: gameLoad(e); break;
             case Playing: playing(e); break;
+            case GameOver: gameover(e); break;
             default: 
                 gameState = Quit;
                 break;
@@ -79,7 +80,11 @@ void menu(SDL_Event& e) {
     //Handle events on queue
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
-        if (startButton->get_triggered() == true) { gameState = Loading; break; }
+        if (startButton->get_triggered() == true) { 
+            gameState = Loading; 
+            startButton->set_triggered(false);
+            break; 
+            }
         else if (e.type == SDL_QUIT) { gameState = Quit; break; }
         startButton->handleEvent(&e); 
         // tutorial.handleEvent(&e); option.handleEvent(&e);
@@ -138,6 +143,7 @@ void playing(SDL_Event& e) {
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
         if(e.type == SDL_QUIT) { gameState = Quit; break; }
+        else if(players[0]->getState() == dead || players[1]->getState() == dead) {gameState = GameOver; break; }
         players[0]->handleKeyInput(e);
         players[1]->handleKeyInput(e);
     }
@@ -222,6 +228,39 @@ void playing(SDL_Event& e) {
         //Wait remaining time
         SDL_Delay( SCREEN_TICK_PER_FRAME - frameTicks );
     }
+}
+
+void gameover(SDL_Event& e) {
+        //Handle events on queue
+    while( SDL_PollEvent( &e ) != 0 ) {
+        //User requests quit
+        if (startButton->get_triggered() == true) { 
+            gameState = Loading; 
+            startButton->set_triggered(false);
+            break; 
+            }
+        else if (e.type == SDL_QUIT) { gameState = Quit; break; }
+        startButton->handleEvent(&e); 
+        // tutorial.handleEvent(&e); option.handleEvent(&e);
+    }
+    //Clear screen
+    SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
+    SDL_RenderClear( gRenderer );
+
+    // resize
+    background.resize(LEVEL_WIDTH, LEVEL_HEIGHT);
+    // Render background
+    background.render(0, 0);
+    // Render StartMenu
+    StartMenu.render(0, 0); 
+    StartMenu.resize(1200, 800);
+    // Render Button
+    startButton->update(); 
+    startButton->resize(300, 120);
+    // tutorial.update(); option.update();
+
+    //Update screen
+    SDL_RenderPresent( gRenderer );
 }
 
 void init() {

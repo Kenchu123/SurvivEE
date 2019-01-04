@@ -7,6 +7,7 @@ void close();
 void menu(SDL_Event&);
 void playing(SDL_Event&);
 void gameLoad(SDL_Event&);
+void gameover(SDL_Event&);
 
 struct Vec {
     int x, y;

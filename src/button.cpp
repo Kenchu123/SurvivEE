@@ -38,6 +38,9 @@ void Button::handleEvent(SDL_Event *e) {
 	}
 }
 
+void Button::set_triggered(bool state) {
+    triggered = state;
+}
 bool Button::get_triggered() {
     return triggered;
 }

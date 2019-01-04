@@ -14,6 +14,7 @@ class Button : public Obj {
         ~Button();
         void handleEvent(SDL_Event *e);
         void setPos(int x, int y);
+        void set_triggered(bool);
         bool get_triggered();
         void update();
 };
