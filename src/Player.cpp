@@ -227,6 +227,10 @@ double Player::getPlayerX() { return _playerX; }
 double Player::getPlayerY() { return _playerY; }
 double Player::getDeg() { return _deg; }
 
+PlayerState Player::getState() {
+    return _state;
+}
+
 Player2::Player2(std::string id): Player(id) {}
 
 Player2::~Player2() {

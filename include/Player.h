@@ -53,6 +53,7 @@ class Player : public Obj {
 
         void renderL(SDL_Rect&);
         void renderR(SDL_Rect&);
+        PlayerState getState();
 };
 
 class Player2 : public Player {
