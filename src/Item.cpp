@@ -3,12 +3,12 @@
 
 std::vector<Item*> items;
 
-Item::Item(): Obj(), _type(""), _itemX(0), _itemY(0), _deg(0), _state(unPicked) {}
+Item::Item(): Obj(), _type(Default), _itemX(0), _itemY(0), _deg(0), _state(unPicked) {}
 
-Item::Item(std::string s, double x, double y):
-    Obj(), _type(s), _itemX(x), _itemY(y), _deg(0), _state(unPicked)
+Item::Item(ItemType type, double x, double y):
+    Obj(), _type(type), _itemX(x), _itemY(y), _deg(0), _state(unPicked)
 {
-    loadTexture(_type);
+    loadTexture(typeToString(type));
     resize(80, 80);
     _posX = _itemX - getWidth() * 0.5;
     _posY = _itemY - getHeight() * 0.5;
@@ -21,7 +21,7 @@ Item::~Item() {
 
 void Item::free() {
     _objTexture = NULL;
-    _type = "";
+    _type = Default;
     _objHeight = 0, _objWidth = 0;
     _itemX = 0, _itemY = 0;
     _state = Picked;
@@ -53,77 +53,21 @@ void Item::renderR(SDL_Rect& camera) {
 
 void Item::isPicked(Player* player) {
     _state = Picked;
-    if(_type == "Gun") {
-        player->_playerType = GunPlayer;
-    }
-    else if(_type == "MachineGun") {
-        player->_playerType = MachineGunPlayer;
-    }
-    else if(_type == "ShotGun") {
-        player->_playerType = ShotGunPlayer;
-    }
-    else if(_type == "SubMachineGun") {
-        player->_playerType = MachineGunPlayer;
-    }
-    else if(_type == "AK47") {
-        player->_playerType = MachineGunPlayer;   
-    }
-    else if(_type == "Helmet1") {
-        switch(player -> _playerType) {
-            case GunPlayer : {
-                player -> _playerType = GunPlayerHelmet1;
-                break;
-            }
-            case GunPlayerHelmet2 : {
-                player -> _playerType = GunPlayerHelmet1;
-                break;
-            }
-            case MachineGunPlayer : {
-                player -> _playerType = MachineGunPlayerHelmet1;
-                break;
-            }
-            case MachineGunPlayerHelmet2 : {
-                player -> _playerType = MachineGunPlayerHelmet1;
-                break;
-            }
-            case ShotGunPlayer : {
-                player -> _playerType = ShotGunPlayerHelmet1;
-                break;
-            }
-            case ShotGunPlayerHelmet2 : {
-                player -> _playerType = ShotGunPlayerHelmet1;
-                break;
-            }
+    switch(_type) {
+        case Gun: player->_playerType = GunPlayer; break;
+        case MachineGun: player->_playerType = MachineGunPlayer; break;
+        case ShotGun: player->_playerType = ShotGunPlayer; break;
+        case SubMachineGun: player->_playerType = MachineGunPlayer; break;
+        case AK47: player->_playerType = MachineGunPlayer; break;
+        case Bandage: {
+            if(player->_hp + 200 >= 500) player->_hp = 500;
+            else player->_hp += 200; 
+            break;
         }
+        case LifeBox: player->_hp = 500; break;
+        default: break;
     }
-    else if(_type == "Helmet2") {
-        switch(player -> _playerType) {
-            case GunPlayer : {
-                player -> _playerType = GunPlayerHelmet2;
-                break;
-            }
-            case GunPlayerHelmet1 : {
-                player -> _playerType = GunPlayerHelmet2;
-                break;
-            }
-            case MachineGunPlayer : {
-                player -> _playerType = MachineGunPlayerHelmet2;
-                break;
-            }
-            case MachineGunPlayerHelmet1 : {
-                player -> _playerType = MachineGunPlayerHelmet2;
-                break;
-            }
-            case ShotGunPlayer : {
-                player -> _playerType = ShotGunPlayerHelmet2;
-                break;
-            }
-            case ShotGunPlayerHelmet1 : {
-                player -> _playerType = ShotGunPlayerHelmet2;
-                break;
-            }
-        }
-    }
+
     player->loadTexture(typeToString(player->_playerType));
     player->_playerSize = getWidth() / 2;
     player->_rotCenter.x = player->_playerSize; player->_rotCenter.y = player->getHeight() - player->_playerSize;

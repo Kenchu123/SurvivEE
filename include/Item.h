@@ -10,13 +10,14 @@ enum ItemState {
 
 class Item: public Obj {
     protected:
-        std::string _type;
+        // std::string _type;
+        ItemType _type;
         ItemState _state; // unPicked and Picked
         double _itemX, _itemY; // center of the item
         double _deg;
     public:
         Item();
-        Item(std::string, double, double); // type x, y
+        Item(ItemType, double, double); // type x, y
         ~Item();
         void SetPosition(double, double);
         void isPicked(Player*);

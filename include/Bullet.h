@@ -28,7 +28,7 @@ class Bullet: public Obj {
     public:
         int lethality; // hurting rate
         Bullet() {};
-        Bullet(Player*, GunType);
+        Bullet(Player*, ItemType);
         ~Bullet(); 
         void update();
         // void update2(SDL_Rect& camera);

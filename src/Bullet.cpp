@@ -4,7 +4,7 @@
 
 std::vector<Bullet*> bullets;
 
-Bullet::Bullet(Player* from, GunType guntype):
+Bullet::Bullet(Player* from, ItemType guntype):
     Obj(),
     _fromID(from->_playerID),
     _dirX(from->_dirX), 

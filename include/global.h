@@ -21,26 +21,23 @@ enum GameState {
     Quit
 };
 
-enum GunType {
-    Default, Gun, MachineGun, ShotGun, SubMachineGun, AK47
-};
+// enum GunType {
+//     Default, Gun, MachineGun, ShotGun, SubMachineGun, AK47
+// };
 
 enum PlayerType {
-    DefaultPlayer, GunPlayer, MachineGunPlayer, ShotGunPlayer, SubMachineGunPlayer, AK47Player,
-    GunPlayerHelmet1, GunPlayerHelmet2, MachineGunPlayerHelmet1, MachineGunPlayerHelmet2,
-    ShotGunPlayerHelmet1, ShotGunPlayerHelmet2
+    DefaultPlayer, GunPlayer, MachineGunPlayer, ShotGunPlayer, SubMachineGunPlayer, AK47Player
 };
 
 enum ButtonType {
     Start, Tutorial, Option
 };
 
-// enum ItemType {
-//     BodyArmor1, BodyArmor2, Helmet1, Helmet2, 
-//     Bandage, LifeBox, 
-//     Gun, ShotGun, MachineGun, SubMachineGun, AK47,
-//     Default
-// };
+enum ItemType {
+    Default, Gun, MachineGun, ShotGun, SubMachineGun, AK47, 
+    BodyArmor1, BodyArmor2, Helmet1, Helmet2, 
+    Bandage, LifeBox
+};
 
 enum ObstacleType {
     Tree, Rock1, Rock2, Rock3

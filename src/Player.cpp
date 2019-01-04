@@ -130,38 +130,29 @@ bool Player::collideObstacle() {
 
 void Player::fire() {
     std::cout << "Fire called" << std::endl;
-    Bullet* bullet = new Bullet(this, (GunType)_playerType);
-    // switch (_playerType) {
-    //     case DefaultPlayer: break;
-    //     case GunPlayer: {
-    //         loadedSound.playSound(0, "DefaultGunShot", 0);
-    //         break;
-    //     }
-    //     case MachineGunPlayer: {
-    //         loadedSound.playSound(0, "MachineGunShot", 0);
-    //         break;
-    //     }
-    //     case ShotGunPlayer: {
-    //         loadedSound.playSound(0, "ShotGunShot", 0);
-    //         break;
-    //     }
-    //     case SubMachineGunPlayer: {
-    //         loadedSound.playSound(0, "MachineGunShot", 0);
-    //         break;
-    //     }
-    //     case AK47Player: {
-    //         loadedSound.playSound(0, "MachineGunShot", 0);
-    //         break;
-    //     }
-    // }
-    if(_playerType == GunPlayer || _playerType == GunPlayerHelmet1 ||_playerType == GunPlayerHelmet2){
-        loadedSound.playSound(0, "DefaultGunShot", 0);
-    }
-    else if(_playerType == MachineGunPlayer || _playerType == MachineGunPlayerHelmet1 ||_playerType == MachineGunPlayerHelmet2 || _playerType == SubMachineGunPlayer || _playerType == AK47Player){
-        loadedSound.playSound(0, "MachineGunShot", 0);
-    }
-    else if(_playerType == ShotGunPlayer || _playerType == ShotGunPlayerHelmet1 || _playerType == ShotGunPlayerHelmet2){
-        loadedSound.playSound(0, "ShotGunShot", 0);
+    Bullet* bullet = new Bullet(this, (ItemType)_playerType);
+    switch(_playerType) {
+        case GunPlayer: {
+            loadedSound.playSound(0, "DefaultGunShot", 0);
+            break;
+        }
+        case MachineGunPlayer: {
+            loadedSound.playSound(0, "MachineGunShot", 0);
+            break;
+        }
+        case ShotGunPlayer: {
+            loadedSound.playSound(0, "ShotGunShot", 0);
+            break;
+        }
+        case SubMachineGunPlayer: {
+            loadedSound.playSound(0, "MachineGunShot", 0);
+            break;
+        }
+        case AK47Player: {
+            loadedSound.playSound(0, "MachineGunShot", 0);
+            break;
+        }
+        default: break;
     }
     // bullets.emplace_back(this, (GunType)_playerType);
     bullets.push_back(bullet);

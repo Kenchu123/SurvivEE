@@ -47,7 +47,7 @@ int main(int argc, char* args[]) {
         printf("Error: %s\n", message);
     }
     for (int i = 0;i < 12; i++) {
-        Item* tmp = new Item(itemName[i], 200.0, i * 60);
+        Item* tmp = new Item(StringTotype(itemName[i]), 200.0, i * 100);
         items.push_back(tmp);
     }
     for(int i = 0; i < 16; i++) {
