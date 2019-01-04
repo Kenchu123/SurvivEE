@@ -17,7 +17,10 @@ Player::Player(std::string id):
     _state(alive),
     _bombEquipped(false),
     _hp(500),
-    _defend(1)
+    _defend(1),
+    helmet(NULL),
+    gun(NULL),
+    bomb(NULL)
 {
     loadTexture(typeToString(_playerType));
     std::cout << typeToString(_playerType) << std::endl; 
@@ -28,6 +31,8 @@ Player::Player(std::string id):
 Player::~Player() {
     free();   
     for (int i = 0;i < 2; i++) BloodStrip[i].free();
+    helmet->free(), gun->free(), bomb->free();
+    helmet = NULL, gun = NULL, bomb = NULL;
 }
 
 // set player initial postion
@@ -109,7 +114,6 @@ void Player::pickItem() {
     for (int i = 0; i < items.size(); i++) {
         if (sqrt(pow(_playerX - items[i]->getItemX(), 2) + pow(_playerY - items[i]->getItemY(), 2)) < _playerSize + items[i]->getWidth() / 2) {
             items[i]->isPicked(this);
-            // todo player affect
             // todo remove item from items
         }
     }
@@ -212,14 +216,26 @@ void Player::update() {
 }
 
 void Player::renderL(SDL_Rect& camera) {
+    if (_state == dead) return;
     if(_posX - camera.x < SCREEN_WIDTH / 2 && _posY - camera.y < SCREEN_HEIGHT) {
         render(_posX - camera.x, _posY - camera.y, _deg, &_rotCenter);
+        if (helmet != NULL) {
+            helmet->SetPosition(_playerX, _playerY);
+            helmet->SetAngle(_deg);
+            helmet->renderL(camera);
+        }
     }
 }
 
 void Player::renderR(SDL_Rect& camera) {
+    if (_state == dead) return;
     if(_posX - camera.x > 0) {
         render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y, _deg, &_rotCenter);
+        if (helmet != NULL) {
+            helmet->SetPosition(_playerX, _playerY);
+            helmet->SetAngle(_deg);
+            helmet->renderR(camera);
+        }
     }
 }
 

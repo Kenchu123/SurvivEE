@@ -1,4 +1,5 @@
 #include "Item.h"
+#include "Player.h"
 #include "Utility.h"
 
 std::vector<Item*> items;
@@ -33,6 +34,10 @@ void Item::SetPosition(double x, double y) {
     _posY = _itemY - getHeight() * 0.5;
 }
 
+void Item::SetAngle(double angle) {
+    _deg = angle;
+}
+
 void Item::update() {
     if (_state == unPicked) {
         //
@@ -60,10 +65,20 @@ void Item::isPicked(Player* player) {
         case FireGun: player->changeSkin(FireGunPlayer); break;
         case AK47: player->changeSkin(AK47Player); break;
         case Bomb: player->_bombEquipped = true; break;
-        case BodyArmor1: player->_defend *= 0.8; break;
+        case BodyArmor1: player->_defend *= 0.9; break;
         case BodyArmor2: player->_defend *= 0.8; break;
-        case Helmet1: player->_defend *= 0.9; break;
-        case Helmet2: player->_defend *= 0.9; break;
+        case Helmet1: 
+            player->_defend *= 0.9; 
+            player->helmet = new Item;
+            player->helmet->loadTexture("Helmet1Up"); 
+            player->helmet->resize(50, 50); 
+            break;
+        case Helmet2: 
+            player->_defend *= 0.8; 
+            player->helmet = new Item;
+            player->helmet->loadTexture("Helmet2Up"); 
+            player->helmet->resize(50, 50); 
+            break;
         case Bandage: player->_hp = player->_hp + 200 > 500 ? 500 : player->_hp + 200; break;
         case LifeBox: player->_hp = 500; break;
         default: break;
