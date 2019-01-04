@@ -11,6 +11,7 @@ class Obstacle : public Obj {
         double _obstacleRadius;
     public:
     friend class Player;
+    friend class Bullet;
     Obstacle(std::string, double, double);
     ~Obstacle();
     void update();

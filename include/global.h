@@ -43,7 +43,7 @@ enum ButtonType {
 // };
 
 enum ObstacleType {
-    Tree, Rock
+    Tree, Rock1, Rock2, Rock3
 };
 
 extern SDL_Window* gWindow;

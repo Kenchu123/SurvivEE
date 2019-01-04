@@ -1,5 +1,6 @@
 #include "Bullet.h"
 #include "Player.h"
+#include "Obstacle.h"
 
 std::vector<Bullet*> bullets;
 
@@ -81,6 +82,7 @@ void Bullet::_move() {
     _distance -= _moveVel;
     _collideWall();
     _collideOtherPlayer();
+    _collideObstacle();
     _endDistance();
 }
 
@@ -99,6 +101,15 @@ void Bullet::_collideOtherPlayer() {
         }
     }
 }
+
+void Bullet::_collideObstacle() {
+    for(int i = 0; i < obstacles.size(); i++) {
+        if(sqrt(pow(_posX - obstacles[i]->_obstacleX, 2) + pow(_posY - obstacles[i]->_obstacleY, 2)) < obstacles[i]->getWidth() / 2) {
+            _state = shooted;
+        }
+    }
+}
+
 
 void Bullet::_endDistance() {
     if (_distance < 0) {

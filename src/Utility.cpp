@@ -38,6 +38,16 @@ std::string typeToString(ButtonType& type) {
     }
 }
 
+std::string typeToString(ObstacleType& type) {
+    switch (type) {
+        case Tree: return "Tree";
+        case Rock1: return "Rock1";
+        case Rock2: return "Rock2";
+        case Rock3: return "Rock3";
+        default: return "";
+    } 
+}
+
 // std::string typeToString(ItemType& type) {
 //     switch (type) {
 //         case BodyArmor1: return "BodyArmor1";

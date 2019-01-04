@@ -31,7 +31,10 @@ std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "Sub
 // button
 Button* startButton;
 // obstacle
-std::string ObstacleName[2] = {"Tree", "Rock"};
+std::string ObstacleName[16] = {"Tree", "Rock1", "Rock2", "Rock3", 
+                            "Tree", "Rock1", "Rock2", "Rock3", 
+                            "Tree", "Rock1", "Rock2", "Rock3", 
+                            "Tree", "Rock1", "Rock2", "Rock3"};
 // test for Helmet
 Item helmet1;
 
@@ -47,8 +50,8 @@ int main(int argc, char* args[]) {
         Item* tmp = new Item(itemName[i], 200.0, i * 60);
         items.push_back(tmp);
     }
-    for(int i = 0; i < 2; i++) {
-        Obstacle* tmp2 = new Obstacle(ObstacleName[i], 500, 100 + i * 100);
+    for(int i = 0; i < 16; i++) {
+        Obstacle* tmp2 = new Obstacle(ObstacleName[i], rand() % (LEVEL_WIDTH - 100) , rand() % (LEVEL_HEIGHT - 100));
         obstacles.push_back(tmp2);
     }
     //Event handler

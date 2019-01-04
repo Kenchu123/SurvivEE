@@ -122,7 +122,7 @@ bool Player::collideOtherPlayer() {
 
 bool Player::collideObstacle() {
     for(int i = 0; i < obstacles.size(); i++) {
-        if(abs(_playerX - obstacles[i]->_obstacleX) < - obstacles[i]->_objWidth / 2 && abs(_playerY - obstacles[i]->_obstacleY) < - obstacles[i]->_objHeight / 2 ) return 1;
+        if(sqrt(pow(_playerX - obstacles[i]->_obstacleX, 2) + pow(_playerY - obstacles[i]->_obstacleY, 2)) < _playerSize + obstacles[i]->getWidth() / 2) return 1;
     }
     return 0;
 }
