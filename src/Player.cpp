@@ -148,8 +148,8 @@ void Player::fire() {
                 loadedSound.playSound(0, "ShotGunShot", 0);
                 break;
             }
-            case SubMachineGunPlayer: {
-                loadedSound.playSound(0, "MachineGunShot", 0);
+            case FireGunPlayer: {
+                loadedSound.playSound(0, "ShotGunShot", 0);
                 break;
             }
             case AK47Player: {
@@ -178,6 +178,14 @@ void Player::isShooted(Bullet* bullet) {
     }
 }
 
+void Player::changeSkin(PlayerType newPlayerType) {
+    loadTexture(typeToString(newPlayerType));
+    _playerType = newPlayerType;
+    _playerSize = getWidth() / 2;
+    _rotCenter.x = _playerSize; _rotCenter.y = getHeight() - _playerSize;
+
+}
+
 // run rotate, move render 
 // todo collectItem
 // todo set State
@@ -188,9 +196,6 @@ void Player::update() {
         free();
         return;
     }
-    move();
-    rotate();
-    pickItem();
     // update blood
     if(_hp > 100){
         BloodStrip[1].loadTexture("BloodStripWhite");
@@ -200,6 +205,9 @@ void Player::update() {
         BloodStrip[1].loadTexture("BloodStripRed");
         BloodStrip[1].resize(BloodStrip[0].getWidth() * (_hp / 500), BloodStrip[0].getHeight());
     }
+    move();
+    rotate();
+    pickItem();
     // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
 }
 

@@ -54,27 +54,22 @@ void Item::renderR(SDL_Rect& camera) {
 void Item::isPicked(Player* player) {
     _state = Picked;
     switch(_type) {
-        case Gun: player->_playerType = GunPlayer; break;
-        case MachineGun: player->_playerType = MachineGunPlayer; break;
-        case ShotGun: player->_playerType = ShotGunPlayer; break;
-        case SubMachineGun: player->_playerType = MachineGunPlayer; break;
-        case AK47: player->_playerType = MachineGunPlayer; break;
-        case Bomb: player->_bombEquipped = true;
-        case BodyArmor1: player->_defend *= 0.8;
-        case BodyArmor2: player->_defend *= 0.8;
-        case Helmet1: player->_defend *= 0.9;
-        case Helmet2: player->_defend *= 0.9;
-        case Bandage: {
-            if(player->_hp + 200 >= 500) player->_hp = 500;
-            else player->_hp += 200; 
-            break;
-        }
+        case Gun: player->changeSkin(GunPlayer); break;
+        case MachineGun: player->changeSkin(MachineGunPlayer); break;
+        case ShotGun: player->changeSkin(ShotGunPlayer); break;
+        case FireGun: player->changeSkin(FireGunPlayer); break;
+        case AK47: player->changeSkin(AK47Player); break;
+        case Bomb: player->_bombEquipped = true; break;
+        case BodyArmor1: player->_defend *= 0.8; break;
+        case BodyArmor2: player->_defend *= 0.8; break;
+        case Helmet1: player->_defend *= 0.9; break;
+        case Helmet2: player->_defend *= 0.9; break;
+        case Bandage: player->_hp = player->_hp + 200 > 500 ? 500 : player->_hp + 200; break;
         case LifeBox: player->_hp = 500; break;
         default: break;
     }
-
-    player->loadTexture(typeToString(player->_playerType));
-    player->_playerSize = getWidth() / 2;
-    player->_rotCenter.x = player->_playerSize; player->_rotCenter.y = player->getHeight() - player->_playerSize;
+    // player->loadTexture(typeToString(player->_playerType));
+    // player->_playerSize = getWidth() / 2;
+    // player->_rotCenter.x = player->_playerSize; player->_rotCenter.y = player->getHeight() - player->_playerSize;
     free();
 }

@@ -26,7 +26,7 @@ Obj background, StartMenu, loadingmenu;
 SDL_Rect camera = {0 , 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
 SDL_Rect camera2 = {0, SCREEN_WIDTH, SCREEN_WIDTH /2, SCREEN_HEIGHT};
 // tree
-std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "SubMachineGun",
+std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "FireGun",
                     "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox"};
 // button
 Button* startButton;
@@ -115,7 +115,7 @@ void gameLoad(SDL_Event& e) {
             players.push_back(player1);
             players.push_back(player2);
             // set player place
-            players[0]->setInitialPosition(LEVEL_WIDTH - 100, LEVEL_HEIGHT - 100);
+            players[0]->setInitialPosition(LEVEL_WIDTH - 300, LEVEL_HEIGHT - 300);
             players[1]->setInitialPosition(100, 100);
             gameState = Playing;
             break;
@@ -213,7 +213,7 @@ void playing(SDL_Event& e) {
     SDL_RenderPresent( gRenderer );
     int frameTicks = capTimer.getTicks();
     if( frameTicks < SCREEN_TICK_PER_FRAME ) {
-        //Wait remaining timefgdwvdsdvwvavvwwvvsavdvwdvavsvwsvvwvvvwvsvwds wvvwvsvdwvvavsdvwvvdsvdsvwvsvawvvsvdvas
+        //Wait remaining time
         SDL_Delay( SCREEN_TICK_PER_FRAME - frameTicks );
     }
 }

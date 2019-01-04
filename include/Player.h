@@ -47,8 +47,9 @@ class Player : public Obj {
         double getPlayerX();
         double getPlayerY();
         double getDeg();
+        // change skin
+        void changeSkin(PlayerType);
         void update();
-        // void update2(SDL_Rect&);
 
         void renderL(SDL_Rect&);
         void renderR(SDL_Rect&);

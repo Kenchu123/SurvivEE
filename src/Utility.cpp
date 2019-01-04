@@ -6,7 +6,7 @@ std::string typeToString(PlayerType& type) {
         case GunPlayer: return "GunPlayer";
         case MachineGunPlayer: return "MachineGunPlayer";
         case ShotGunPlayer: return "ShotGunPlayer";
-        case SubMachineGunPlayer: return "SubMachineGunPlayer";
+        case FireGunPlayer: return "FireGunPlayer";
         case AK47Player: return "AK47Player";
         default: return "";
     }
@@ -17,7 +17,7 @@ std::string typeToString(PlayerType& type) {
 //         case Gun: return "Gun";
 //         case MachineGun: return "MachineGun";
 //         case AK47: return "AK47";
-//         case SubMachineGun: return "SubMachineGun";
+//         case FireGun: return "FireGun";
 //         case ShotGun: return "ShotGun";
 //         default: return "";
 //     }
@@ -47,7 +47,7 @@ std::string typeToString(ItemType& type) {
         case Gun: return "Gun";
         case MachineGun: return "MachineGun";
         case AK47: return "AK47";
-        case SubMachineGun: return "SubMachineGun";
+        case FireGun: return "FireGun";
         case ShotGun: return "ShotGun";
         case Bomb: return "Bomb";
         case BodyArmor1: return "BodyArmor1";
@@ -65,7 +65,7 @@ ItemType StringTotype(std::string s) {
     if(s == "Gun") return Gun;
     else if(s == "MachineGun") return MachineGun;
     else if(s == "ShotGun") return ShotGun;
-    else if(s == "SubMachineGun") return SubMachineGun;
+    else if(s == "FireGun") return FireGun;
     else if(s == "AK47") return AK47;
     else if(s == "Bomb") return Bomb;
     else if(s == "BodyArmor1") return BodyArmor1;

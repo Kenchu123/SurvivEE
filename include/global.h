@@ -22,11 +22,11 @@ enum GameState {
 };
 
 // enum GunType {
-//     Default, Gun, MachineGun, ShotGun, SubMachineGun, AK47
+//     Default, Gun, MachineGun, ShotGun, FireGun, AK47
 // };
 
 enum PlayerType {
-    DefaultPlayer, GunPlayer, MachineGunPlayer, ShotGunPlayer, SubMachineGunPlayer, AK47Player
+    DefaultPlayer, GunPlayer, MachineGunPlayer, ShotGunPlayer, FireGunPlayer, AK47Player
 };
 
 enum ButtonType {
@@ -34,7 +34,7 @@ enum ButtonType {
 };
 
 enum ItemType {
-    Default, Gun, MachineGun, ShotGun, SubMachineGun, AK47, 
+    Default, Gun, MachineGun, ShotGun, FireGun, AK47, 
     Bomb, BodyArmor1, BodyArmor2, Helmet1, Helmet2, 
     Bandage, LifeBox
 };
