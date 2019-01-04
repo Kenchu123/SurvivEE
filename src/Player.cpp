@@ -169,6 +169,7 @@ void Player::fire() {
     }
     else {
         std::cout << "Bomb called" << std::endl;
+        loadedSound.playSound(0, "bomb", 0);
         Bullet* bullet = new Bullet(this, Bomb);
         bullets.push_back(bullet);
     }
