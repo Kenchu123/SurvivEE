@@ -31,13 +31,12 @@ std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "Fir
 // button
 Button* startButton;
 // obstacle
-std::string ObstacleName[28] = {"Tree", "Rock1", "Rock2", "Rock3", 
-                            "Tree", "Rock1", "Rock2", "Rock3", 
-                            "Tree", "Rock1", "Rock2", "Rock3",
-                            "Tree", "Rock1", "Rock2", "Rock3",
-                            "Tree", "Rock1", "Rock2", "Rock3",
-                            "Tree", "Rock1", "Rock2", "Rock3",
-                            "Tree", "Rock1", "Rock2", "Rock3"};
+std::string ObstacleName[36] = {"Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+                            "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+                            "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+                            "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+                            "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+                            "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",};
 
 int main(int argc, char* args[]) {
     try {
@@ -51,7 +50,7 @@ int main(int argc, char* args[]) {
         Item* tmp = new Item(StringTotype(itemName[i]), rand() % 20 * 100 , rand() % 20 * 100);
         items.push_back(tmp);
     }
-    for(int i = 0; i < 28; i++) {
+    for(int i = 0; i < 36; i++) {
         Obstacle* tmp2 = new Obstacle(ObstacleName[i], rand() % 20 * 100, rand() % 20 * 100);
         obstacles.push_back(tmp2);
     }

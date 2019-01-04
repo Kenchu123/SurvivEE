@@ -7,10 +7,10 @@ LoadedTexture::LoadedTexture() {
     free();
     _loadedTextures.clear();
     // set all texture to load
-    std::string names[42] = {
+    std::string names[44] = {
                     "DefaultPlayer", "GunPlayer", "MachineGunPlayer", "ShotGunPlayer", "AK47Player", "FireGunPlayer",
                     "GunBullet", "MachineGunBullet", "ShotGunBullet", "FireGunBullet", "Bomb_origin",
-                    "Tree", "Grass", "Rock1", "Rock2", "Rock3", "Floor", 
+                    "Tree", "Grass", "Rock1", "Rock2", "Rock3", "Floor", "Box", "BrickWall",
                     "StartMenu", "GameOver1", "GameOver2",
                     "start", "tutorial", "option",
                     "MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "FireGun",
@@ -19,7 +19,7 @@ LoadedTexture::LoadedTexture() {
                     "BloodStripBackground", "BloodStripWhite", "BloodStripRed",
                     "loadingmenu",
                     };
-    for (int i = 0;i < 42; i++) _toLoadFileName.push_back(names[i]);
+    for (int i = 0;i < 44; i++) _toLoadFileName.push_back(names[i]);
 }
 
 LoadedTexture::~LoadedTexture() {

@@ -131,7 +131,12 @@ bool Player::collideOtherPlayer() {
 
 bool Player::collideObstacle() {
     for(int i = 0; i < obstacles.size(); i++) {
-        if(sqrt(pow(_playerX - obstacles[i]->_obstacleX, 2) + pow(_playerY - obstacles[i]->_obstacleY, 2)) < _playerSize + obstacles[i]->getWidth() / 2) return 1;
+        if(obstacles[i]->_obstacleType < Rock3) {
+            if(sqrt(pow(_playerX - obstacles[i]->_obstacleX, 2) + pow(_playerY - obstacles[i]->_obstacleY, 2)) < _playerSize + obstacles[i]->getWidth() / 2) return 1;
+        }
+        else {
+            if(abs(_playerX - obstacles[i]->_obstacleX) < _objWidth / 2 && abs(_playerY - obstacles[i]->_obstacleY) < _objHeight / 2) return 1;
+        }
     }
     return 0;
 }
