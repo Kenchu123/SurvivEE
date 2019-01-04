@@ -11,7 +11,7 @@ LoadedTexture::LoadedTexture() {
                     "DefaultPlayer", "GunPlayer", "MachineGunPlayer", "ShotGunPlayer",
                     "GunBullet", "MachineGunBullet", "ShotGunBullet",
                     "Tree", "house1", "Grass", "Rock", "Floor", 
-                    "Title", 
+                    "StartMenu", 
                     "start", "tutorial", "option",
                     "MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "SubMachineGun",
                     "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox","Helmet1Up", "Helmet2Up",

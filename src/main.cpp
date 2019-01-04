@@ -21,15 +21,13 @@ int SCREEN_TICK_PER_FRAME = 1000 / SCREEN_FPS;
 // set Game State
 GameState gameState;
 // background, loadingmenu
-Obj background, loadingmenu;
+Obj background, StartMenu, loadingmenu;
 // camera
 SDL_Rect camera = {0 , 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
 SDL_Rect camera2 = {0, SCREEN_WIDTH, SCREEN_WIDTH /2, SCREEN_HEIGHT};
 // tree
 std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "SubMachineGun",
                     "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox"};
-// Title
-Obj Title;
 // button
 Button* startButton;
 // obstacle
@@ -90,13 +88,12 @@ void menu(SDL_Event& e) {
     background.resize(LEVEL_WIDTH, LEVEL_HEIGHT);
     // Render background
     background.render(0, 0);
-
-    // Render Title
-    Title.render((SCREEN_WIDTH - Title.getWidth()) / 2 , SCREEN_HEIGHT / 5);
-
+    // Render StartMenu
+    StartMenu.render(0, 0); 
+    StartMenu.resize(1200, 800);
     // Render Button
     startButton->update(); 
-    startButton->resize(152, 42);
+    startButton->resize(300, 120);
     // tutorial.update(); option.update();
 
     //Update screen
@@ -243,7 +240,7 @@ void loadMedia() {
 
     startButton = new Button(Start);
     background.loadTexture("Grass");
-    Title.loadTexture("Title");
+    StartMenu.loadTexture("StartMenu");
     loadingmenu.loadTexture("loadingmenu");
     // load helmet1
     helmet1.loadTexture("Helmet1Up");
@@ -254,7 +251,7 @@ void loadMedia() {
 
 void close() {
     background.free();
-    Title.free();
+    StartMenu.free();
     loadingmenu.free();
 
 	//Free loaded player
