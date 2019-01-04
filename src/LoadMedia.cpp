@@ -17,7 +17,7 @@ LoadedTexture::LoadedTexture() {
                     "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox","Helmet1Up", "Helmet2Up",
                     "loadingmenu",
                     "BloodStripBackground", "BloodStripWhite", "BloodStripRed",
-                    "loadingmenu"
+                    "loadingmenu",
                     };
     for (int i = 0;i < 42; i++) _toLoadFileName.push_back(names[i]);
 }
@@ -71,9 +71,9 @@ LoadedSound::LoadedSound() {
     free();
     _loadedSound.clear();
     std::string names[20] = {
-        "medium", "DefaultGunShot", "footstep", "MachineGunShot", "ShotGunShot"
+        "medium", "DefaultGunShot", "footstep", "MachineGunShot", "ShotGunShot", "bomb"
     };
-    for (int i = 0;i < 5; i++) _toLoadFileName.push_back(names[i]);
+    for (int i = 0;i < 6; i++) _toLoadFileName.push_back(names[i]);
 }
 
 LoadedSound::~LoadedSound() {

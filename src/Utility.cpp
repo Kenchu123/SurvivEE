@@ -42,7 +42,7 @@ std::string typeToString(ObstacleType& type) {
     } 
 }
 
-std::string typeToString(ItemType& type) {
+std::string typeToString(ItemType type) {
     switch (type) {
         case Gun: return "Gun";
         case MachineGun: return "MachineGun";
