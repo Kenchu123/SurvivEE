@@ -30,7 +30,7 @@ class Player : public Obj {
     public:
         friend class Bullet;
         friend class Item;
-        friend class Obstacle;
+        friend class rObstacle;
 
         Item *helmet, *helmetUp, *gun, *bodyArmor, *bomb; // player equip
         Obj BloodStrip[2]; // background, white / red
@@ -42,7 +42,7 @@ class Player : public Obj {
         void rotate();
         bool collideWall();
         bool collideOtherPlayer();
-        bool collideObstacle();
+        bool colliderObstacle();
         void pickItem();
         void fire();
         void isShooted(Bullet*);
