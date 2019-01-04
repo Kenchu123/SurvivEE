@@ -27,8 +27,8 @@ Bullet::Bullet(Player* from, ItemType guntype):
             loadTexture(_type);
             resize(10, 20); // resize the bullet w, h
             _moveVel = 10;
-            _distance = 300;
-            lethality = 50;
+            _distance = 500;
+            lethality = 40;
             break;
         }
         case ShotGun: {
@@ -37,7 +37,7 @@ Bullet::Bullet(Player* from, ItemType guntype):
             resize(30, 50); // resize the bullet w, h
             _moveVel = 10;
             _distance = 100;
-            lethality = 50;
+            lethality = 100;
             break;
         }
         case SubMachineGun: {
@@ -45,8 +45,8 @@ Bullet::Bullet(Player* from, ItemType guntype):
             loadTexture(_type);
             resize(10, 20); // resize the bullet w, h
             _moveVel = 10;
-            _distance = 300;
-            lethality = 50;
+            _distance = 500;
+            lethality = 40;
             break;
         }
         case AK47: {
@@ -54,17 +54,17 @@ Bullet::Bullet(Player* from, ItemType guntype):
             loadTexture(_type);
             resize(10, 20); // resize the bullet w, h
             _moveVel = 10;
-            _distance = 300;
-            lethality = 50;
+            _distance = 500;
+            lethality = 60;
             break;
         }
         case Bomb: {
             _type = "Bomb_origin";
             loadTexture(_type);
             resize(15, 30);
-            _moveVel = 8;
+            _moveVel = 5;
             _distance = 150;
-            lethality = 50;
+            lethality = 400;
             from->_bombEquipped = false;
             break;
         }

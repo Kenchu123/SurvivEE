@@ -49,6 +49,7 @@ std::string typeToString(ItemType& type) {
         case AK47: return "AK47";
         case SubMachineGun: return "SubMachineGun";
         case ShotGun: return "ShotGun";
+        case Bomb: return "Bomb";
         case BodyArmor1: return "BodyArmor1";
         case BodyArmor2: return "BodyArmor2";
         case Helmet1: return "Helmet1";

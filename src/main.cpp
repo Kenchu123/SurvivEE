@@ -31,9 +31,12 @@ std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "Sub
 // button
 Button* startButton;
 // obstacle
-std::string ObstacleName[16] = {"Tree", "Rock1", "Rock2", "Rock3", 
+std::string ObstacleName[28] = {"Tree", "Rock1", "Rock2", "Rock3", 
                             "Tree", "Rock1", "Rock2", "Rock3", 
-                            "Tree", "Rock1", "Rock2", "Rock3", 
+                            "Tree", "Rock1", "Rock2", "Rock3",
+                            "Tree", "Rock1", "Rock2", "Rock3",
+                            "Tree", "Rock1", "Rock2", "Rock3",
+                            "Tree", "Rock1", "Rock2", "Rock3",
                             "Tree", "Rock1", "Rock2", "Rock3"};
 // test for Helmet
 Item helmet1;
@@ -47,10 +50,10 @@ int main(int argc, char* args[]) {
         printf("Error: %s\n", message);
     }
     for (int i = 0;i < 12; i++) {
-        Item* tmp = new Item(StringTotype(itemName[i]), 200.0, i * 100);
+        Item* tmp = new Item(StringTotype(itemName[i]), rand() % (LEVEL_WIDTH - 100) , rand() % (LEVEL_HEIGHT - 100));
         items.push_back(tmp);
     }
-    for(int i = 0; i < 16; i++) {
+    for(int i = 0; i < 28; i++) {
         Obstacle* tmp2 = new Obstacle(ObstacleName[i], rand() % (LEVEL_WIDTH - 100) , rand() % (LEVEL_HEIGHT - 100));
         obstacles.push_back(tmp2);
     }
@@ -112,8 +115,8 @@ void gameLoad(SDL_Event& e) {
             players.push_back(player1);
             players.push_back(player2);
             // set player place
-            players[0]->setInitialPosition(SCREEN_WIDTH * 3 / 4, SCREEN_HEIGHT / 4);
-            players[1]->setInitialPosition(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
+            players[0]->setInitialPosition(LEVEL_WIDTH - 100, LEVEL_HEIGHT - 100);
+            players[1]->setInitialPosition(100, 100);
             gameState = Playing;
             break;
         }

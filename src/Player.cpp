@@ -3,6 +3,7 @@
 #include "Utility.h"
 #include "Obstacle.h"
 #include "Item.h"
+#include "Timer.h"
 
 std::vector<Player*> players;
 
