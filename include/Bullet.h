@@ -2,6 +2,7 @@
 #define BULLET_H
 #include "Utility.h"
 #include "Obj.h"
+#include "Timer.h"
 
 class Player; 
 
@@ -25,6 +26,7 @@ class Bullet: public Obj {
         void _collideOtherPlayer();
         void _collideObstacle();
         void _endDistance();
+        int _explosionDelay;
     public:
         int lethality; // hurting rate
         Bullet() {};

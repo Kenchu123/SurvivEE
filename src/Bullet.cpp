@@ -10,7 +10,8 @@ Bullet::Bullet(Player* from, ItemType guntype):
     _dirX(from->_dirX), 
     _dirY(from->_dirY),
     _deg(from->_deg),
-    _state(flying)
+    _state(flying),
+    _explosionDelay(0)
 {
     switch (guntype) {
         case Gun: {
@@ -106,8 +107,8 @@ void Bullet::_collideWall() {
 void Bullet::_collideOtherPlayer() {
     for (int i = 0;i < players.size(); i++) {
         if (_fromID != players[i]->_playerID && sqrt(pow(_bulletX - players[i]->_playerX, 2) + pow(_bulletY - players[i]->_playerY, 2)) < players[i]->_playerSize) {
-            _state = shooted;
-            players[i]->isShooted(this);
+            _state = this->_type == "Bomb_origin" ? stay : shooted;
+            if(this->_type != "Bomb_origin") players[i]->isShooted(this);
         }
     }
 }
@@ -115,7 +116,7 @@ void Bullet::_collideOtherPlayer() {
 void Bullet::_collideObstacle() {
     for(int i = 0; i < obstacles.size(); i++) {
         if(sqrt(pow(_posX - obstacles[i]->_obstacleX, 2) + pow(_posY - obstacles[i]->_obstacleY, 2)) < obstacles[i]->getWidth() / 2) {
-            _state = shooted;
+            _state = this->_type == "Bomb_origin" ? stay : shooted;
         }
     }
 }
@@ -123,7 +124,9 @@ void Bullet::_collideObstacle() {
 
 void Bullet::_endDistance() {
     if (_distance < 0) {
-        if(_type == "Bomb_origin") _state = stay;
+        if(_type == "Bomb_origin") {
+            _state = stay;
+        }
         else _state = shooted;
         // std::cout << "Bullet out of distance\n";
     }
@@ -133,7 +136,21 @@ void Bullet::update() {
     switch(_state) {
         case flying: _move(); break;
         case shooted: free(); break;
-        case stay: break;
+        case stay: {
+            if(_explosionDelay > 100) {
+                this->loadTexture("Explosion");
+                loadedSound.playSound(0, "bombExplosion",0);
+                for (int i = 0;i < players.size(); i++) {
+                    if (_fromID != players[i]->_playerID && sqrt(pow(_bulletX - players[i]->_playerX, 2) + pow(_bulletY - players[i]->_playerY, 2)) < 150) {
+                        _state = shooted;
+                        players[i]->isShooted(this);
+                    }
+                }
+                _state = shooted;
+            }
+            _explosionDelay += 1;
+            break;
+        }
     }
 }
 

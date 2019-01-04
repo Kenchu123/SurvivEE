@@ -9,7 +9,7 @@ LoadedTexture::LoadedTexture() {
     // set all texture to load
     std::string names[44] = {
                     "DefaultPlayer", "GunPlayer", "MachineGunPlayer", "ShotGunPlayer", "AK47Player", "FireGunPlayer",
-                    "GunBullet", "MachineGunBullet", "ShotGunBullet", "FireGunBullet", "Bomb_origin",
+                    "GunBullet", "MachineGunBullet", "ShotGunBullet", "FireGunBullet", "Bomb_origin", "Explosion",
                     "Tree", "Grass", "Rock1", "Rock2", "Rock3", "Floor", "Box", "BrickWall",
                     "StartMenu", "GameOver1", "GameOver2",
                     "start", "tutorial", "option",
@@ -17,7 +17,6 @@ LoadedTexture::LoadedTexture() {
                     "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox","Helmet1Up", "Helmet2Up",
                     "loadingmenu",
                     "BloodStripBackground", "BloodStripWhite", "BloodStripRed",
-                    "loadingmenu",
                     };
     for (int i = 0;i < 44; i++) _toLoadFileName.push_back(names[i]);
 }
@@ -71,9 +70,9 @@ LoadedSound::LoadedSound() {
     free();
     _loadedSound.clear();
     std::string names[20] = {
-        "medium", "DefaultGunShot", "footstep", "MachineGunShot", "ShotGunShot", "bomb"
+        "medium", "DefaultGunShot", "footstep", "MachineGunShot", "ShotGunShot", "FireInTheHole", "bombExplosion"
     };
-    for (int i = 0;i < 6; i++) _toLoadFileName.push_back(names[i]);
+    for (int i = 0;i < 7; i++) _toLoadFileName.push_back(names[i]);
 }
 
 LoadedSound::~LoadedSound() {
