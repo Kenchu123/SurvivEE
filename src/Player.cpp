@@ -19,8 +19,10 @@ Player::Player(std::string id):
     _hp(500),
     _defend(1),
     helmet(NULL),
+    helmetUp(NULL),
     gun(NULL),
-    bomb(NULL)
+    bomb(NULL),
+    bodyArmor(NULL)
 {
     loadTexture(typeToString(_playerType));
     std::cout << typeToString(_playerType) << std::endl; 
@@ -32,7 +34,7 @@ Player::~Player() {
     free();   
     for (int i = 0;i < 2; i++) BloodStrip[i].free();
     helmet->free(), gun->free(), bomb->free();
-    helmet = NULL, gun = NULL, bomb = NULL;
+    helmet = NULL, helmetUp = NULL, gun = NULL, bomb = NULL, bodyArmor = NULL;
 }
 
 // set player initial postion
@@ -187,7 +189,26 @@ void Player::changeSkin(PlayerType newPlayerType) {
     _playerType = newPlayerType;
     _playerSize = getWidth() / 2;
     _rotCenter.x = _playerSize; _rotCenter.y = getHeight() - _playerSize;
+    // set equip window
+    if (gun == NULL) gun = new Item;
+    gun->loadTexture(typeToString((ItemType)newPlayerType));
+    gun->resize(60, 60);
+}
 
+void Player::changeHelmet(ItemType newHelmet) {
+    if (helmetUp == NULL) helmetUp = new Item;
+    helmetUp->loadTexture(typeToString(newHelmet) + "Up"); 
+    helmetUp->resize(50, 50); 
+
+    if (helmet == NULL) helmet = new Item;
+    helmet->loadTexture(typeToString(newHelmet));
+    helmet->resize(60, 60);
+}
+
+void Player::changeBodyArmor(ItemType newBodyArmor) {
+    if (bodyArmor == NULL) bodyArmor = new Item;
+    bodyArmor->loadTexture(typeToString(newBodyArmor));
+    bodyArmor->resize(60, 60);
 }
 
 // run rotate, move render 
@@ -219,10 +240,10 @@ void Player::renderL(SDL_Rect& camera) {
     if (_state == dead) return;
     if(_posX - camera.x < SCREEN_WIDTH / 2 && _posY - camera.y < SCREEN_HEIGHT) {
         render(_posX - camera.x, _posY - camera.y, _deg, &_rotCenter);
-        if (helmet != NULL) {
-            helmet->SetPosition(_playerX, _playerY);
-            helmet->SetAngle(_deg);
-            helmet->renderL(camera);
+        if (helmetUp != NULL) {
+            helmetUp->SetPosition(_playerX, _playerY);
+            helmetUp->SetAngle(_deg);
+            helmetUp->renderL(camera);
         }
     }
 }
@@ -231,10 +252,10 @@ void Player::renderR(SDL_Rect& camera) {
     if (_state == dead) return;
     if(_posX - camera.x > 0) {
         render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y, _deg, &_rotCenter);
-        if (helmet != NULL) {
-            helmet->SetPosition(_playerX, _playerY);
-            helmet->SetAngle(_deg);
-            helmet->renderR(camera);
+        if (helmetUp != NULL) {
+            helmetUp->SetPosition(_playerX, _playerY);
+            helmetUp->SetAngle(_deg);
+            helmetUp->renderR(camera);
         }
     }
 }

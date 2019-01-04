@@ -17,7 +17,7 @@ LoadedTexture::LoadedTexture() {
                     "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox","Helmet1Up", "Helmet2Up",
                     "loadingmenu",
                     "BloodStripBackground", "BloodStripWhite", "BloodStripRed",
-                    "loadingmenu"
+                    "loadingmenu",
                     };
     for (int i = 0;i < 40; i++) _toLoadFileName.push_back(names[i]);
 }

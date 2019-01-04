@@ -27,12 +27,12 @@ class Player : public Obj {
         bool _bombEquipped;
         double _hp; // HP
         double _defend; // defend coefficient
-        Item *helmet, *gun, *bomb;
     public:
         friend class Bullet;
         friend class Item;
         friend class Obstacle;
 
+        Item *helmet, *helmetUp, *gun, *bodyArmor, *bomb; // player equip
         Obj BloodStrip[2]; // background, white / red
         Player(std::string id = "");
         ~Player();
@@ -51,6 +51,11 @@ class Player : public Obj {
         double getDeg();
         // change skin
         void changeSkin(PlayerType);
+        // change helmet
+        void changeHelmet(ItemType);
+        // change bodyArmor
+        void changeBodyArmor(ItemType);
+
         void update();
 
         void renderL(SDL_Rect&);
