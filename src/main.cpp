@@ -31,12 +31,34 @@ std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "Fir
 // button
 Button* startButton;
 // obstacle
-std::string ObstacleName[36] = {"Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
-                            "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
-                            "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
-                            "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
-                            "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
-                            "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",};
+// std::string ObstacleName[36] = {"Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+//                             "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+//                             "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+//                             "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+//                             "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+//                             "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",};
+
+int map[20][20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 
+                   0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 
+                   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 
+                   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                   0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 
+                   0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 
+                   0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                   0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
+                   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
+                   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 
+                   0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0                   
+                };
 
 int main(int argc, char* args[]) {
     try {
@@ -50,10 +72,20 @@ int main(int argc, char* args[]) {
         Item* tmp = new Item(StringTotype(itemName[i]), rand() % 20 * 100 , rand() % 20 * 100);
         items.push_back(tmp);
     }
-    for(int i = 0; i < 36; i++) {
-        Obstacle* tmp2 = new Obstacle(ObstacleName[i], rand() % 20 * 100, rand() % 20 * 100);
-        obstacles.push_back(tmp2);
+    int k = 0;
+    for(int i = 0; i < 20; i++) {
+        for(int j = 0; j < 20; j++) {
+            if(map[i][j] == 1) {
+                Obstacle* tmp2 = new Obstacle("BrickWall", j * 100, i * 100);
+                obstacles.push_back(tmp2);
+                k++;
+            }
+        }
     }
+    // for(int i = 0; i < 36; i++) {
+        // Obstacle* tmp2 = new Obstacle(ObstacleName[i], rand() % 20 * 100, rand() % 20 * 100);
+        // obstacles.push_back(tmp2);
+    // }
     //Event handler
     SDL_Event e;
     // initail game State
@@ -117,8 +149,8 @@ void gameLoad(SDL_Event& e) {
             players.push_back(player1);
             players.push_back(player2);
             // set player place
-            players[0]->setInitialPosition(LEVEL_WIDTH - 300, LEVEL_HEIGHT - 300);
-            players[1]->setInitialPosition(100, 100);
+            players[0]->setInitialPosition(LEVEL_WIDTH - 200, LEVEL_HEIGHT - 200);
+            players[1]->setInitialPosition(50, 50);
             gameState = Playing;
             break;
         }
