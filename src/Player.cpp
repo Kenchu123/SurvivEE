@@ -169,7 +169,6 @@ void Player::fire() {
     }
     else {
         std::cout << "Bomb called" << std::endl;
-        loadedSound.playSound(0, "bomb", 0);
         Bullet* bullet = new Bullet(this, Bomb);
         bullets.push_back(bullet);
     }
@@ -177,6 +176,7 @@ void Player::fire() {
 
 void Player::isShooted(Bullet* bullet) {
     _hp -= bullet->lethality * _defend;
+    if(bullet->lethality == 400) loadedSound.playSound(0, "bomb", 0);
     // todo hurt animation
     std::cout << "Player " << _playerID << " is shooted " << _hp << std::endl;
     if (_hp <= 0) {
