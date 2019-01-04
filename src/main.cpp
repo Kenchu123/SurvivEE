@@ -143,7 +143,9 @@ void playing(SDL_Event& e) {
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
         if(e.type == SDL_QUIT) { gameState = Quit; break; }
-        else if(players[0]->getState() == dead || players[1]->getState() == dead) {gameState = GameOver; break; }
+        else if(players[0]->getState() == dead || players[1]->getState() == dead) {
+            gameState = GameOver; 
+            break; }
         players[0]->handleKeyInput(e);
         players[1]->handleKeyInput(e);
     }
