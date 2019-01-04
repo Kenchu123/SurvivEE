@@ -203,13 +203,13 @@ void playing(SDL_Event& e) {
 
         int ind = 1;
         if (players[i]->gun != NULL) {
-            players[i]->gun->render(SCREEN_WIDTH / (i + 1) - 80, SCREEN_HEIGHT - 80 * (ind++));
+            players[i]->gun->render(SCREEN_WIDTH / (i + 1) - 80, SCREEN_HEIGHT - 70 * (ind++));
         }
         if (players[i]->helmet != NULL) {
-            players[i]->helmet->render(SCREEN_WIDTH / (i + 1) - 80, SCREEN_HEIGHT - 80 * (ind++));
+            players[i]->helmet->render(SCREEN_WIDTH / (i + 1) - 80, SCREEN_HEIGHT - 70 * (ind++));
         }
         if (players[i]->bodyArmor != NULL) {
-            players[i]->bodyArmor->render(SCREEN_WIDTH / (i + 1) - 80, SCREEN_HEIGHT - 80 * (ind++));
+            players[i]->bodyArmor->render(SCREEN_WIDTH / (i + 1) - 80, SCREEN_HEIGHT - 70 * (ind++));
         }
     }
 
