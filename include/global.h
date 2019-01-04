@@ -39,7 +39,7 @@ enum ItemType {
     Bandage, LifeBox
 };
 
-enum rObstacleType {
+enum ObstacleType {
     Tree, Rock1, Rock2, Rock3
 };
 

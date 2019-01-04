@@ -6,7 +6,7 @@
 #include "LoadMedia.h"
 #include "Timer.h"
 #include "button.h"
-#include "rObstacle.h"
+#include "Obstacle.h"
 #include "Item.h"
 
 SDL_Window* gWindow = NULL;
@@ -52,8 +52,8 @@ int main(int argc, char* args[]) {
         items.push_back(tmp);
     }
     for(int i = 0; i < 28; i++) {
-        rObstacle* tmp2 = new rObstacle(ObstacleName[i], rand() % 20 * 100, rand() % 20 * 100);
-        robstacles.push_back(tmp2);
+        Obstacle* tmp2 = new Obstacle(ObstacleName[i], rand() % 20 * 100, rand() % 20 * 100);
+        obstacles.push_back(tmp2);
     }
     //Event handler
     SDL_Event e;
@@ -195,10 +195,10 @@ void playing(SDL_Event& e) {
         items[i]->renderL(camera);
         items[i]->renderR(camera2);
     }
-    for(int i = 0; i < robstacles.size(); i++) {
+    for(int i = 0; i < obstacles.size(); i++) {
         // obstacles[i]->update();
-        robstacles[i]->renderL(camera);
-        robstacles[i]->renderR(camera2);
+        obstacles[i]->renderL(camera);
+        obstacles[i]->renderR(camera2);
     }
 
     // render Bloodstrip and windows

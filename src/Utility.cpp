@@ -32,7 +32,7 @@ std::string typeToString(ButtonType& type) {
     }
 }
 
-std::string typeToString(rObstacleType& type) {
+std::string typeToString(ObstacleType& type) {
     switch (type) {
         case Tree: return "Tree";
         case Rock1: return "Rock1";

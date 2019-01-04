@@ -1,10 +1,10 @@
-#include "rObstacle.h"
+#include "Obstacle.h"
 #include "Player.h"
 #include "Utility.h"
 
-std::vector<rObstacle*> robstacles;
+std::vector<Obstacle*> obstacles;
 
-rObstacle::rObstacle(std::string s, double x, double y):
+Obstacle::Obstacle(std::string s, double x, double y):
     Obj(), 
     _type(s),
     _obstacleX(x),
@@ -18,21 +18,21 @@ rObstacle::rObstacle(std::string s, double x, double y):
     std::cout << _type << std::endl;
 }
 
-rObstacle::~rObstacle() {
+Obstacle::~Obstacle() {
     free();
 }
 
-void rObstacle::update() {
+void Obstacle::update() {
     //
     return;
 }
 
-void rObstacle::renderL(SDL_Rect& camera) {
+void Obstacle::renderL(SDL_Rect& camera) {
     if(_posX - camera.x < SCREEN_WIDTH / 2 && _posY - camera.y < SCREEN_HEIGHT) {
         render(_posX - camera.x, _posY - camera.y);
     }
 }
-void rObstacle::renderR(SDL_Rect& camera) {
+void Obstacle::renderR(SDL_Rect& camera) {
     if(_posX - camera.x > 0) {
         render(_posX - camera.x + SCREEN_WIDTH / 2, _posY - camera.y);
     }
