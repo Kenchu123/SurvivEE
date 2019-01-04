@@ -60,6 +60,10 @@ void Item::isPicked(Player* player) {
         case SubMachineGun: player->_playerType = MachineGunPlayer; break;
         case AK47: player->_playerType = MachineGunPlayer; break;
         case Bomb: player->_bombEquipped = true;
+        case BodyArmor1: player->_defend *= 0.8;
+        case BodyArmor2: player->_defend *= 0.8;
+        case Helmet1: player->_defend *= 0.9;
+        case Helmet2: player->_defend *= 0.9;
         case Bandage: {
             if(player->_hp + 200 >= 500) player->_hp = 500;
             else player->_hp += 200; 

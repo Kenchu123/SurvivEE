@@ -16,7 +16,8 @@ Player::Player(std::string id):
     _playerType(GunPlayer),
     _state(alive),
     _bombEquipped(false),
-    _hp(500)
+    _hp(500),
+    _defend(1)
 {
     loadTexture(typeToString(_playerType));
     std::cout << typeToString(_playerType) << std::endl; 
@@ -168,7 +169,7 @@ void Player::fire() {
 }
 
 void Player::isShooted(Bullet* bullet) {
-    _hp -= bullet->lethality;
+    _hp -= bullet->lethality * _defend;
     // todo hurt animation
     std::cout << "Player " << _playerID << " is shooted " << _hp << std::endl;
     if (_hp < 0) {
