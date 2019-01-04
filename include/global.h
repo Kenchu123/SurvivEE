@@ -35,7 +35,7 @@ enum ButtonType {
 
 enum ItemType {
     Default, Gun, MachineGun, ShotGun, SubMachineGun, AK47, 
-    BodyArmor1, BodyArmor2, Helmet1, Helmet2, 
+    Bomb, BodyArmor1, BodyArmor2, Helmet1, Helmet2, 
     Bandage, LifeBox
 };
 

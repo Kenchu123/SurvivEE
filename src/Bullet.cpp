@@ -58,6 +58,16 @@ Bullet::Bullet(Player* from, ItemType guntype):
             lethality = 50;
             break;
         }
+        case Bomb: {
+            _type = "Bomb_origin";
+            loadTexture(_type);
+            resize(15, 30);
+            _moveVel = 8;
+            _distance = 150;
+            lethality = 50;
+            from->_bombEquipped = false;
+            break;
+        }
         default:
             break;
     }
@@ -113,18 +123,18 @@ void Bullet::_collideObstacle() {
 
 void Bullet::_endDistance() {
     if (_distance < 0) {
-        _state = shooted;
+        if(_type == "Bomb_origin") _state = stay;
+        else _state = shooted;
         // std::cout << "Bullet out of distance\n";
     }
 }
 
 void Bullet::update() {
-    if (_state == shooted) {
-        // todo destroy self
-        free();
-        return;
+    switch(_state) {
+        case flying: _move(); break;
+        case shooted: free(); break;
+        case stay: break;
     }
-    _move();
 }
 
 void Bullet::renderL(SDL_Rect& camera) {

@@ -14,6 +14,7 @@ Player::Player(std::string id):
     _moveVel(0), 
     _playerType(GunPlayer),
     _state(alive),
+    _bombEquipped(false),
     _hp(500)
 {
     loadTexture(typeToString(_playerType));
@@ -129,33 +130,40 @@ bool Player::collideObstacle() {
 
 
 void Player::fire() {
-    std::cout << "Fire called" << std::endl;
-    Bullet* bullet = new Bullet(this, (ItemType)_playerType);
-    switch(_playerType) {
-        case GunPlayer: {
-            loadedSound.playSound(0, "DefaultGunShot", 0);
-            break;
+    if(!_bombEquipped) {
+        std::cout << "Fire called" << std::endl;
+        Bullet* bullet = new Bullet(this, (ItemType)_playerType);
+        switch(_playerType) {
+            case GunPlayer: {
+                loadedSound.playSound(0, "DefaultGunShot", 0);
+                break;
+            }
+            case MachineGunPlayer: {
+                loadedSound.playSound(0, "MachineGunShot", 0);
+                break;
+            }
+            case ShotGunPlayer: {
+                loadedSound.playSound(0, "ShotGunShot", 0);
+                break;
+            }
+            case SubMachineGunPlayer: {
+                loadedSound.playSound(0, "MachineGunShot", 0);
+                break;
+            }
+            case AK47Player: {
+                loadedSound.playSound(0, "MachineGunShot", 0);
+                break;
+            }
+            default: break;
         }
-        case MachineGunPlayer: {
-            loadedSound.playSound(0, "MachineGunShot", 0);
-            break;
-        }
-        case ShotGunPlayer: {
-            loadedSound.playSound(0, "ShotGunShot", 0);
-            break;
-        }
-        case SubMachineGunPlayer: {
-            loadedSound.playSound(0, "MachineGunShot", 0);
-            break;
-        }
-        case AK47Player: {
-            loadedSound.playSound(0, "MachineGunShot", 0);
-            break;
-        }
-        default: break;
+        // bullets.emplace_back(this, (GunType)_playerType);
+        bullets.push_back(bullet);
     }
-    // bullets.emplace_back(this, (GunType)_playerType);
-    bullets.push_back(bullet);
+    else {
+        std::cout << "Bomb called" << std::endl;
+        Bullet* bullet = new Bullet(this, Bomb);
+        bullets.push_back(bullet);
+    }
 }
 
 void Player::isShooted(Bullet* bullet) {

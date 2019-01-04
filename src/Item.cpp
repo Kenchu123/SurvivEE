@@ -59,6 +59,7 @@ void Item::isPicked(Player* player) {
         case ShotGun: player->_playerType = ShotGunPlayer; break;
         case SubMachineGun: player->_playerType = MachineGunPlayer; break;
         case AK47: player->_playerType = MachineGunPlayer; break;
+        case Bomb: player->_bombEquipped = true;
         case Bandage: {
             if(player->_hp + 200 >= 500) player->_hp = 500;
             else player->_hp += 200; 

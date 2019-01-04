@@ -23,7 +23,7 @@ class Player : public Obj {
         double _playerY; // player posY
         double _playerSize; // getWidth() / 2
         PlayerState _state; // condition
-
+        bool _bombEquipped;
         double _hp; // HP
         double _defend; // defend coefficient
     public:

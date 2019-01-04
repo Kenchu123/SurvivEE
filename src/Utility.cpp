@@ -66,6 +66,7 @@ ItemType StringTotype(std::string s) {
     else if(s == "ShotGun") return ShotGun;
     else if(s == "SubMachineGun") return SubMachineGun;
     else if(s == "AK47") return AK47;
+    else if(s == "Bomb") return Bomb;
     else if(s == "BodyArmor1") return BodyArmor1;
     else if(s == "BodyArmor2") return BodyArmor2;
     else if(s == "Helmet1") return Helmet1;

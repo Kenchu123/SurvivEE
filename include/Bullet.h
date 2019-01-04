@@ -6,7 +6,7 @@
 class Player; 
 
 enum BulletState {
-    flying, shooted
+    flying, shooted, stay
 };
 
 class Bullet: public Obj {
