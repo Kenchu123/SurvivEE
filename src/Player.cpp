@@ -23,7 +23,7 @@ Player::Player(std::string id):
     std::cout << typeToString(_playerType) << std::endl; 
     std::cout << "Player Created : " << _playerID << " " << typeToString(_playerType) << std::endl;
     BloodStrip[0].loadTexture("BloodStripBackground");
-    BloodStrip[1].loadTexture("BloodStripRed");
+    // BloodStrip[1].loadTexture("BloodStripRed");
 }
 Player::~Player() {
     free();   
@@ -172,7 +172,7 @@ void Player::isShooted(Bullet* bullet) {
     _hp -= bullet->lethality * _defend;
     // todo hurt animation
     std::cout << "Player " << _playerID << " is shooted " << _hp << std::endl;
-    if (_hp < 0) {
+    if (_hp <= 0) {
         // todo death
         _state = dead;
     }
@@ -184,6 +184,7 @@ void Player::isShooted(Bullet* bullet) {
 void Player::update() {
     if (_state == dead) {
         // todo destroy self
+        BloodStrip[1].resize(BloodStrip[0].getWidth() * (_hp / 500), BloodStrip[0].getHeight());
         free();
         return;
     }
@@ -191,7 +192,14 @@ void Player::update() {
     rotate();
     pickItem();
     // update blood
-    BloodStrip[1].resize(BloodStrip[0].getWidth() * (_hp / 500), BloodStrip[0].getHeight());
+    if(_hp > 100){
+        BloodStrip[1].loadTexture("BloodStripWhite");
+        BloodStrip[1].resize(BloodStrip[0].getWidth() * (_hp / 500), BloodStrip[0].getHeight());
+    }
+    else {
+        BloodStrip[1].loadTexture("BloodStripRed");
+        BloodStrip[1].resize(BloodStrip[0].getWidth() * (_hp / 500), BloodStrip[0].getHeight());
+    }
     // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
 }
 
