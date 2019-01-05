@@ -151,7 +151,18 @@ void Player::fire() {
                 break;
             }
             case ShotGunPlayer: {
+                Player* tmp = new Player(*this);
+                tmp->_deg += 5;
+                tmp->_dirX = sin(tmp->_deg * PI / 180);
+                tmp->_dirY = -cos(tmp->_deg * PI / 180);
+                Bullet* bullet2 = new Bullet(tmp, (ItemType)_playerType);
+                tmp->_deg -= 10;
+                tmp->_dirX = sin(tmp->_deg * PI / 180);
+                tmp->_dirY = -cos(tmp->_deg * PI / 180);
+                Bullet* bullet3 = new Bullet(tmp, (ItemType)_playerType);
                 loadedSound.playSound(0, "ShotGunShot", 0);
+                bullets.push_back(bullet2);
+                bullets.push_back(bullet3);
                 break;
             }
             case FireGunPlayer: {

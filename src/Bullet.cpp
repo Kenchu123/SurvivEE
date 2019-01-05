@@ -34,10 +34,10 @@ Bullet::Bullet(Player* from, ItemType guntype):
         case ShotGun: {
             _type = "ShotGunBullet";
             loadTexture(_type);
-            resize(30, 50); // resize the bullet w, h
+            resize(10, 50); // resize the bullet w, h
             _moveVel = 10;
-            _distance = 100;
-            lethality = 100;
+            _distance = 110;
+            lethality = 50;
             break;
         }
         case FireGun: {
@@ -45,7 +45,7 @@ Bullet::Bullet(Player* from, ItemType guntype):
             loadTexture(_type);
             resize(30, 50); // resize the bullet w, h
             _moveVel = 10;
-            _distance = 100;
+            _distance = 110;
             lethality = 100;
             break;
         }
