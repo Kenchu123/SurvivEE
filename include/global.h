@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <vector>
 #include <map>
+#include <ctime>
 
 enum GameState {
     Menu,

@@ -391,6 +391,7 @@ void loadMedia() {
     loadingmenu.loadTexture("loadingmenu");
     GameOver1.loadTexture("GameOver1");
     GameOver2.loadTexture("GameOver2");
+    loadedSound.playSound(4, "BGM", -1);
 	// players[0].loadTexture("GunPlayer");
     // players[1].loadTexture("MachineGunPlayer");
 }

@@ -200,7 +200,7 @@ void Player::fire() {
 }
 
 void Player::isShooted(Bullet* bullet) {
-    loadedSound.playSound(0, "Hurt", 0);
+    loadedSound.playSound(3, "Hurt", 0);
     _hp -= bullet->lethality * _defend;
     // todo hurt animation
     std::cout << "Player " << _playerID << " is shooted " << _hp << std::endl;
