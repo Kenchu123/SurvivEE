@@ -179,7 +179,7 @@ void Player::fire() {
                 break;
             }
             case FireGunPlayer: {
-                loadedSound.playSound(0, "ShotGunShot", 0);
+                loadedSound.playSound(0, "FireGunShot", 0);
                 break;
             }
             case AK47Player: {
