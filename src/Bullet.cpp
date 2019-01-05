@@ -62,7 +62,7 @@ Bullet::Bullet(Player* from, ItemType guntype):
         case Bomb: {
             _type = "Bomb_origin";
             loadTexture(_type);
-            resize(15, 30);
+            resize(30, 50);
             _moveVel = 5;
             _distance = 150;
             lethality = 400;
@@ -138,10 +138,13 @@ void Bullet::update() {
         case shooted: free(); break;
         case stay: {
             if(_explosionDelay > 100) {
-                this->loadTexture("Explosion");
+                loadTexture("Explosion");
+                resize(150, 150);
+                _posX = _bulletX - getWidth() / 2; _posY = _bulletY - getHeight() / 2;
+                _deg = 0;
                 loadedSound.playSound(0, "bombExplosion",0);
                 for (int i = 0;i < players.size(); i++) {
-                    if (_fromID != players[i]->_playerID && sqrt(pow(_bulletX - players[i]->_playerX, 2) + pow(_bulletY - players[i]->_playerY, 2)) < 150) {
+                    if (sqrt(pow(_bulletX - players[i]->_playerX, 2) + pow(_bulletY - players[i]->_playerY, 2)) < 150) {
                         _state = shooted;
                         players[i]->isShooted(this);
                     }
