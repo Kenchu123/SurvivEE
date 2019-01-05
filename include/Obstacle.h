@@ -5,18 +5,21 @@
 
 class Obstacle : public Obj {
     protected:
-        std::string _type;
-        ObstacleType _obstacleType;
+        // ObstacleType _obstacleType;
         double _obstacleX, _obstacleY;
         double _obstacleRadius;
+        double _deg;
     public:
+    ObstacleType _type;
     friend class Player;
     friend class Bullet;
-    Obstacle(std::string, double, double);
+    Obstacle(ObstacleType, double, double, double deg = 0);
     ~Obstacle();
     void update();
     void renderL(SDL_Rect&);
     void renderR(SDL_Rect&);
+    double getObsX() { return _obstacleX; }
+    double getObsY() { return _obstacleY; }
 };
 
 extern std::vector<Obstacle*> obstacles;

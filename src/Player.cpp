@@ -22,7 +22,8 @@ Player::Player(std::string id):
     helmetUp(NULL),
     gun(NULL),
     bomb(NULL),
-    bodyArmor(NULL)
+    bodyArmor(NULL),
+    _shootTime(0)
 {
     loadTexture(typeToString(_playerType));
     std::cout << typeToString(_playerType) << std::endl; 
@@ -64,7 +65,7 @@ void Player::handleKeyInput(SDL_Event& e) {
             }
             case SDLK_LEFT: _rotVel = -5; break;
             case SDLK_RIGHT: _rotVel = +5; break;
-            case SDLK_RETURN: fire(); break;
+            case SDLK_RETURN: fire(); _shootTime += 1; break;
         }
     }
     // If a key was released
@@ -75,6 +76,7 @@ void Player::handleKeyInput(SDL_Event& e) {
             case SDLK_DOWN: _moveVel = 0;Mix_Pause(1); break;
             case SDLK_LEFT: _rotVel = 0; break;
             case SDLK_RIGHT: _rotVel = 0; break;
+            case SDLK_RETURN: _shootTime = 0; break;
         }
     }
 }
@@ -130,12 +132,18 @@ bool Player::collideOtherPlayer() {
 }
 
 bool Player::collideObstacle() {
-    for(int i = 0; i < obstacles.size(); i++) {
-        if(obstacles[i]->_obstacleType < Box) {
-            if(sqrt(pow(_playerX - obstacles[i]->_obstacleX, 2) + pow(_playerY - obstacles[i]->_obstacleY, 2)) < _playerSize + obstacles[i]->getWidth() / 2) return 1;
+    for (int i = 0; i < obstacles.size(); i++) {
+        if (obstacles[i]->_type < Box) {
+            if (obstacles[i]->_type == Tree) {
+                if (getDis(_playerX, _playerY, obstacles[i]->_obstacleX, obstacles[i]->_obstacleY) < _playerSize + obstacles[i]->getWidth() / 6) return 1;
+            }
+            else {
+                if (getDis(_playerX, _playerY, obstacles[i]->_obstacleX, obstacles[i]->_obstacleY) < _playerSize + obstacles[i]->getWidth() / 2) return 1;
+            }
         }
         else {
-            if(abs(_playerX - obstacles[i]->_obstacleX) < _playerSize + _objWidth / 2 && abs(_playerY - obstacles[i]->_obstacleY) < _playerSize + _objHeight / 2) return 1;
+            // if(abs(_playerX - obstacles[i]->_obstacleX) < _playerSize + _objWidth / 2 && abs(_playerY - obstacles[i]->_obstacleY) < _playerSize + _objHeight / 2) return 1;
+            if (abs(_playerX - obstacles[i]->_obstacleX) < _playerSize + obstacles[i]->getWidth() / 2 && abs(_playerY - obstacles[i]->_obstacleY) < _playerSize + obstacles[i]->getHeight() / 2) return 1;
         }
     }
     return 0;
@@ -248,6 +256,10 @@ void Player::update() {
         BloodStrip[1].loadTexture("BloodStripRed");
         BloodStrip[1].resize(BloodStrip[0].getWidth() * (_hp / 500), BloodStrip[0].getHeight());
     }
+    // shoot continuously
+    if (_shootTime && (_playerType == MachineGunPlayer || _playerType == AK47Player)) {
+        if ((_shootTime++) % 5 == 0) fire();
+    }
     move();
     rotate();
     pickItem();
@@ -308,7 +320,7 @@ void Player2::handleKeyInput(SDL_Event& e) {
             }
             case SDLK_d: _rotVel = -5; break;
             case SDLK_g: _rotVel = +5; break;
-            case SDLK_z: fire(); break;
+            case SDLK_z: fire(); _shootTime = 1 ; break;
         }
     }
     // If a key was released
@@ -319,6 +331,7 @@ void Player2::handleKeyInput(SDL_Event& e) {
             case SDLK_f: _moveVel = 0; Mix_Pause(2); break;
             case SDLK_d: _rotVel = 0; break;
             case SDLK_g: _rotVel = 0; break;
+            case SDLK_z: _shootTime = 0 ; break;
         }
     }
 }

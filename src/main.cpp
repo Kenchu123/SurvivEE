@@ -26,8 +26,8 @@ Obj background, StartMenu, loadingmenu, GameOver1, GameOver2;
 SDL_Rect camera = {0 , 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
 SDL_Rect camera2 = {0, SCREEN_WIDTH, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
 // tree
-std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "FireGun",
-                    "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox"};
+ItemType itemName[12] = {MachineGun, AK47, Bomb, Gun, ShotGun, FireGun,
+                    Bandage, BodyArmor1, BodyArmor2, Helmet1, Helmet2, LifeBox};
 // button
 Button* startButton;
 // obstacle
@@ -38,27 +38,28 @@ Button* startButton;
 //                             "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
 //                             "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",};
 
-int map[20][20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 
-                   0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 
-                   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 
-                   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                   0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 
-                   0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 
-                   0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 
-                   0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 
-                   0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                   0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
-                   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
-                   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 
-                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
-                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 
-                   0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 
-                   0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 
-                   0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 
-                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0                   
-                };
+// int map[20][20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+//                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 
+//                    0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 
+//                    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 
+//                    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+//                    0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+//                    0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 
+//                    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 
+//                    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 
+//                    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+//                    0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+//                    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
+//                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 
+//                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
+//                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 
+//                    0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 
+//                    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 
+//                    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 
+//                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+//                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0                   
+//                 };
+int map[20][20] = {0};
 
 int main(int argc, char* args[]) {
     try {
@@ -68,20 +69,8 @@ int main(int argc, char* args[]) {
     catch (const char* message) {
         printf("Error: %s\n", message);
     }
-    for (int i = 0;i < 12; i++) {
-        Item* tmp = new Item(StringTotype(itemName[i]), rand() % 20 * 100 , rand() % 20 * 100);
-        items.push_back(tmp);
-    }
-    int k = 0;
-    for(int i = 0; i < 20; i++) {
-        for(int j = 0; j < 20; j++) {
-            if(map[i][j] == 1) {
-                Obstacle* tmp2 = new Obstacle("BrickWall", j * 100, i * 100);
-                obstacles.push_back(tmp2);
-                k++;
-            }
-        }
-    }
+    srand(time(NULL));
+
     // for(int i = 0; i < 36; i++) {
         // Obstacle* tmp2 = new Obstacle(ObstacleName[i], rand() % 20 * 100, rand() % 20 * 100);
         // obstacles.push_back(tmp2);
@@ -144,13 +133,7 @@ void gameLoad(SDL_Event& e) {
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
         if (e.key.keysym.sym == SDLK_SPACE) { 
-            Player* player1 = new Player(std::to_string(1));
-            Player2* player2 = new Player2(std::to_string(2));
-            players.push_back(player1);
-            players.push_back(player2);
-            // set player place
-            players[0]->setInitialPosition(LEVEL_WIDTH - 200, LEVEL_HEIGHT - 200);
-            players[1]->setInitialPosition(50, 50);
+            generate();
             gameState = Playing;
             break;
         }
@@ -165,6 +148,94 @@ void gameLoad(SDL_Event& e) {
     loadingmenu.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
     //Update screen
     SDL_RenderPresent( gRenderer );
+}
+
+bool checkPlace(int x, int y, int dis) {
+    // check for not render on same place || render
+    for (int i = 0; i < players.size(); i++) {
+        if (sqrt(pow(players[i]->getPlayerX() - x, 2) + pow(players[i]->getPlayerY() - y, 2)) < dis + 100) return 0;
+    }
+    for (int i = 0;i < obstacles.size(); i++) {
+        if (sqrt(pow(obstacles[i]->getObsX() - x, 2) + pow(obstacles[i]->getObsY() - y, 2)) < dis) return 0;
+    }
+    return 1;
+}
+
+void generate() {
+    // generate players
+    Player* player1 = new Player(std::to_string(1));
+    Player2* player2 = new Player2(std::to_string(2));
+    players.push_back(player1);
+    players.push_back(player2);
+    // set player place
+    players[0]->setInitialPosition(LEVEL_WIDTH - 200, LEVEL_HEIGHT - 200);
+    players[1]->setInitialPosition(50, 50);
+
+    // generate brickWall
+    // for (int i = 0;i < 20; i++) {
+    //     int a = rand() % 20, b = rand() % 20;
+    //     while (checkPlace(a, b)) {
+    //         a = rand() % 20, b = rand() % 20;
+    //     }
+    //     map[a][b] = 1;
+    // }
+    // for(int i = 0; i < 20; i++) {
+    //     for(int j = 0; j < 20; j++) {
+    //         if(map[i][j] == 1) {
+    //             Obstacle* tmp = new Obstacle("BrickWall", j * 100, i * 100);
+    //             tmp->resize(100, 100);
+    //             obstacles.push_back(tmp);
+    //         }
+    //     }
+    // }
+    for (int i = 0;i < 25; i++) {
+        int a = rand() % 25, b = rand() % 25;
+        while (checkPlace(a, b)) {
+            a = rand() % 25, b = rand() % 25;
+        }
+        Obstacle* tmp = new Obstacle(BrickWall, b * 80, a * 80);
+        tmp->resize(80, 80);
+        obstacles.push_back(tmp);
+    }
+    // generate boxes
+
+    // generate rocks
+    for (int i = 0; i < 20; i++) {
+        int a = rand() % 1800 + 100, b = rand() % 1800 + 100;
+        while (!checkPlace(a, b, 70)) {
+            a = rand() % 1800 + 100;
+            b = rand() % 1800 + 100;
+        }
+        int cnt = rand() % 3;
+        // "Rock1", "Rock2", "Rock3"
+        Obstacle* tmp = new Obstacle((ObstacleType)(Rock1 + cnt), a, b, rand() % 360);
+        int size = rand() % 20 + 80;
+        tmp->resize(size, size);
+        obstacles.push_back(tmp);
+    }
+
+    // generate trees
+    for (int i = 0;i < 25; i++) {
+        int a = rand() % 1800 + 100, b = rand() % 1800 + 100;
+        while (!checkPlace(a, b)) {
+            a = rand() % 1800 + 100;
+            b = rand() % 1800 + 100;
+        }
+        Obstacle* tmp = new Obstacle(Tree, a, b, rand() % 360);
+        int size = rand() % 20 + 80;
+        tmp->resize(size, size);
+        obstacles.push_back(tmp);
+    }
+    // generate item
+    for (int i = 0;i < 12; i++) {
+        int a = rand() % 1800 + 100, b = rand() % 1800 + 100;
+        while (!checkPlace(a, b)) {
+            a = rand() % 1800 + 100;
+            b = rand() % 1800 + 100;
+        }
+        Item* tmp = new Item(itemName[i], a, b);
+        items.push_back(tmp);
+    }
 }
 
 void playing(SDL_Event& e) {
@@ -208,28 +279,35 @@ void playing(SDL_Event& e) {
     if( camera2.y < 0 ) {camera2.y = 0;}
     if( camera2.x > LEVEL_WIDTH - camera2.w ) {camera2.x = LEVEL_WIDTH - camera2.w;}
     if( camera2.y > LEVEL_HEIGHT - camera2.h ) {camera2.y = LEVEL_HEIGHT - camera2.h;}
-
-    for (int i = 0;i < players.size(); i++) {
-        players[i]->renderL(camera);
-        players[i]->renderR(camera2);
-    }
-
+    // render bullet
     for (int i = 0;i < bullets.size(); i++) {
         bullets[i]->update();
         bullets[i]->renderL(camera);
         bullets[i]->renderR(camera2);
     }
-
+    // render obstacle without tree
+    for(int i = 0; i < obstacles.size(); i++) {
+        if (obstacles[i]->_type == Tree) continue;
+        obstacles[i]->renderL(camera);
+        obstacles[i]->renderR(camera2);
+    }
+    // render player
+    for (int i = 0;i < players.size(); i++) {
+        players[i]->renderL(camera);
+        players[i]->renderR(camera2);
+    }
+    // render Tree
+    for(int i = 0; i < obstacles.size(); i++) {
+        if (obstacles[i]->_type == Tree) {
+            obstacles[i]->renderL(camera);
+            obstacles[i]->renderR(camera2);
+        }
+    }
     // Render test item
     for (int i = 0; i < items.size(); i++) {
         // items[i]->update();
         items[i]->renderL(camera);
         items[i]->renderR(camera2);
-    }
-    for(int i = 0; i < obstacles.size(); i++) {
-        // obstacles[i]->update();
-        obstacles[i]->renderL(camera);
-        obstacles[i]->renderR(camera2);
     }
 
     // render Bloodstrip and windows
@@ -253,7 +331,9 @@ void playing(SDL_Event& e) {
     }
 
     // Test for draw Line
-    SDL_RenderDrawLine(gRenderer, SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT);
+    SDL_Rect rect = { SCREEN_WIDTH / 2 - 30, 0, 60, SCREEN_HEIGHT};
+    SDL_RenderDrawRect(gRenderer, &rect);
+    SDL_RenderFillRect(gRenderer ,&rect);
     //Update screen
     SDL_RenderPresent( gRenderer );
     int frameTicks = capTimer.getTicks();
