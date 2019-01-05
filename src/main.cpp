@@ -21,7 +21,7 @@ int SCREEN_TICK_PER_FRAME = 1000 / SCREEN_FPS;
 // set Game State
 GameState gameState;
 // background, loadingmenu
-Obj background, StartMenu, loadingmenu;
+Obj background, StartMenu, loadingmenu, GameOver1, GameOver2;
 // camera
 SDL_Rect camera = {0 , 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
 SDL_Rect camera2 = {0, SCREEN_WIDTH, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
@@ -31,13 +31,34 @@ std::string itemName[12] = {"MachineGun", "AK47", "Bomb", "Gun", "ShotGun", "Fir
 // button
 Button* startButton;
 // obstacle
-std::string ObstacleName[28] = {"Tree", "Rock1", "Rock2", "Rock3", 
-                            "Tree", "Rock1", "Rock2", "Rock3", 
-                            "Tree", "Rock1", "Rock2", "Rock3",
-                            "Tree", "Rock1", "Rock2", "Rock3",
-                            "Tree", "Rock1", "Rock2", "Rock3",
-                            "Tree", "Rock1", "Rock2", "Rock3",
-                            "Tree", "Rock1", "Rock2", "Rock3"};
+// std::string ObstacleName[36] = {"Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+//                             "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+//                             "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+//                             "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+//                             "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",
+//                             "Tree", "Rock1", "Rock2", "Rock3", "Box", "BrickWall",};
+
+int map[20][20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 
+                   0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 
+                   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 
+                   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                   0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 
+                   0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 
+                   0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                   0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
+                   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
+                   0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 
+                   0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+                   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0                   
+                };
 
 int main(int argc, char* args[]) {
     try {
@@ -48,13 +69,23 @@ int main(int argc, char* args[]) {
         printf("Error: %s\n", message);
     }
     for (int i = 0;i < 12; i++) {
-        Item* tmp = new Item(StringTotype(itemName[i]), rand() % (LEVEL_WIDTH - 100) , rand() % (LEVEL_HEIGHT - 100));
+        Item* tmp = new Item(StringTotype(itemName[i]), rand() % 20 * 100 , rand() % 20 * 100);
         items.push_back(tmp);
     }
-    for(int i = 0; i < 28; i++) {
-        Obstacle* tmp2 = new Obstacle(ObstacleName[i], rand() % (LEVEL_WIDTH - 100) , rand() % (LEVEL_HEIGHT - 100));
-        obstacles.push_back(tmp2);
+    int k = 0;
+    for(int i = 0; i < 20; i++) {
+        for(int j = 0; j < 20; j++) {
+            if(map[i][j] == 1) {
+                Obstacle* tmp2 = new Obstacle("BrickWall", j * 100, i * 100);
+                obstacles.push_back(tmp2);
+                k++;
+            }
+        }
     }
+    // for(int i = 0; i < 36; i++) {
+        // Obstacle* tmp2 = new Obstacle(ObstacleName[i], rand() % 20 * 100, rand() % 20 * 100);
+        // obstacles.push_back(tmp2);
+    // }
     //Event handler
     SDL_Event e;
     // initail game State
@@ -102,7 +133,7 @@ void menu(SDL_Event& e) {
     StartMenu.resize(1200, 800);
     // Render Button
     startButton->update(); 
-    startButton->resize(300, 120);
+    startButton->resize(300, 50);
     // tutorial.update(); option.update();
 
     //Update screen
@@ -118,8 +149,8 @@ void gameLoad(SDL_Event& e) {
             players.push_back(player1);
             players.push_back(player2);
             // set player place
-            players[0]->setInitialPosition(LEVEL_WIDTH - 300, LEVEL_HEIGHT - 300);
-            players[1]->setInitialPosition(100, 100);
+            players[0]->setInitialPosition(LEVEL_WIDTH - 200, LEVEL_HEIGHT - 200);
+            players[1]->setInitialPosition(50, 50);
             gameState = Playing;
             break;
         }
@@ -143,7 +174,9 @@ void playing(SDL_Event& e) {
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
         if(e.type == SDL_QUIT) { gameState = Quit; break; }
-        else if(players[0]->getState() == dead || players[1]->getState() == dead) {gameState = GameOver; break; }
+        else if(players[0]->getState() == dead || players[1]->getState() == dead) {
+            gameState = GameOver; 
+            break; }
         players[0]->handleKeyInput(e);
         players[1]->handleKeyInput(e);
     }
@@ -231,34 +264,23 @@ void playing(SDL_Event& e) {
 }
 
 void gameover(SDL_Event& e) {
-        //Handle events on queue
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
-        if (startButton->get_triggered() == true) { 
-            gameState = Loading; 
-            startButton->set_triggered(false);
-            break; 
-            }
-        else if (e.type == SDL_QUIT) { gameState = Quit; break; }
-        startButton->handleEvent(&e); 
-        // tutorial.handleEvent(&e); option.handleEvent(&e);
+        if (e.type == SDL_QUIT) { gameState = Quit; break; }
     }
     //Clear screen
     SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
     SDL_RenderClear( gRenderer );
 
-    // resize
-    background.resize(LEVEL_WIDTH, LEVEL_HEIGHT);
-    // Render background
-    background.render(0, 0);
-    // Render StartMenu
-    StartMenu.render(0, 0); 
-    StartMenu.resize(1200, 800);
-    // Render Button
-    startButton->update(); 
-    startButton->resize(300, 120);
-    // tutorial.update(); option.update();
-
+    // Render loadingmenu
+    if(players[0]->getState() == dead) {
+        GameOver1.render(0,0);
+        GameOver1.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
+    else {
+        GameOver2.render(0,0);
+        GameOver2.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
+    }
     //Update screen
     SDL_RenderPresent( gRenderer );
 }
@@ -293,6 +315,8 @@ void loadMedia() {
     background.loadTexture("Grass");
     StartMenu.loadTexture("StartMenu");
     loadingmenu.loadTexture("loadingmenu");
+    GameOver1.loadTexture("GameOver1");
+    GameOver2.loadTexture("GameOver2");
 	// players[0].loadTexture("GunPlayer");
     // players[1].loadTexture("MachineGunPlayer");
 }

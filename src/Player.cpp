@@ -131,7 +131,12 @@ bool Player::collideOtherPlayer() {
 
 bool Player::collideObstacle() {
     for(int i = 0; i < obstacles.size(); i++) {
-        if(sqrt(pow(_playerX - obstacles[i]->_obstacleX, 2) + pow(_playerY - obstacles[i]->_obstacleY, 2)) < _playerSize + obstacles[i]->getWidth() / 2) return 1;
+        if(obstacles[i]->_obstacleType < Box) {
+            if(sqrt(pow(_playerX - obstacles[i]->_obstacleX, 2) + pow(_playerY - obstacles[i]->_obstacleY, 2)) < _playerSize + obstacles[i]->getWidth() / 2) return 1;
+        }
+        else {
+            if(abs(_playerX - obstacles[i]->_obstacleX) < _playerSize + _objWidth / 2 && abs(_playerY - obstacles[i]->_obstacleY) < _playerSize + _objHeight / 2) return 1;
+        }
     }
     return 0;
 }
@@ -180,12 +185,14 @@ void Player::fire() {
     }
     else {
         std::cout << "Bomb called" << std::endl;
+        loadedSound.playSound(0, "FireInTheHole", 0);
         Bullet* bullet = new Bullet(this, Bomb);
         bullets.push_back(bullet);
     }
 }
 
 void Player::isShooted(Bullet* bullet) {
+    loadedSound.playSound(0, "Hurt", 0);
     _hp -= bullet->lethality * _defend;
     // todo hurt animation
     std::cout << "Player " << _playerID << " is shooted " << _hp << std::endl;

@@ -40,7 +40,7 @@ enum ItemType {
 };
 
 enum ObstacleType {
-    Tree, Rock1, Rock2, Rock3
+    Tree, Rock1, Rock2, Rock3, Box, BrickWall
 };
 
 extern SDL_Window* gWindow;
