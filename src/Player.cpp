@@ -314,7 +314,7 @@ void Player::renderL(SDL_Rect& camera) {
             helmetUp->renderL(camera);
         }
         if (_isHitted) {
-            _isHitted = 0;
+            // _isHitted = 0;
             _hittedMask->SetPosition(_playerX, _playerY);
             _hittedMask->renderL(camera);
         }
