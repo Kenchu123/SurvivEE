@@ -6,12 +6,13 @@
 #include <SDL2_mixer/SDL_mixer.h>
 #include <string>
 #include <stdlib.h>
+#include <stdio.h>
 #include <iostream>
 #include <math.h>
 #include <algorithm>
 #include <vector>
 #include <map>
-#include <ctime>
+#include <time.h>
 
 enum GameState {
     Menu,

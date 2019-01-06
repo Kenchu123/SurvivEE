@@ -209,7 +209,7 @@ void playing(SDL_Event& e) {
     capTimer.start();
     if (reGenTime.getTicks() > 10000 * genTimes) {
         std::cout << "testTicks:" << reGenTime.getTicks() << std::endl;
-        generate((ItemType)(random() % 11 + 1));
+        generate((ItemType)(rand() % 11 + 1));
         genTimes += 1;
     }
     //Handle events on queue
