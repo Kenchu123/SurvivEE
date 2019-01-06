@@ -207,7 +207,7 @@ void playing(SDL_Event& e) {
     Timer capTimer;
     capTimer.start();
     if (reGenTime.getTicks() > 10000 * genTimes) {
-        generate((ItemType)(random() % 11 + 1));
+        generate((ItemType)(rand() % 11 + 1));
         genTimes += 1;
     }
     //Handle events on queue
