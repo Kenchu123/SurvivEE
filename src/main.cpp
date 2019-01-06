@@ -217,12 +217,15 @@ void playing(SDL_Event& e) {
     //Handle events on queue
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
+        //std::cout << "BGM is loaded" << std::endl;
         if(e.type == SDL_QUIT) { gameState = Quit; break; }
         else if (e.key.keysym.sym == SDLK_ESCAPE) { 
             gameState = Pause;
             break; }
         else if(players[0]->getState() == dead || players[1]->getState() == dead) {
             gameState = GameOver; 
+            loadedSound.playSound(4, "gameoversound", -1);
+            std::cout << "alarm is loaded" << std::endl;
             break; }
         players[0]->handleKeyInput(e);
         players[1]->handleKeyInput(e);
