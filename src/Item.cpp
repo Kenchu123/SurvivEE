@@ -13,7 +13,6 @@ Item::Item(ItemType type, double x, double y):
     resize(80, 80);
     _posX = _itemX - getWidth() * 0.5;
     _posY = _itemY - getHeight() * 0.5;
-    std::cout << _type << " " << std::endl;
 }
 
 Item::~Item() {

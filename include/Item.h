@@ -11,7 +11,6 @@ class Player;
 
 class Item: public Obj {
     protected:
-        // std::string _type;
         ItemType _type;
         ItemState _state; // unPicked and Picked
         double _itemX, _itemY; // center of the item

@@ -133,7 +133,6 @@ bool checkPlace(int x, int y, int dis) {
 }
 
 void generate(ItemType item) {
-    std::cout << "reGenerate: " << typeToString(item) << std::endl;
     int a = rand() % 1800 + 100, b = rand() % 1800 + 100;
     while (!checkPlace(a, b)) {
         a = rand() % 1800 + 100;
@@ -208,7 +207,6 @@ void playing(SDL_Event& e) {
     Timer capTimer;
     capTimer.start();
     if (reGenTime.getTicks() > 10000 * genTimes) {
-        std::cout << "testTicks:" << reGenTime.getTicks() << std::endl;
         generate((ItemType)(random() % 11 + 1));
         genTimes += 1;
     }

@@ -15,7 +15,6 @@ Obstacle::Obstacle(ObstacleType type, double x, double y, double deg):
     loadTexture(typeToString(_type));
     _posX = _obstacleX - getWidth() * 0.5;
     _posY = _obstacleY - getHeight() * 0.5;
-    std::cout << _type << std::endl;
 }
 
 Obstacle::~Obstacle() {

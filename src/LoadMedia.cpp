@@ -46,7 +46,6 @@ SDL_Texture* LoadedTexture::_loadTextureFromFile(std::string name) {
         return newTexture;
     }
     catch (const char* s) {
-        std::cout << s << std::endl;
         return NULL;
     }
 }

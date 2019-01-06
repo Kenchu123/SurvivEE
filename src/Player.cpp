@@ -28,8 +28,6 @@ Player::Player(std::string id):
     _ammo(-1)
 {
     loadTexture(typeToString(_playerType));
-    std::cout << typeToString(_playerType) << std::endl; 
-    std::cout << "Player Created : " << _playerID << " " << typeToString(_playerType) << std::endl;
     BloodStrip[0].loadTexture("BloodStripBackground");
     GunBulletStrip[0].loadTexture("GunBulletStripBackground");
     // BloodStrip[1].loadTexture("BloodStripRed");
@@ -155,7 +153,6 @@ bool Player::collideObstacle() {
 
 void Player::fire() {
     if(!_bombEquipped) {
-        std::cout << "Fire called" << std::endl;
         Bullet* bullet = new Bullet(this, (ItemType)_playerType);
         _ammo--;
         if(_ammo == 0) { 
@@ -203,7 +200,6 @@ void Player::fire() {
         bullets.push_back(bullet);
     }
     else {
-        std::cout << "Bomb called" << std::endl;
         loadedSound.playSound(0, "FireInTheHole", 0);
         Bullet* bullet = new Bullet(this, Bomb);
         bullets.push_back(bullet);
@@ -214,7 +210,6 @@ void Player::isShooted(Bullet* bullet) {
     loadedSound.playSound(3, "Hurt", 0);
     _hp -= bullet->lethality * _defend;
     // todo hurt animation
-    std::cout << "Player " << _playerID << " is shooted " << _hp << std::endl;
     if (_hp <= 0) {
         // todo death
         _state = dead;
@@ -289,7 +284,6 @@ void Player::update() {
     move();
     rotate();
     pickItem();
-    // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
 }
 
 void Player::setammo(int a) {
