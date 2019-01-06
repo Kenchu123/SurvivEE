@@ -10,6 +10,7 @@ void gameLoad(SDL_Event&);
 void pause(SDL_Event&);
 void gameover(SDL_Event&);
 void generate();
+void generate(ItemType);
 bool checkPlace(int, int, int dis = 100);
 
 struct Vec {

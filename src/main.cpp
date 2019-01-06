@@ -26,12 +26,15 @@ Obj background, StartMenu, loadingmenu, PauseMenu, GameOver1, GameOver2;
 SDL_Rect camera = {0 , 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
 SDL_Rect camera2 = {0, SCREEN_WIDTH, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
 // tree
-ItemType itemName[12] = {MachineGun, AK47, Bomb, Gun, ShotGun, FireGun,
+ItemType itemName[12] = {Gun, MachineGun, AK47, Bomb, ShotGun, FireGun,
                     Bandage, BodyArmor1, BodyArmor2, Helmet1, Helmet2, LifeBox};
 // button
 Button* startButton;
 Button* continueButton;
 
+// generate time
+Timer reGenTime;
+int genTimes = 1;
 
 int main(int argc, char* args[]) {
     try {
@@ -104,6 +107,7 @@ void gameLoad(SDL_Event& e) {
         if (e.key.keysym.sym == SDLK_SPACE) { 
             generate();
             gameState = Playing;
+            reGenTime.start();
             break;
         }
         else if (e.type == SDL_QUIT) { gameState = Quit; break; }
@@ -128,6 +132,17 @@ bool checkPlace(int x, int y, int dis) {
         if (sqrt(pow(obstacles[i]->getObsX() - x, 2) + pow(obstacles[i]->getObsY() - y, 2)) < dis) return 0;
     }
     return 1;
+}
+
+void generate(ItemType item) {
+    std::cout << "reGenerate: " << typeToString(item) << std::endl;
+    int a = rand() % 1800 + 100, b = rand() % 1800 + 100;
+    while (!checkPlace(a, b)) {
+        a = rand() % 1800 + 100;
+        b = rand() % 1800 + 100;
+    }
+    Item* tmp = new Item(item, a, b);
+    items.push_back(tmp);
 }
 
 void generate() {
@@ -180,7 +195,7 @@ void generate() {
         obstacles.push_back(tmp);
     }
     // generate item
-    for (int i = 0;i < 12; i++) {
+    for (int i = 1;i < 12; i++) {
         int a = rand() % 1800 + 100, b = rand() % 1800 + 100;
         while (!checkPlace(a, b)) {
             a = rand() % 1800 + 100;
@@ -194,6 +209,11 @@ void generate() {
 void playing(SDL_Event& e) {
     Timer capTimer;
     capTimer.start();
+    if (reGenTime.getTicks() > 10000 * genTimes) {
+        std::cout << "testTicks:" << reGenTime.getTicks() << std::endl;
+        generate((ItemType)(random() % 11 + 1));
+        genTimes += 1;
+    }
     //Handle events on queue
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit

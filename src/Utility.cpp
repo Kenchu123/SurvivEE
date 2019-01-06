@@ -12,17 +12,6 @@ std::string typeToString(PlayerType& type) {
     }
 }
 
-// std::string typeToString(GunType& type) {
-//     switch (type) {
-//         case Gun: return "Gun";
-//         case MachineGun: return "MachineGun";
-//         case AK47: return "AK47";
-//         case FireGun: return "FireGun";
-//         case ShotGun: return "ShotGun";
-//         default: return "";
-//     }
-// }
-
 std::string typeToString(ButtonType& type) {
     switch (type) {
         case Start: return "start";
@@ -63,22 +52,6 @@ std::string typeToString(ItemType type) {
         default: return "";
     }
 }
-
-// ItemType StringTotype(std::string s) {
-//     if(s == "Gun") return Gun;
-//     else if(s == "MachineGun") return MachineGun;
-//     else if(s == "ShotGun") return ShotGun;
-//     else if(s == "FireGun") return FireGun;
-//     else if(s == "AK47") return AK47;
-//     else if(s == "Bomb") return Bomb;
-//     else if(s == "BodyArmor1") return BodyArmor1;
-//     else if(s == "BodyArmor2") return BodyArmor2;
-//     else if(s == "Helmet1") return Helmet1;
-//     else if(s == "Helmet2") return Helmet2;
-//     else if(s == "Bandage") return Bandage;
-//     else if(s == "LifeBox") return LifeBox;
-//     else return Default;
-// }
 
 double getDis(double x1, double y1, double x2, double y2) {
     return sqrt(pow(x1 - x2, 2) + pow(y1- y2, 2));
