@@ -339,6 +339,7 @@ void gameover(SDL_Event& e) {
             items.clear();
             players.clear();
             obstacles.clear();
+            loadedSound.playSound(4, "BGM", -1);
             break; }
         else if (e.type == SDL_QUIT) { gameState = Quit; break; }
         restartButton->handleEvent(&e); 
