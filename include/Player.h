@@ -30,6 +30,9 @@ class Player : public Obj {
         double _defend; // defend coefficient
         int _shootTime; // machine / AK47 shootSpeed
         double _ammo;
+        
+        bool _isHitted;
+        Item* _hittedMask;
     public:
         friend class Bullet;
         friend class Item;
