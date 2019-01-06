@@ -258,7 +258,7 @@ void Player::update() {
     }
     // shoot continuously
     if (_shootTime && (_playerType == MachineGunPlayer || _playerType == AK47Player)) {
-        if ((_shootTime++) % 5 == 0) fire();
+        if ((_shootTime++) % 15 == 0) fire();
     }
     move();
     rotate();
