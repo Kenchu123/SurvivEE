@@ -7,8 +7,8 @@ LoadedTexture::LoadedTexture() {
     free();
     _loadedTextures.clear();
     // set all texture to load
-    std::string names[49] = {
-                    "DefaultPlayer", "GunPlayer", "MachineGunPlayer", "ShotGunPlayer", "AK47Player", "FireGunPlayer",
+    std::string names[50] = {
+                    "DefaultPlayer", "GunPlayer", "MachineGunPlayer", "ShotGunPlayer", "AK47Player", "FireGunPlayer", "ShotMask",
                     "GunBullet", "MachineGunBullet", "ShotGunBullet", "FireGunBullet", "Bomb_origin", "Explosion",
                     "Tree", "Grass", "Rock1", "Rock2", "Rock3", "Floor", "Box", "BrickWall",
                     "StartMenu", "loadingmenu", "PauseMenu", "GameOver1", "GameOver2",
@@ -17,7 +17,7 @@ LoadedTexture::LoadedTexture() {
                     "Bandage", "BodyArmor1", "BodyArmor2", "Helmet1", "Helmet2", "LifeBox","Helmet1Up", "Helmet2Up",
                     "BloodStripBackground", "BloodStripWhite", "BloodStripRed", "GunBulletStrip", "GunBulletStripBackground"
                     };
-    for (int i = 0;i < 49; i++) _toLoadFileName.push_back(names[i]);
+    for (int i = 0;i < 50; i++) _toLoadFileName.push_back(names[i]);
 }
 
 LoadedTexture::~LoadedTexture() {
@@ -36,7 +36,7 @@ void LoadedTexture::free() {
 SDL_Texture* LoadedTexture::_loadTextureFromFile(std::string name) {
     try {
         SDL_Texture* newTexture = NULL;
-        std::string prefix = "./media/images/", postfix = ".png";
+        std::string prefix = "../media/images/", postfix = ".png";
         SDL_Surface* loadedSurface = IMG_Load((prefix + name + postfix).c_str());
         if (loadedSurface == NULL) throw IMG_GetError();
         SDL_SetColorKey( loadedSurface, SDL_TRUE, SDL_MapRGB( loadedSurface->format, 0, 0xFF, 0xFF ) );
@@ -88,7 +88,7 @@ void LoadedSound::loadAllSound() {
 
 
 Mix_Chunk* LoadedSound::_loadSoundFromFile(std::string name) {
-    std::string prefix = "./media/sound/", profix = ".wav";
+    std::string prefix = "../media/sound/", profix = ".wav";
     return Mix_LoadWAV((prefix + name + profix).c_str());
 }
 

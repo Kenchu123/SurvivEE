@@ -25,9 +25,14 @@ Player::Player(std::string id):
     bomb(NULL),
     bodyArmor(NULL),
     _shootTime(0),
-    _ammo(-1)
+    _ammo(-1),
+    _isHitted(0),
+    _hittedMask(NULL)
 {
     loadTexture(typeToString(_playerType));
+    _hittedMask = new Item;
+    _hittedMask->loadTexture("ShotMask");
+    _hittedMask->SetPosition(_playerX, _playerY);
     BloodStrip[0].loadTexture("BloodStripBackground");
     GunBulletStrip[0].loadTexture("GunBulletStripBackground");
     // BloodStrip[1].loadTexture("BloodStripRed");
@@ -35,6 +40,8 @@ Player::Player(std::string id):
 Player::~Player() {
     free();   
     for (int i = 0;i < 2; i++) BloodStrip[i].free();
+    _hittedMask->free();
+    _hittedMask = NULL;
     helmet->free(), gun->free(), bomb->free();
     helmet = NULL, helmetUp = NULL, gun = NULL, bomb = NULL, bodyArmor = NULL;
 }
@@ -209,6 +216,7 @@ void Player::fire() {
 void Player::isShooted(Bullet* bullet) {
     loadedSound.playSound(3, "Hurt", 0);
     _hp -= bullet->lethality * _defend;
+    _isHitted = true;
     // todo hurt animation
     if (_hp <= 0) {
         // todo death
@@ -299,6 +307,11 @@ void Player::renderL(SDL_Rect& camera) {
             helmetUp->SetAngle(_deg);
             helmetUp->renderL(camera);
         }
+        if (_isHitted) {
+            // _isHitted = 0;
+            _hittedMask->SetPosition(_playerX, _playerY);
+            _hittedMask->renderL(camera);
+        }
     }
 }
 
@@ -311,6 +324,11 @@ void Player::renderR(SDL_Rect& camera) {
             helmetUp->SetAngle(_deg);
             helmetUp->renderR(camera);
         }
+    }
+    if (_isHitted) {
+        _isHitted = 0;
+        _hittedMask->SetPosition(_playerX, _playerY);
+        _hittedMask->renderR(camera);
     }
 }
 
