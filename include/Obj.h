@@ -18,6 +18,6 @@ class Obj {
 
         int getWidth();
         int getHeight();
-        void resize(int w, int h);
+        virtual void resize(int w, int h);
 };
 #endif

@@ -22,6 +22,13 @@ Obstacle::~Obstacle() {
     free();
 }
 
+void Obstacle::resize(int w, int h) {
+    _objWidth = w;
+    _objHeight = h;
+    _posX = _obstacleX - _objWidth / 2;
+    _posY = _obstacleY - _objHeight / 2;
+}
+
 void Obstacle::update() {
     //
     return;

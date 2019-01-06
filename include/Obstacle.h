@@ -18,6 +18,7 @@ class Obstacle : public Obj {
     void update();
     void renderL(SDL_Rect&);
     void renderR(SDL_Rect&);
+    void resize(int, int);
     double getObsX() { return _obstacleX; }
     double getObsY() { return _obstacleY; }
 };
