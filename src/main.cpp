@@ -59,14 +59,11 @@ int main(int argc, char* args[]) {
             case Playing: playing(e); break;
             case GameOver: gameover(e); break;
             case Pause: pause(e); break;
-            default: 
-                gameState = Quit;
-                break;
+            default:  gameState = Quit; break;
         }
     }
     // close game
     close();
-
 }
 
 void menu(SDL_Event& e) {
