@@ -28,6 +28,7 @@ class Player : public Obj {
         double _hp; // HP
         double _defend; // defend coefficient
         int _shootTime; // machine / AK47 shootSpeed
+        int _ammo;
     public:
         friend class Bullet;
         friend class Item;
@@ -58,7 +59,7 @@ class Player : public Obj {
         void changeBodyArmor(ItemType);
 
         void update();
-
+        void setammo(int);
         void renderL(SDL_Rect&);
         void renderR(SDL_Rect&);
         PlayerState getState();

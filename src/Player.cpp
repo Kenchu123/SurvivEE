@@ -23,7 +23,8 @@ Player::Player(std::string id):
     gun(NULL),
     bomb(NULL),
     bodyArmor(NULL),
-    _shootTime(0)
+    _shootTime(0),
+    _ammo(-1)
 {
     loadTexture(typeToString(_playerType));
     std::cout << typeToString(_playerType) << std::endl; 
@@ -154,39 +155,46 @@ void Player::fire() {
     if(!_bombEquipped) {
         std::cout << "Fire called" << std::endl;
         Bullet* bullet = new Bullet(this, (ItemType)_playerType);
-        switch(_playerType) {
-            case GunPlayer: {
-                loadedSound.playSound(0, "DefaultGunShot", 0);
-                break;
+        _ammo--;
+        if(_ammo == 0) { 
+            _playerType = GunPlayer; 
+            changeSkin(GunPlayer);
+        }
+        else {
+            switch(_playerType) {
+                case GunPlayer: {
+                    loadedSound.playSound(0, "DefaultGunShot", 0);
+                    break;
+                }
+                case MachineGunPlayer: {
+                    loadedSound.playSound(0, "MachineGunShot", 0);
+                    break;
+                }
+                case ShotGunPlayer: {
+                    Player* tmp = new Player(*this);
+                    tmp->_deg += 5;
+                    tmp->_dirX = sin(tmp->_deg * PI / 180);
+                    tmp->_dirY = -cos(tmp->_deg * PI / 180);
+                    Bullet* bullet2 = new Bullet(tmp, (ItemType)_playerType);
+                    tmp->_deg -= 10;
+                    tmp->_dirX = sin(tmp->_deg * PI / 180);
+                    tmp->_dirY = -cos(tmp->_deg * PI / 180);
+                    Bullet* bullet3 = new Bullet(tmp, (ItemType)_playerType);
+                    loadedSound.playSound(0, "ShotGunShot", 0);
+                    bullets.push_back(bullet2);
+                    bullets.push_back(bullet3);
+                    break;
+                }
+                case FireGunPlayer: {
+                    loadedSound.playSound(0, "FireGunShot", 0);
+                    break;
+                }
+                case AK47Player: {
+                    loadedSound.playSound(0, "MachineGunShot", 0);
+                    break;
+                }
+                default: break;
             }
-            case MachineGunPlayer: {
-                loadedSound.playSound(0, "MachineGunShot", 0);
-                break;
-            }
-            case ShotGunPlayer: {
-                Player* tmp = new Player(*this);
-                tmp->_deg += 5;
-                tmp->_dirX = sin(tmp->_deg * PI / 180);
-                tmp->_dirY = -cos(tmp->_deg * PI / 180);
-                Bullet* bullet2 = new Bullet(tmp, (ItemType)_playerType);
-                tmp->_deg -= 10;
-                tmp->_dirX = sin(tmp->_deg * PI / 180);
-                tmp->_dirY = -cos(tmp->_deg * PI / 180);
-                Bullet* bullet3 = new Bullet(tmp, (ItemType)_playerType);
-                loadedSound.playSound(0, "ShotGunShot", 0);
-                bullets.push_back(bullet2);
-                bullets.push_back(bullet3);
-                break;
-            }
-            case FireGunPlayer: {
-                loadedSound.playSound(0, "FireGunShot", 0);
-                break;
-            }
-            case AK47Player: {
-                loadedSound.playSound(0, "MachineGunShot", 0);
-                break;
-            }
-            default: break;
         }
         // bullets.emplace_back(this, (GunType)_playerType);
         bullets.push_back(bullet);
@@ -258,12 +266,16 @@ void Player::update() {
     }
     // shoot continuously
     if (_shootTime && (_playerType == MachineGunPlayer || _playerType == AK47Player)) {
-        if ((_shootTime++) % 15 == 0) fire();
+        if ((_shootTime++) % 10 == 0) fire();
     }
     move();
     rotate();
     pickItem();
     // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
+}
+
+void Player::setammo(int a) {
+    _ammo = a;
 }
 
 void Player::renderL(SDL_Rect& camera) {
