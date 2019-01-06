@@ -59,11 +59,11 @@ void Item::renderR(SDL_Rect& camera) {
 void Item::isPicked(Player* player) {
     _state = Picked;
     switch(_type) {
-        case Gun: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(GunPlayer); break;
-        case MachineGun: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(MachineGunPlayer); break;
-        case ShotGun: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(ShotGunPlayer); break;
-        case FireGun: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(FireGunPlayer); break;
-        case AK47: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(AK47Player); break;
+        case Gun: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(GunPlayer); player->setammo(-1); break;
+        case MachineGun: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(MachineGunPlayer); player->setammo(30); break;
+        case ShotGun: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(ShotGunPlayer); player->setammo(15); break;
+        case FireGun: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(FireGunPlayer); player->setammo(10); break;
+        case AK47: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(AK47Player); player->setammo(30); break;
         case Bomb: loadedSound.playSound(0, "pickupbomb", 0); player->_bombEquipped = true; break;
         case BodyArmor1: loadedSound.playSound(0, "pickuparmor", 0); player->_defend *= 0.9; player->changeBodyArmor(BodyArmor1); break;
         case BodyArmor2: loadedSound.playSound(0, "pickuparmor", 0); player->_defend *= 0.8; player->changeBodyArmor(BodyArmor2); break;

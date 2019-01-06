@@ -16,6 +16,7 @@ class Player : public Obj {
         std::string _playerID;
         PlayerType _playerType;
         double _moveVel; // move velocity
+        double _moveSlowDown;
         double _dirX, _dirY; // player velocity & direct
         double _rotVel; // rotate velocity
         SDL_Point _rotCenter; // rotate center
@@ -28,6 +29,7 @@ class Player : public Obj {
         double _hp; // HP
         double _defend; // defend coefficient
         int _shootTime; // machine / AK47 shootSpeed
+        double _ammo;
     public:
         friend class Bullet;
         friend class Item;
@@ -35,6 +37,7 @@ class Player : public Obj {
 
         Item *helmet, *helmetUp, *gun, *bodyArmor, *bomb; // player equip
         Obj BloodStrip[2]; // background, white / red
+        Obj GunBulletStrip[2];
         Player(std::string id = "");
         ~Player();
         void setInitialPosition(int, int);
@@ -58,7 +61,7 @@ class Player : public Obj {
         void changeBodyArmor(ItemType);
 
         void update();
-
+        void setammo(int);
         void renderL(SDL_Rect&);
         void renderR(SDL_Rect&);
         PlayerState getState();

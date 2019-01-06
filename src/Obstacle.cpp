@@ -13,7 +13,6 @@ Obstacle::Obstacle(ObstacleType type, double x, double y, double deg):
     _deg(deg)
 {
     loadTexture(typeToString(_type));
-    resize(100, 100);
     _posX = _obstacleX - getWidth() * 0.5;
     _posY = _obstacleY - getHeight() * 0.5;
     std::cout << _type << std::endl;
@@ -21,6 +20,13 @@ Obstacle::Obstacle(ObstacleType type, double x, double y, double deg):
 
 Obstacle::~Obstacle() {
     free();
+}
+
+void Obstacle::resize(int w, int h) {
+    _objWidth = w;
+    _objHeight = h;
+    _posX = _obstacleX - _objWidth / 2;
+    _posY = _obstacleY - _objHeight / 2;
 }
 
 void Obstacle::update() {

@@ -21,7 +21,7 @@ int SCREEN_TICK_PER_FRAME = 1000 / SCREEN_FPS;
 // set Game State
 GameState gameState;
 // background, loadingmenu
-Obj background, StartMenu, loadingmenu, GameOver1, GameOver2;
+Obj background, StartMenu, loadingmenu, PauseMenu, GameOver1, GameOver2;
 // camera
 SDL_Rect camera = {0 , 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
 SDL_Rect camera2 = {0, SCREEN_WIDTH, SCREEN_WIDTH / 2, SCREEN_HEIGHT};
@@ -30,30 +30,8 @@ ItemType itemName[12] = {MachineGun, AK47, Bomb, Gun, ShotGun, FireGun,
                     Bandage, BodyArmor1, BodyArmor2, Helmet1, Helmet2, LifeBox};
 // button
 Button* startButton;
+Button* continueButton;
 
-
-int map[20][20] = {0};
-// int map[20][20] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-//                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 
-//                    0, 0, 1, 1, 3, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 
-//                    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 
-//                    0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-//                    0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 
-//                    0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 
-//                    0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 
-//                    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0, 0, 1, 0, 0, 0, 
-//                    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 
-//                    0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
-//                    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
-//                    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 
-//                    0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 
-//                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 
-//                    0, 0, 0, 0, 1, 1, 1, 1, 0, 2, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 
-//                    0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 
-//                    0, 0, 2, 0, 0, 0, 0, 1, 0, 0, 3, 0, 0, 1, 0, 0, 1, 1, 0, 0, 
-//                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-//                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0                   
-//                 };
 
 int main(int argc, char* args[]) {
     try {
@@ -80,6 +58,7 @@ int main(int argc, char* args[]) {
             case Loading: gameLoad(e); break;
             case Playing: playing(e); break;
             case GameOver: gameover(e); break;
+            case Pause: pause(e); break;
             default: 
                 gameState = Quit;
                 break;
@@ -239,6 +218,9 @@ void playing(SDL_Event& e) {
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
         if(e.type == SDL_QUIT) { gameState = Quit; break; }
+        else if (e.key.keysym.sym == SDLK_ESCAPE) { 
+            gameState = Pause;
+            break; }
         else if(players[0]->getState() == dead || players[1]->getState() == dead) {
             gameState = GameOver; 
             loadedSound.playSound(4, "gameoversound", -1);
@@ -310,18 +292,20 @@ void playing(SDL_Event& e) {
         // for (int j = 0;j < 2; j++) {
         //     players[i]->BloodStrip[j].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30, 30);
         // }
-        players[i]->BloodStrip[0].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30, 30); // strip background
-        players[i]->BloodStrip[1].render(abs(i - 1) * SCREEN_WIDTH / 2 + 31, 29); // blood strip
+        players[i]->BloodStrip[0].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 30, 30); // bloodstrip background
+        players[i]->BloodStrip[1].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 31, 29); // bloodstrip
+        players[i]->GunBulletStrip[0].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 30, 80); // gunbulletstrip background
+        players[i]->GunBulletStrip[1].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 31, 79); // gunbulletstrip
 
         int ind = 1;
         if (players[i]->gun != NULL) {
-            players[i]->gun->render(SCREEN_WIDTH / (i + 1) - 80, SCREEN_HEIGHT - 70 * (ind++));
+            players[i]->gun->render(SCREEN_WIDTH / (i + 1) - 30 * i - 80, SCREEN_HEIGHT - 70 * (ind++));
         }
         if (players[i]->helmet != NULL) {
-            players[i]->helmet->render(SCREEN_WIDTH / (i + 1) - 80, SCREEN_HEIGHT - 70 * (ind++));
+            players[i]->helmet->render(SCREEN_WIDTH / (i + 1) - 30 * i - 80, SCREEN_HEIGHT - 70 * (ind++));
         }
         if (players[i]->bodyArmor != NULL) {
-            players[i]->bodyArmor->render(SCREEN_WIDTH / (i + 1) - 80, SCREEN_HEIGHT - 70 * (ind++));
+            players[i]->bodyArmor->render(SCREEN_WIDTH / (i + 1) - 30 * i - 80, SCREEN_HEIGHT - 70 * (ind++));
         }
     }
 
@@ -336,6 +320,31 @@ void playing(SDL_Event& e) {
         //Wait remaining time
         SDL_Delay( SCREEN_TICK_PER_FRAME - frameTicks );
     }
+}
+
+void pause(SDL_Event& e) {
+    while( SDL_PollEvent( &e ) != 0 ) {
+        //User requests quit
+        if (continueButton->get_triggered() == true) { 
+            gameState = Playing; 
+            continueButton->set_triggered(false);
+            break; }
+        else if (e.type == SDL_QUIT) { gameState = Quit; break; }
+        continueButton->handleEvent(&e); 
+    }
+    //Clear screen
+    SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
+    SDL_RenderClear( gRenderer );
+
+    // Render loadingmenu
+    PauseMenu.render(0, 0);
+    PauseMenu.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
+    //Update screen
+    
+    // Render Button
+    continueButton->update(); 
+    continueButton->resize(400, 50);
+    SDL_RenderPresent( gRenderer );
 }
 
 void gameover(SDL_Event& e) {
@@ -387,9 +396,11 @@ void loadMedia() {
     loadedSound.loadAllSound();
 
     startButton = new Button(Start);
+    continueButton = new Button(Continue);
     background.loadTexture("Grass");
     StartMenu.loadTexture("StartMenu");
     loadingmenu.loadTexture("loadingmenu");
+    PauseMenu.loadTexture("PauseMenu");
     GameOver1.loadTexture("GameOver1");
     GameOver2.loadTexture("GameOver2");
     loadedSound.playSound(4, "BGM", -1);
@@ -411,6 +422,7 @@ void close() {
     // destroy loadedSound
     loadedSound.free();
     startButton = NULL;
+    continueButton = NULL;
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );

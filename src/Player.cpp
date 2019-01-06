@@ -13,6 +13,7 @@ Player::Player(std::string id):
     _dirX(0), _dirY(-1),
     _rotVel(0), _deg(0), 
     _moveVel(0), 
+    _moveSlowDown(0),
     _playerType(GunPlayer),
     _state(alive),
     _bombEquipped(false),
@@ -23,12 +24,14 @@ Player::Player(std::string id):
     gun(NULL),
     bomb(NULL),
     bodyArmor(NULL),
-    _shootTime(0)
+    _shootTime(0),
+    _ammo(-1)
 {
     loadTexture(typeToString(_playerType));
     std::cout << typeToString(_playerType) << std::endl; 
     std::cout << "Player Created : " << _playerID << " " << typeToString(_playerType) << std::endl;
     BloodStrip[0].loadTexture("BloodStripBackground");
+    GunBulletStrip[0].loadTexture("GunBulletStripBackground");
     // BloodStrip[1].loadTexture("BloodStripRed");
 }
 Player::~Player() {
@@ -54,12 +57,12 @@ void Player::handleKeyInput(SDL_Event& e) {
         //Adjust the velocity
         switch (e.key.keysym.sym) {
             case SDLK_UP:{
-                _moveVel = 4;
+                _moveVel = 4 - _moveSlowDown;
                 loadedSound.playSound(1, "footstep", -1); 
                 break;
             }
             case SDLK_DOWN:{
-                _moveVel = -4;
+                _moveVel = -4 - _moveSlowDown;
                 loadedSound.playSound(1, "footstep", -1); 
                 break;
             }
@@ -154,39 +157,47 @@ void Player::fire() {
     if(!_bombEquipped) {
         std::cout << "Fire called" << std::endl;
         Bullet* bullet = new Bullet(this, (ItemType)_playerType);
-        switch(_playerType) {
-            case GunPlayer: {
-                loadedSound.playSound(0, "DefaultGunShot", 0);
-                break;
+        _ammo--;
+        if(_ammo == 0) { 
+            _playerType = GunPlayer; 
+            gun = NULL;
+            changeSkin(GunPlayer);
+        }
+        else {
+            switch(_playerType) {
+                case GunPlayer: {
+                    loadedSound.playSound(0, "DefaultGunShot", 0);
+                    break;
+                }
+                case MachineGunPlayer: {
+                    loadedSound.playSound(0, "MachineGunShot", 0);
+                    break;
+                }
+                case ShotGunPlayer: {
+                    Player* tmp = new Player(*this);
+                    tmp->_deg += 5;
+                    tmp->_dirX = sin(tmp->_deg * PI / 180);
+                    tmp->_dirY = -cos(tmp->_deg * PI / 180);
+                    Bullet* bullet2 = new Bullet(tmp, (ItemType)_playerType);
+                    tmp->_deg -= 10;
+                    tmp->_dirX = sin(tmp->_deg * PI / 180);
+                    tmp->_dirY = -cos(tmp->_deg * PI / 180);
+                    Bullet* bullet3 = new Bullet(tmp, (ItemType)_playerType);
+                    loadedSound.playSound(0, "ShotGunShot", 0);
+                    bullets.push_back(bullet2);
+                    bullets.push_back(bullet3);
+                    break;
+                }
+                case FireGunPlayer: {
+                    loadedSound.playSound(0, "FireGunShot", 0);
+                    break;
+                }
+                case AK47Player: {
+                    loadedSound.playSound(0, "MachineGunShot", 0);
+                    break;
+                }
+                default: break;
             }
-            case MachineGunPlayer: {
-                loadedSound.playSound(0, "MachineGunShot", 0);
-                break;
-            }
-            case ShotGunPlayer: {
-                Player* tmp = new Player(*this);
-                tmp->_deg += 5;
-                tmp->_dirX = sin(tmp->_deg * PI / 180);
-                tmp->_dirY = -cos(tmp->_deg * PI / 180);
-                Bullet* bullet2 = new Bullet(tmp, (ItemType)_playerType);
-                tmp->_deg -= 10;
-                tmp->_dirX = sin(tmp->_deg * PI / 180);
-                tmp->_dirY = -cos(tmp->_deg * PI / 180);
-                Bullet* bullet3 = new Bullet(tmp, (ItemType)_playerType);
-                loadedSound.playSound(0, "ShotGunShot", 0);
-                bullets.push_back(bullet2);
-                bullets.push_back(bullet3);
-                break;
-            }
-            case FireGunPlayer: {
-                loadedSound.playSound(0, "FireGunShot", 0);
-                break;
-            }
-            case AK47Player: {
-                loadedSound.playSound(0, "MachineGunShot", 0);
-                break;
-            }
-            default: break;
         }
         // bullets.emplace_back(this, (GunType)_playerType);
         bullets.push_back(bullet);
@@ -257,14 +268,32 @@ void Player::update() {
         BloodStrip[1].loadTexture("BloodStripRed");
         BloodStrip[1].resize(BloodStrip[0].getWidth() * (_hp / 500), BloodStrip[0].getHeight());
     }
+
     // shoot continuously
     if (_shootTime && (_playerType == MachineGunPlayer || _playerType == AK47Player)) {
-        if ((_shootTime++) % 5 == 0) fire();
+        if ((_shootTime++) % 10 == 0) fire();
+    }
+    // update ammo remaining
+    GunBulletStrip[1].loadTexture("GunBulletStrip");
+    if(_ammo <= -1) GunBulletStrip[1].resize(GunBulletStrip[0].getWidth(), GunBulletStrip[0].getHeight());
+    else GunBulletStrip[1].resize(GunBulletStrip[0].getWidth() * (_ammo / 30), GunBulletStrip[0].getHeight());
+
+    switch(_playerType) {
+        case GunPlayer: _moveSlowDown = 0; break;
+        case MachineGunPlayer: _moveSlowDown = 1; break;
+        case ShotGunPlayer: _moveSlowDown = 1.5; break;
+        case FireGunPlayer: _moveSlowDown = 1.5; break;
+        case AK47Player: _moveSlowDown = 1; break;
+        default: _moveSlowDown = 0; break;
     }
     move();
     rotate();
     pickItem();
     // std::cout << "Player " << _playerID << ": posX, posY" << _posX << " " << _posY << std::endl;
+}
+
+void Player::setammo(int a) {
+    _ammo = a;
 }
 
 void Player::renderL(SDL_Rect& camera) {
@@ -310,12 +339,12 @@ void Player2::handleKeyInput(SDL_Event& e) {
         //Adjust the velocity
         switch (e.key.keysym.sym) {
             case SDLK_r:{
-                _moveVel = 4;
+                _moveVel = 4 - _moveSlowDown;
                 loadedSound.playSound(2, "footstep", -1); 
                 break;
             }
             case SDLK_f:{
-                _moveVel = -4;
+                _moveVel = -4 - _moveSlowDown;
                 loadedSound.playSound(2, "footstep", -1); 
                 break;
             }
