@@ -294,18 +294,18 @@ void playing(SDL_Event& e) {
         // for (int j = 0;j < 2; j++) {
         //     players[i]->BloodStrip[j].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30, 30);
         // }
-        players[i]->BloodStrip[0].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30, 30); // strip background
-        players[i]->BloodStrip[1].render(abs(i - 1) * SCREEN_WIDTH / 2 + 31, 29); // blood strip
+        players[i]->BloodStrip[0].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 30, 30); // strip background
+        players[i]->BloodStrip[1].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 31, 29); // blood strip
 
         int ind = 1;
         if (players[i]->gun != NULL) {
-            players[i]->gun->render(SCREEN_WIDTH / (i + 1) - 80, SCREEN_HEIGHT - 70 * (ind++));
+            players[i]->gun->render(SCREEN_WIDTH / (i + 1) - 30 * i - 80, SCREEN_HEIGHT - 70 * (ind++));
         }
         if (players[i]->helmet != NULL) {
-            players[i]->helmet->render(SCREEN_WIDTH / (i + 1) - 80, SCREEN_HEIGHT - 70 * (ind++));
+            players[i]->helmet->render(SCREEN_WIDTH / (i + 1) - 30 * i - 80, SCREEN_HEIGHT - 70 * (ind++));
         }
         if (players[i]->bodyArmor != NULL) {
-            players[i]->bodyArmor->render(SCREEN_WIDTH / (i + 1) - 80, SCREEN_HEIGHT - 70 * (ind++));
+            players[i]->bodyArmor->render(SCREEN_WIDTH / (i + 1) - 30 * i - 80, SCREEN_HEIGHT - 70 * (ind++));
         }
     }
 
