@@ -46,7 +46,7 @@ Bullet::Bullet(Player* from, ItemType guntype):
             loadTexture(_type);
             resize(30, 50); // resize the bullet w, h
             _moveVel = 10;
-            _distance = 110;
+            _distance = 200;
             lethality = 100;
             break;
         }
@@ -124,9 +124,7 @@ void Bullet::_collideObstacle() {
 
 void Bullet::_endDistance() {
     if (_distance < 0) {
-        if(_type == "Bomb_origin") {
-            _state = stay;
-        }
+        if(_type == "Bomb_origin") _state = stay;
         else _state = shooted;
         // std::cout << "Bullet out of distance\n";
     }

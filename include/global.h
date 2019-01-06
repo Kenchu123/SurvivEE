@@ -31,7 +31,7 @@ enum PlayerType {
 };
 
 enum ButtonType {
-    Start, Tutorial, Option, Continue
+    Start, Tutorial, Option, Continue, Restart
 };
 
 enum ItemType {

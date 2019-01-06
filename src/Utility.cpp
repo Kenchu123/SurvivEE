@@ -29,6 +29,7 @@ std::string typeToString(ButtonType& type) {
         case Tutorial: return "tutorial";
         case Option: return "option";
         case Continue: return "continue";
+        case Restart: return "restart";
         default: return "";
     }
 }

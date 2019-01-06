@@ -51,6 +51,7 @@ void Button::update() {
         case Tutorial: setPos((SCREEN_WIDTH - getWidth())/ 2, SCREEN_HEIGHT * 7 / 10); break;
         case Option: setPos((SCREEN_WIDTH - getWidth())/ 2, SCREEN_HEIGHT * 8 / 10); break;
         case Continue: setPos((SCREEN_WIDTH - getWidth())/ 2, SCREEN_HEIGHT / 2 - getHeight() / 2); break;
+        case Restart: setPos((SCREEN_WIDTH - getWidth())/ 2, SCREEN_HEIGHT * 2 / 3); break;
         default: setPos(0, 0); 
     }
     render(_posX, _posY);
