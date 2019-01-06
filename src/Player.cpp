@@ -62,7 +62,7 @@ void Player::handleKeyInput(SDL_Event& e) {
                 break;
             }
             case SDLK_DOWN:{
-                _moveVel = -4 - _moveSlowDown;
+                _moveVel = -4 + _moveSlowDown;
                 loadedSound.playSound(1, "footstep", -1); 
                 break;
             }
@@ -344,7 +344,7 @@ void Player2::handleKeyInput(SDL_Event& e) {
                 break;
             }
             case SDLK_f:{
-                _moveVel = -4 - _moveSlowDown;
+                _moveVel = -4 + _moveSlowDown;
                 loadedSound.playSound(2, "footstep", -1); 
                 break;
             }

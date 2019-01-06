@@ -35,6 +35,7 @@ Button* continueButton;
 // generate time
 Timer reGenTime;
 int genTimes = 1;
+Button* restartButton;
 
 int main(int argc, char* args[]) {
     try {
@@ -340,17 +341,28 @@ void pause(SDL_Event& e) {
     // Render loadingmenu
     PauseMenu.render(0, 0);
     PauseMenu.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
-    //Update screen
     
     // Render Button
     continueButton->update(); 
     continueButton->resize(350, 40);
+
+    //Update screen
     SDL_RenderPresent( gRenderer );
 }
 
 void gameover(SDL_Event& e) {
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
+        if (restartButton->get_triggered() == true) { 
+            gameState = Loading; 
+            restartButton->set_triggered(false);
+            bullets.clear();
+            items.clear();
+            players.clear();
+            obstacles.clear();
+            break; }
+        else if (e.type == SDL_QUIT) { gameState = Quit; break; }
+        restartButton->handleEvent(&e); 
         if (e.type == SDL_QUIT) { gameState = Quit; break; }
     }
     //Clear screen
@@ -366,6 +378,11 @@ void gameover(SDL_Event& e) {
         GameOver2.render(0,0);
         GameOver2.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
     }
+
+    // Render Button
+    restartButton->update(); 
+    restartButton->resize(350, 70);
+
     //Update screen
     SDL_RenderPresent( gRenderer );
 }
@@ -398,6 +415,7 @@ void loadMedia() {
 
     startButton = new Button(Start);
     continueButton = new Button(Continue);
+    restartButton = new Button(Restart);
     background.loadTexture("Grass");
     StartMenu.loadTexture("StartMenu");
     loadingmenu.loadTexture("loadingmenu");
@@ -424,6 +442,7 @@ void close() {
     loadedSound.free();
     startButton = NULL;
     continueButton = NULL;
+    restartButton = NULL;
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
