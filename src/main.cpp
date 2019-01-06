@@ -197,7 +197,6 @@ void playing(SDL_Event& e) {
     //Handle events on queue
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
-        //std::cout << "BGM is loaded" << std::endl;
         if(e.type == SDL_QUIT) { gameState = Quit; break; }
         else if (e.key.keysym.sym == SDLK_ESCAPE) { 
             gameState = Pause;
@@ -205,7 +204,6 @@ void playing(SDL_Event& e) {
         else if(players[0]->getState() == dead || players[1]->getState() == dead) {
             gameState = GameOver; 
             loadedSound.playSound(4, "gameoversound", -1);
-            std::cout << "alarm is loaded" << std::endl;
             break; }
         players[0]->handleKeyInput(e);
         players[1]->handleKeyInput(e);
@@ -274,8 +272,10 @@ void playing(SDL_Event& e) {
         // for (int j = 0;j < 2; j++) {
         //     players[i]->BloodStrip[j].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30, 30);
         // }
-        players[i]->BloodStrip[0].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 30, 30); // strip background
-        players[i]->BloodStrip[1].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 31, 29); // blood strip
+        players[i]->BloodStrip[0].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 30, 30); // bloodstrip background
+        players[i]->BloodStrip[1].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 31, 29); // bloodstrip
+        players[i]->GunBulletStrip[0].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 30, 80); // gunbulletstrip background
+        players[i]->GunBulletStrip[1].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 31, 79); // gunbulletstrip
 
         int ind = 1;
         if (players[i]->gun != NULL) {
@@ -295,6 +295,7 @@ void playing(SDL_Event& e) {
     SDL_RenderFillRect(gRenderer ,&rect);
     //Update screen
     SDL_RenderPresent( gRenderer );
+    //Set Limited Framerate
     int frameTicks = capTimer.getTicks();
     if( frameTicks < SCREEN_TICK_PER_FRAME ) {
         //Wait remaining time
@@ -323,7 +324,7 @@ void pause(SDL_Event& e) {
     
     // Render Button
     continueButton->update(); 
-    continueButton->resize(400, 50);
+    continueButton->resize(350, 40);
     SDL_RenderPresent( gRenderer );
 }
 

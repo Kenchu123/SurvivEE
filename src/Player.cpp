@@ -31,6 +31,7 @@ Player::Player(std::string id):
     std::cout << typeToString(_playerType) << std::endl; 
     std::cout << "Player Created : " << _playerID << " " << typeToString(_playerType) << std::endl;
     BloodStrip[0].loadTexture("BloodStripBackground");
+    GunBulletStrip[0].loadTexture("GunBulletStripBackground");
     // BloodStrip[1].loadTexture("BloodStripRed");
 }
 Player::~Player() {
@@ -217,6 +218,7 @@ void Player::isShooted(Bullet* bullet) {
     if (_hp <= 0) {
         // todo death
         _state = dead;
+        loadedSound.playSound(3, "shriek", 0);
     }
 }
 
@@ -266,16 +268,22 @@ void Player::update() {
         BloodStrip[1].loadTexture("BloodStripRed");
         BloodStrip[1].resize(BloodStrip[0].getWidth() * (_hp / 500), BloodStrip[0].getHeight());
     }
+
     // shoot continuously
     if (_shootTime && (_playerType == MachineGunPlayer || _playerType == AK47Player)) {
         if ((_shootTime++) % 10 == 0) fire();
     }
+    // update ammo remaining
+    GunBulletStrip[1].loadTexture("GunBulletStrip");
+    if(_ammo <= -1) GunBulletStrip[1].resize(GunBulletStrip[0].getWidth(), GunBulletStrip[0].getHeight());
+    else GunBulletStrip[1].resize(GunBulletStrip[0].getWidth() * (_ammo / 30), GunBulletStrip[0].getHeight());
+
     switch(_playerType) {
         case GunPlayer: _moveSlowDown = 0; break;
-        case MachineGunPlayer: _moveSlowDown = 0.5; break;
-        case ShotGunPlayer: _moveSlowDown = 1; break;
-        case FireGunPlayer: _moveSlowDown = 1; break;
-        case AK47Player: _moveSlowDown = 0.5; break;
+        case MachineGunPlayer: _moveSlowDown = 1; break;
+        case ShotGunPlayer: _moveSlowDown = 1.5; break;
+        case FireGunPlayer: _moveSlowDown = 1.5; break;
+        case AK47Player: _moveSlowDown = 1; break;
         default: _moveSlowDown = 0; break;
     }
     move();
