@@ -3,6 +3,8 @@ OBJS = ./build/Utility.o ./build/LoadMedia.o ./build/Obj.o ./build/Item.o ./buil
 INC = ./include
 CXXFLAGS = -std=c++17
 LIB = ./lib
+OBJDIR = ./build
+EXEDIR = ./bin
 
 ifeq ($(OS),Windows_NT)
 LDFLAGS = -lmingw32 -lSDL2_image -lSDL2_mixer -lSDL2main -lSDL2
@@ -12,14 +14,22 @@ endif
 
 
 
-all: ./bin/SurvivEE
+all: directories $(EXEDIR)/SurvivEE
 
-./build/%.o: ./src/%.cpp
+directories: $(OBJDIR) $(EXEDIR)
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+$(EXEDIR): 
+	mkdir -p $(EXEDIR)
+
+$(OBJDIR)/%.o: ./src/%.cpp
 	$(CXX) -c -o $@ $< -g -I$(INC) -L$(LIB) $(CXXFLAGS) $(LDFLAGS)
 
-./bin/SurvivEE: $(OBJS)
+$(EXEDIR)/SurvivEE: $(OBJS)
 	$(CXX) $(CXXFLAGS) -o ./bin/SurvivEE $(OBJS) -L$(LIB) $(LDFLAGS)
 
 clean:
-	rm -f ./build/*
-	rm -f ./bin/*
+	rm -f $(OBJDIR)/*
+	rm -f $(EXEDIR)/*
