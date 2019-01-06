@@ -13,6 +13,7 @@ Player::Player(std::string id):
     _dirX(0), _dirY(-1),
     _rotVel(0), _deg(0), 
     _moveVel(0), 
+    _moveSlowDown(0),
     _playerType(GunPlayer),
     _state(alive),
     _bombEquipped(false),
@@ -55,12 +56,12 @@ void Player::handleKeyInput(SDL_Event& e) {
         //Adjust the velocity
         switch (e.key.keysym.sym) {
             case SDLK_UP:{
-                _moveVel = 4;
+                _moveVel = 4 - _moveSlowDown;
                 loadedSound.playSound(1, "footstep", -1); 
                 break;
             }
             case SDLK_DOWN:{
-                _moveVel = -4;
+                _moveVel = -4 - _moveSlowDown;
                 loadedSound.playSound(1, "footstep", -1); 
                 break;
             }
@@ -158,6 +159,7 @@ void Player::fire() {
         _ammo--;
         if(_ammo == 0) { 
             _playerType = GunPlayer; 
+            gun = NULL;
             changeSkin(GunPlayer);
         }
         else {
@@ -268,6 +270,14 @@ void Player::update() {
     if (_shootTime && (_playerType == MachineGunPlayer || _playerType == AK47Player)) {
         if ((_shootTime++) % 10 == 0) fire();
     }
+    switch(_playerType) {
+        case GunPlayer: _moveSlowDown = 0; break;
+        case MachineGunPlayer: _moveSlowDown = 0.5; break;
+        case ShotGunPlayer: _moveSlowDown = 1; break;
+        case FireGunPlayer: _moveSlowDown = 1; break;
+        case AK47Player: _moveSlowDown = 0.5; break;
+        default: _moveSlowDown = 0; break;
+    }
     move();
     rotate();
     pickItem();
@@ -321,12 +331,12 @@ void Player2::handleKeyInput(SDL_Event& e) {
         //Adjust the velocity
         switch (e.key.keysym.sym) {
             case SDLK_r:{
-                _moveVel = 4;
+                _moveVel = 4 - _moveSlowDown;
                 loadedSound.playSound(2, "footstep", -1); 
                 break;
             }
             case SDLK_f:{
-                _moveVel = -4;
+                _moveVel = -4 - _moveSlowDown;
                 loadedSound.playSound(2, "footstep", -1); 
                 break;
             }

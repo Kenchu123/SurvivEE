@@ -16,6 +16,7 @@ class Player : public Obj {
         std::string _playerID;
         PlayerType _playerType;
         double _moveVel; // move velocity
+        double _moveSlowDown;
         double _dirX, _dirY; // player velocity & direct
         double _rotVel; // rotate velocity
         SDL_Point _rotCenter; // rotate center
