@@ -315,6 +315,7 @@ void playing(SDL_Event& e) {
     SDL_RenderFillRect(gRenderer ,&rect);
     //Update screen
     SDL_RenderPresent( gRenderer );
+    //Set Limited Framerate
     int frameTicks = capTimer.getTicks();
     if( frameTicks < SCREEN_TICK_PER_FRAME ) {
         //Wait remaining time
@@ -343,7 +344,7 @@ void pause(SDL_Event& e) {
     
     // Render Button
     continueButton->update(); 
-    continueButton->resize(400, 50);
+    continueButton->resize(350, 40);
     SDL_RenderPresent( gRenderer );
 }
 
