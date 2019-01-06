@@ -64,11 +64,11 @@ void Item::isPicked(Player* player) {
         case ShotGun: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(ShotGunPlayer); break;
         case FireGun: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(FireGunPlayer); break;
         case AK47: loadedSound.playSound(0, "PickupGun", 0); player->changeSkin(AK47Player); break;
-        case Bomb: player->_bombEquipped = true; break;
-        case BodyArmor1: player->_defend *= 0.9; player->changeBodyArmor(BodyArmor1); break;
-        case BodyArmor2: player->_defend *= 0.8; player->changeBodyArmor(BodyArmor2); break;
-        case Helmet1: player->_defend *= 0.9; player->changeHelmet(Helmet1); break;
-        case Helmet2: player->_defend *= 0.8; player->changeHelmet(Helmet2); break;
+        case Bomb: loadedSound.playSound(0, "pickupbomb", 0); player->_bombEquipped = true; break;
+        case BodyArmor1: loadedSound.playSound(0, "pickuparmor", 0); player->_defend *= 0.9; player->changeBodyArmor(BodyArmor1); break;
+        case BodyArmor2: loadedSound.playSound(0, "pickuparmor", 0); player->_defend *= 0.8; player->changeBodyArmor(BodyArmor2); break;
+        case Helmet1: loadedSound.playSound(0, "pickuphelmet", 0); player->_defend *= 0.9; player->changeHelmet(Helmet1); break;
+        case Helmet2: loadedSound.playSound(0, "pickuphelmet", 0); player->_defend *= 0.8; player->changeHelmet(Helmet2); break;
         case Bandage: loadedSound.playSound(0, "Healing", 0); player->_hp = player->_hp + 200 > 500 ? 500 : player->_hp + 200; break;
         case LifeBox: loadedSound.playSound(0, "Healing", 0); player->_hp = 500; break; 
         default: break;

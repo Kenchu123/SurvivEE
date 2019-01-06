@@ -207,6 +207,7 @@ void Player::isShooted(Bullet* bullet) {
     if (_hp <= 0) {
         // todo death
         _state = dead;
+        loadedSound.playSound(3, "shriek", 0);
     }
 }
 
