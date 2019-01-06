@@ -43,10 +43,6 @@ int main(int argc, char* args[]) {
     }
     srand(time(NULL));
 
-    // for(int i = 0; i < 36; i++) {
-        // Obstacle* tmp2 = new Obstacle(ObstacleName[i], rand() % 20 * 100, rand() % 20 * 100);
-        // obstacles.push_back(tmp2);
-    // }
     //Event handler
     SDL_Event e;
     // initail game State
@@ -126,7 +122,7 @@ void gameLoad(SDL_Event& e) {
 bool checkPlace(int x, int y, int dis) {
     // check for not render on same place || render
     for (int i = 0; i < players.size(); i++) {
-        if (sqrt(pow(players[i]->getPlayerX() - x, 2) + pow(players[i]->getPlayerY() - y, 2)) < dis + 100) return 0;
+        if (sqrt(pow(players[i]->getPlayerX() - x, 2) + pow(players[i]->getPlayerY() - y, 2)) < dis) return 0;
     }
     for (int i = 0;i < obstacles.size(); i++) {
         if (sqrt(pow(obstacles[i]->getObsX() - x, 2) + pow(obstacles[i]->getObsY() - y, 2)) < dis) return 0;
@@ -140,30 +136,14 @@ void generate() {
     Player2* player2 = new Player2(std::to_string(2));
     players.push_back(player1);
     players.push_back(player2);
+
     // set player place
     players[0]->setInitialPosition(LEVEL_WIDTH - 200, LEVEL_HEIGHT - 200);
     players[1]->setInitialPosition(50, 50);
 
-    // generate brickWall
-    // for (int i = 0;i < 20; i++) {
-    //     int a = rand() % 20, b = rand() % 20;
-    //     while (checkPlace(a, b)) {
-    //         a = rand() % 20, b = rand() % 20;
-    //     }
-    //     map[a][b] = 1;
-    // }
-    // for(int i = 0; i < 20; i++) {
-    //     for(int j = 0; j < 20; j++) {
-    //         if(map[i][j] == 1) {
-    //             Obstacle* tmp = new Obstacle("BrickWall", j * 100, i * 100);
-    //             tmp->resize(100, 100);
-    //             obstacles.push_back(tmp);
-    //         }
-    //     }
-    // }
     for (int i = 0;i < 25; i++) {
         int a = rand() % 25, b = rand() % 25;
-        while (checkPlace(a, b)) {
+        while (!checkPlace(b * 80, a * 80)) {
             a = rand() % 25, b = rand() % 25;
         }
         Obstacle* tmp = new Obstacle(BrickWall, b * 80, a * 80);

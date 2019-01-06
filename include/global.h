@@ -50,4 +50,5 @@ extern int SCREEN_WIDTH;
 extern int SCREEN_HEIGHT;
 extern int LEVEL_WIDTH;
 extern int LEVEL_HEIGHT;
+extern ItemType itemName[12];
 #endif
