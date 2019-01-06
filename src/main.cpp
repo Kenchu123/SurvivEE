@@ -294,8 +294,10 @@ void playing(SDL_Event& e) {
         // for (int j = 0;j < 2; j++) {
         //     players[i]->BloodStrip[j].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30, 30);
         // }
-        players[i]->BloodStrip[0].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 30, 30); // strip background
-        players[i]->BloodStrip[1].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 31, 29); // blood strip
+        players[i]->BloodStrip[0].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 30, 30); // bloodstrip background
+        players[i]->BloodStrip[1].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 31, 29); // bloodstrip
+        players[i]->GunBulletStrip[0].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 30, 80); // gunbulletstrip background
+        players[i]->GunBulletStrip[1].render(abs(i - 1) * SCREEN_WIDTH / 2 + 30 * (1 - i) + 31, 79); // gunbulletstrip
 
         int ind = 1;
         if (players[i]->gun != NULL) {
