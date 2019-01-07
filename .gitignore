@@ -6,3 +6,6 @@
 build/
 bin/
 *.zip
+*.mov
+*.mp4
+
