@@ -3,9 +3,7 @@
 *.out
 *.o
 *.exe
-build/
-bin/
 *.zip
 *.mov
 *.mp4
-
+*.ai

@@ -1,7 +1,7 @@
 CXX = g++
 OBJS = ./build/Utility.o ./build/LoadMedia.o ./build/Obj.o ./build/Item.o ./build/Bullet.o ./build/Player.o ./build/main.o ./build/button.o ./build/Obstacle.o ./build/Timer.o
 INC = ./include
-CXXFLAGS = -std=c++17
+CXXFLAGS = -std=c++11
 LIB = ./lib
 OBJDIR = ./build
 EXEDIR = ./bin
@@ -21,7 +21,7 @@ directories: $(OBJDIR) $(EXEDIR)
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
-$(EXEDIR): 
+$(EXEDIR):
 	mkdir -p $(EXEDIR)
 
 $(OBJDIR)/%.o: ./src/%.cpp
@@ -32,4 +32,4 @@ $(EXEDIR)/SurvivEE: $(OBJS)
 
 clean:
 	rm -f $(OBJDIR)/*
-	rm -f $(EXEDIR)/*
+	rm -f $(EXEDIR)/*.exe

@@ -70,13 +70,13 @@ void menu(SDL_Event& e) {
     //Handle events on queue
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
-        if (startButton->get_triggered() == true) { 
-            gameState = Loading; 
+        if (startButton->get_triggered() == true) {
+            gameState = Loading;
             startButton->set_triggered(false);
-            break; 
+            break;
             }
         else if (e.type == SDL_QUIT) { gameState = Quit; break; }
-        startButton->handleEvent(&e); 
+        startButton->handleEvent(&e);
         // tutorial.handleEvent(&e); option.handleEvent(&e);
     }
     //Clear screen
@@ -88,10 +88,10 @@ void menu(SDL_Event& e) {
     // Render background
     background.render(0, 0);
     // Render StartMenu
-    StartMenu.render(0, 0); 
+    StartMenu.render(0, 0);
     StartMenu.resize(1200, 800);
     // Render Button
-    startButton->update(); 
+    startButton->update();
     startButton->resize(300, 50);
     // tutorial.update(); option.update();
 
@@ -102,7 +102,7 @@ void menu(SDL_Event& e) {
 void gameLoad(SDL_Event& e) {
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
-        if (e.key.keysym.sym == SDLK_SPACE) { 
+        if (e.key.keysym.sym == SDLK_SPACE) {
             generate();
             gameState = Playing;
             reGenTime.start();
@@ -144,8 +144,8 @@ void generate(ItemType item) {
 
 void generate() {
     // generate players
-    Player* player1 = new Player(std::to_string(1));
-    Player2* player2 = new Player2(std::to_string(2));
+    Player* player1 = new Player("Player1");
+    Player2* player2 = new Player2("Player2");
     players.push_back(player1);
     players.push_back(player2);
 
@@ -214,11 +214,11 @@ void playing(SDL_Event& e) {
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
         if(e.type == SDL_QUIT) { gameState = Quit; break; }
-        else if (e.key.keysym.sym == SDLK_ESCAPE) { 
+        else if (e.key.keysym.sym == SDLK_ESCAPE) {
             gameState = Pause;
             break; }
         else if(players[0]->getState() == dead || players[1]->getState() == dead) {
-            gameState = GameOver; 
+            gameState = GameOver;
             loadedSound.playSound(4, "gameoversound", -1);
             break; }
         players[0]->handleKeyInput(e);
@@ -322,12 +322,12 @@ void playing(SDL_Event& e) {
 void pause(SDL_Event& e) {
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
-        if (continueButton->get_triggered() == true) { 
-            gameState = Playing; 
+        if (continueButton->get_triggered() == true) {
+            gameState = Playing;
             continueButton->set_triggered(false);
             break; }
         else if (e.type == SDL_QUIT) { gameState = Quit; break; }
-        continueButton->handleEvent(&e); 
+        continueButton->handleEvent(&e);
     }
     //Clear screen
     SDL_SetRenderDrawColor( gRenderer, 182, 196, 182, 0 );
@@ -336,9 +336,9 @@ void pause(SDL_Event& e) {
     // Render loadingmenu
     PauseMenu.render(0, 0);
     PauseMenu.resize(SCREEN_WIDTH, SCREEN_HEIGHT);
-    
+
     // Render Button
-    continueButton->update(); 
+    continueButton->update();
     continueButton->resize(350, 40);
 
     //Update screen
@@ -348,8 +348,8 @@ void pause(SDL_Event& e) {
 void gameover(SDL_Event& e) {
     while( SDL_PollEvent( &e ) != 0 ) {
         //User requests quit
-        if (restartButton->get_triggered() == true) { 
-            gameState = Loading; 
+        if (restartButton->get_triggered() == true) {
+            gameState = Loading;
             restartButton->set_triggered(false);
             bullets.clear();
             items.clear();
@@ -358,7 +358,7 @@ void gameover(SDL_Event& e) {
             loadedSound.playSound(4, "BGM", -1);
             break; }
         else if (e.type == SDL_QUIT) { gameState = Quit; break; }
-        restartButton->handleEvent(&e); 
+        restartButton->handleEvent(&e);
         if (e.type == SDL_QUIT) { gameState = Quit; break; }
     }
     //Clear screen
@@ -376,7 +376,7 @@ void gameover(SDL_Event& e) {
     }
 
     // Render Button
-    restartButton->update(); 
+    restartButton->update();
     restartButton->resize(350, 70);
 
     //Update screen
@@ -439,15 +439,14 @@ void close() {
     startButton = NULL;
     continueButton = NULL;
     restartButton = NULL;
-	//Destroy window	
+	//Destroy window
 	SDL_DestroyRenderer( gRenderer );
 	SDL_DestroyWindow( gWindow );
 	gWindow = NULL;
 	gRenderer = NULL;
-	
+
 	//Quit SDL subsystems
 	IMG_Quit();
     Mix_Quit();
 	SDL_Quit();
 }
-
