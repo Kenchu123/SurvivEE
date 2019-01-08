@@ -52,10 +52,9 @@ SDL_Texture* LoadedTexture::_loadTextureFromFile(std::string name) {
 
 // load all texture and store in map
 void LoadedTexture::loadAllTexture() {
-    for (auto name: _toLoadFileName) {
-        _loadedTextures[name] = _loadTextureFromFile(name);
+    for (int i = 0;i < _toLoadFileName.size(); i++) {
+      _loadedTextures[_toLoadFileName[i]] = _loadTextureFromFile(_toLoadFileName[i]);
     }
-
 }
 
 // get texture from map
@@ -68,8 +67,8 @@ LoadedSound::LoadedSound() {
     free();
     _loadedSound.clear();
     std::string names[20] = {
-        "ButtonClicking", "DefaultGunShot", "FireGunShot", "footstep", "MachineGunShot", 
-        "ShotGunShot", "FireInTheHole", "bombExplosion", "Healing", "Hurt", "PickupGun", 
+        "ButtonClicking", "DefaultGunShot", "FireGunShot", "footstep", "MachineGunShot",
+        "ShotGunShot", "FireInTheHole", "bombExplosion", "Healing", "Hurt", "PickupGun",
         "BGM", "gameoversound", "shriek", "pickuphelmet", "pickuparmor", "pickupbomb"
     };
     for (int i = 0;i < 17; i++) _toLoadFileName.push_back(names[i]);
@@ -81,8 +80,8 @@ LoadedSound::~LoadedSound() {
 }
 
 void LoadedSound::loadAllSound() {
-    for (auto name: _toLoadFileName) {
-        _loadedSound[name] = _loadSoundFromFile(name);
+    for (int i = 0;i < _toLoadFileName.size(); i++) {
+      _loadedSound[_toLoadFileName[i]] = _loadSoundFromFile(_toLoadFileName[i]);
     }
 }
 
